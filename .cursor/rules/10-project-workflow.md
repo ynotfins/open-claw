@@ -3,6 +3,14 @@
 > Extends: `00-global-core.md` (tab separation, evidence, state discipline)
 > Extends: `05-global-mcp-usage.md` (tool-first behavior)
 
+## Rules in effect
+
+- `00-global-core.md` — non-negotiable behaviors
+- `05-global-mcp-usage.md` — MCP tool usage policy
+- `10-project-workflow.md` — tab contracts (this file)
+- `15-model-routing.md` — model selection, tab defaults, escalation rules
+- `20-project-quality.md` — engineering standards
+
 ## Project notes
 
 Open Claw is a modular AI assistant platform. Development spans multiple domains

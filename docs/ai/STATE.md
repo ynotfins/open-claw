@@ -295,6 +295,36 @@ Created 8 skill stubs in `open-claw/skills/`:
 ### What's next
 - Phase 2: First Live Integration (awaiting user to unblock Gateway + provide credentials)
 
+## 2026-02-19 — Model Routing Rule Added
+
+### Changes
+- Created `.cursor/rules/15-model-routing.md` — model selection policy for all tabs
+- Updated `.cursor/rules/10-project-workflow.md` — added "Rules in effect" list referencing 15-model-routing.md
+
+### Why thinking-class vs non-thinking-class matters
+Thinking-class models (GPT-5.2 High, GPT-5.2 Extra High, GPT-5.2 Codex High, GPT-5.2 Codex High Fast, GPT-5.2 Codex Fast) perform extended internal reasoning before responding. This is critical for PLAN and DEBUG where catching architectural flaws, security gaps, or root causes before implementation prevents expensive rework. Non-thinking-class models (Sonnet 4.6, Sonnet 4.5, Sonnet 4, Opus 4.6, Opus 4.5) are faster and better suited to AGENT execution where the plan is already decided. Fast utility models (GPT-5.2 Fast, GPT-5.2 Low) are reserved for ASK and ARCHIVE where reasoning depth adds no value.
+
+### Default tab assignments
+| Tab | Default Model | Class |
+|-----|--------------|-------|
+| PLAN | GPT-5.2 High | thinking-class |
+| AGENT | Sonnet 4.6 | non-thinking-class |
+| DEBUG | GPT-5.2 High | thinking-class |
+| ASK | GPT-5.2 Fast | fast utility |
+| ARCHIVE | GPT-5.2 Low | fast utility |
+
+### Escalation rules summary
+- **Rule A (AGENT, hard stop)**: multi-module refactor, auth/security changes, new architecture, rule changes, nondeterministic debugging → must switch to GPT-5.2 Codex High and halt
+- **Rule B (PLAN, soft)**: security boundary, cost model, multi-system integration design → recommend GPT-5.2 Extra High, may proceed if declined
+- **Rule C (ASK, hard stop at turn 3)**: unresolved after 2 turns → must switch to GPT-5.2 High and halt
+
+### Evidence
+- **.cursor/rules/15-model-routing.md**: **PASS** — created
+- **.cursor/rules/10-project-workflow.md**: **PASS** — "Rules in effect" list added
+
+### What's next
+- Phase 2: First Live Integration (still awaiting API key)
+
 <!--
 Format:
 
