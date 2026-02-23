@@ -1,7 +1,7 @@
 # Agent Handoff — Open Claw
 
-**Date**: 2026-02-18  
-**Handing off after**: Phase 0 (complete) + Phase 1 (partial — 1 blocker)  
+**Date**: 2026-02-23  
+**Handing off after**: Phase 0 (complete) + Phase 1 (complete) + Memory Tool verified  
 **Next action**: Phase 2 — First Live Integration (BLOCKED on API key)
 
 ---
@@ -18,7 +18,11 @@ The project is **not** OpenClaw itself — it *wraps and configures* OpenClaw fo
 
 ### Git History
 ```
-752805b  feat: Phase 1 — gateway boot + integration scaffold      ← HEAD
+336a648  chore: Memory Tool MCP verified + durable facts backfilled  ← HEAD
+dee6a90  chore: Phase 1 environment hardening - pnpm pinned to 10.23.0, secret scan PASS
+6000c53  feat: add model routing rule (15-model-routing.md)
+05ce17a  docs: add agent handoff for Phase 2
+752805b  feat: Phase 1 — gateway boot + integration scaffold
 c2ab1a4  docs: Phase 0 complete — architecture analysis and blueprints
 0172c45  chore: initial scaffold — cursor workflow, module docs, memory contract
 ```
@@ -27,8 +31,9 @@ c2ab1a4  docs: Phase 0 complete — architecture analysis and blueprints
 | Phase | Status |
 |-------|--------|
 | Phase 0 — Project Kickoff | ✅ COMPLETE |
-| Phase 1A — Gateway Boot | ⚠️ PARTIAL (1 blocker) |
+| Phase 1A — Environment & Config Hardening | ✅ COMPLETE |
 | Phase 1B — Integration Scaffold | ✅ COMPLETE |
+| Memory Tool MCP | ✅ VERIFIED — facts stored |
 | Phase 2 — First Live Integration | 🔴 NOT STARTED |
 
 ### The Single Blocker
@@ -45,10 +50,11 @@ wsl bash -c 'mkdir -p ~/.openclaw && echo "ANTHROPIC_API_KEY=sk-ant-YOUR_KEY" > 
 
 ```
 D:\github\open--claw\                    ← WSL: /mnt/d/github/open--claw/
-├── .cursor/rules/                       ← 4 project rule files (read these)
+├── .cursor/rules/                       ← 5 project rule files (read these)
 │   ├── 00-global-core.md
 │   ├── 05-global-mcp-usage.md
 │   ├── 10-project-workflow.md
+│   ├── 15-model-routing.md              ← model inventory, tab defaults, escalation rules
 │   └── 20-project-quality.md
 ├── AGENTS.md                            ← Agent operating contract (start here)
 ├── docs/ai/
@@ -97,7 +103,7 @@ D:\github\open--claw\                    ← WSL: /mnt/d/github/open--claw/
 ### Build Environment
 - **WSL Distro**: Ubuntu 24.04.3 LTS
 - **Node**: v22.22.0 (installed via nvm at `/home/ynotf/.nvm/`)
-- **pnpm**: 10.30.0 (installed via corepack)
+- **pnpm**: 10.23.0 (pinned via `corepack prepare pnpm@10.23.0 --activate` — matches `vendor/openclaw` `packageManager` field)
 - **Build location**: `~/openclaw-build/` on native Linux ext4 FS
   - **Critical**: Do NOT build on `/mnt/d/` — NTFS 9p mount causes EACCES on pnpm atomic renames
   - The `vendor/openclaw/` clone is on NTFS (gitignored); the working build is in `~/openclaw-build/`
@@ -165,7 +171,7 @@ See `open-claw/docs/BLOCKED_ITEMS.md` for full details on all 8. Priority:
 | serena | ✅ Available | Project `open-claw` active (path: `D:\github\open-claw`) — note the path differs from our workspace |
 | Context7 | ✅ Available | Library ID: `/openclaw/openclaw` (4730 snippets) |
 | Exa Search | ✅ Available | Good for docs.openclaw.ai content |
-| Memory Tool | ⚠️ Intermittent | Disconnected mid-session in Phase 1. Retry on next session. |
+| Memory Tool | ✅ Available | Was intermittent (transient drop); verified working. 4 durable facts stored. |
 | playwright | ✅ Available | Not yet used — needed for Control UI screenshot in Phase 2 |
 | firecrawl-mcp | ✅ Available | Not needed while Exa works |
 | github | ✅ Available | Not yet used |
@@ -250,7 +256,43 @@ feat: Phase 2 — gateway live + first integration connected
 
 ---
 
-## 10. Known Gotchas
+## 10. Restart Checklist (Run This After Every Cursor Restart)
+
+```bash
+# 1. Verify WSL path
+wsl bash -c 'test -d /mnt/d/github/open--claw && echo PASS || echo FAIL'
+
+# 2. Verify node + pnpm (nvm must be sourced)
+wsl bash -c 'source /home/ynotf/.nvm/nvm.sh && node --version && pnpm --version'
+# Expected: v22.22.0 / 10.23.0
+
+# 3. Re-pin pnpm if version drifted (safe to re-run always)
+wsl bash -c 'source /home/ynotf/.nvm/nvm.sh && corepack prepare pnpm@10.23.0 --activate'
+
+# 4. Verify git status is clean
+wsl bash -c 'cd /mnt/d/github/open--claw && git status && git log --oneline -3'
+```
+
+**MCP tools to verify (call each with a minimal test):**
+| Tool | Minimal test |
+|------|-------------|
+| sequential-thinking | minimal `sequentialthinking` call |
+| serena | `activate_project open-claw` |
+| Context7 | `resolve-library-id` query |
+| Exa Search | `web_search_exa` 1 result |
+| Memory Tool | `search_memories` query |
+| GitHub MCP | `search_repositories` for `ynotfins` |
+
+**Model Routing reminder (per `15-model-routing.md`):**
+- PLAN tab → GPT-5.2 High (thinking-class)
+- AGENT tab → Sonnet 4.6 (non-thinking-class)  
+- DEBUG tab → GPT-5.2 High (thinking-class)
+- ASK tab → GPT-5.2 Fast (fast utility)
+- ARCHIVE tab → GPT-5.2 Low (fast utility)
+
+---
+
+## 11. Known Gotchas
 
 | Gotcha | Solution |
 |--------|----------|

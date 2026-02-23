@@ -391,6 +391,45 @@ Thinking-class models (GPT-5.2 High, GPT-5.2 Extra High, GPT-5.2 Codex High, GPT
 - Memory Tool: **PASS** — callable and storing facts
 - Phase 2: First Live Integration — still blocked on API key provision
 
+---
+
+## 2026-02-23 — Restart Preparation
+
+### Changes
+- Updated `docs/ai/HANDOFF.md`:
+  - Corrected date (was 2026-02-18, now 2026-02-23)
+  - Corrected pnpm version (was 10.30.0, now 10.23.0 — pinned)
+  - Updated git history to HEAD commit `336a648`
+  - Updated phase status table (Phase 1A ✅, Memory Tool ✅)
+  - Added `15-model-routing.md` to repo structure
+  - Updated Memory Tool MCP status from ⚠️ to ✅
+  - Added **Section 10: Restart Checklist** with WSL/node/pnpm/git verification commands, MCP minimal tests, and model routing reminder
+  - Renumbered old Section 10 (Known Gotchas) to Section 11
+- All durable facts in Memory Tool confirmed stored (4 facts, queued as PENDING)
+
+### Evidence
+| Check | Status |
+|-------|--------|
+| HANDOFF.md accuracy review | **PASS** — 5 stale entries corrected |
+| Restart checklist added | **PASS** — Section 10 in HANDOFF.md |
+| STATE.md up to date | **PASS** — this entry |
+
+### Current project state at restart
+| Item | Value |
+|------|-------|
+| HEAD commit | `336a648` |
+| Branch | `master` (in sync with origin) |
+| Node | v22.22.0 |
+| pnpm | 10.23.0 (pinned) |
+| Gateway | 🔴 NOT STARTED — blocked on API key |
+| Phase 2 | 🔴 NOT STARTED |
+| Unblock required | User provides API key → `~/.openclaw/.env` |
+
+### What's next
+- Phase 2: First Live Integration
+- Pre-condition: User provides `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`
+- After key is set: run Phase 2 AGENT prompt (boot gateway → first integration → approval gate test)
+
 <!--
 Format:
 
