@@ -168,7 +168,7 @@ See `open-claw/docs/BLOCKED_ITEMS.md` for full details on all 8. Priority:
 | Tool | Status | Notes |
 |------|--------|-------|
 | sequential-thinking | ✅ Available | |
-| serena | ✅ Available | Project `open-claw` active (path: `D:\github\open-claw`) — note the path differs from our workspace |
+| serena | ✅ Available | Project `open--claw` active (path: `D:\github\open--claw`) |
 | Context7 | ✅ Available | Library ID: `/openclaw/openclaw` (4730 snippets) |
 | Exa Search | ✅ Available | Good for docs.openclaw.ai content |
 | Memory Tool | ✅ Available | Was intermittent (transient drop); verified working. 4 durable facts stored. |
@@ -299,6 +299,6 @@ wsl bash -c 'cd /mnt/d/github/open--claw && git status && git log --oneline -3'
 | `node: command not found` in WSL | `source /home/ynotf/.nvm/nvm.sh` first |
 | `EACCES rename` on pnpm install | Build in `~/openclaw-build/`, never `/mnt/d/` |
 | Memory Tool disconnects | Retry; if still down, document decisions in repo docs |
-| serena activates `D:\github\open-claw` (no double-dash) | This is correct — serena path differs from Cursor workspace path |
+| serena activates `D:\github\open--claw` | Uses double-dash — matches workspace and GitHub repo name |
 | WhatsApp Baileys temptation | It's built-in and easy, but we've decided: official API only |
 | `openclaw onboard` is interactive | Cannot be scripted — must be run in a real terminal |

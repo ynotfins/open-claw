@@ -343,7 +343,7 @@ Thinking-class models (GPT-5.2 High, GPT-5.2 Extra High, GPT-5.2 Codex High, GPT
 | Context7 | **PASS** | Resolved `/openclaw/openclaw` library ID (4730 snippets, High reputation) |
 | Exa Search | **PASS** | Fetched openclaw installer internals doc (2026-02-20) |
 | Memory Tool (mem0) | **FAIL** | Server `user-Memory Tool` not in active MCP list — documented inline instead |
-| GitHub MCP | **PASS** | `search_repositories` returned `ynotfins/open-claw` (id: 1162000439) |
+| GitHub MCP | **PASS** | `search_repositories` returned `ynotfins/open--claw` (id: 1162000439) |
 
 ### Environment Evidence
 | Check | Result |
@@ -376,7 +376,7 @@ Thinking-class models (GPT-5.2 High, GPT-5.2 Extra High, GPT-5.2 Codex High, GPT
   1. Node.js v22.22.0 managed via nvm in WSL
   2. pnpm pinned to 10.23.0 via corepack
   3. pnpm pinning command: `corepack prepare pnpm@10.23.0 --activate`
-  4. GitHub repo: `ynotfins/open-claw`, branch `master`
+  4. GitHub repo: `ynotfins/open--claw`, branch `master`
   5. Gateway boot blocker: needs API key in `~/.openclaw/.env`
 
 ### Evidence
@@ -429,6 +429,39 @@ Thinking-class models (GPT-5.2 High, GPT-5.2 Extra High, GPT-5.2 Codex High, GPT
 - Phase 2: First Live Integration
 - Pre-condition: User provides `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`
 - After key is set: run Phase 2 AGENT prompt (boot gateway → first integration → approval gate test)
+
+---
+
+## 2026-02-23 — GitHub Rename Alignment (open-claw → open--claw)
+
+### Changes
+- GitHub repo renamed by user from `open-claw` to `open--claw` (double-dash, matches local workspace)
+- Updated `origin` remote URL: `open-claw.git` → `open--claw.git`
+- Fixed 2 stale `ynotfins/open-claw` references in `STATE.md`
+- Fixed 2 stale `open-claw` path references in `HANDOFF.md` (serena section + gotchas table)
+- Updated Memory Tool: stored corrected repo name fact (flagged the rename)
+
+### Evidence — Phase A
+| Step | Command | Status | Output |
+|------|---------|--------|--------|
+| A1 | `git remote -v` (before) | **PASS** | `open-claw.git` confirmed (old) |
+| A2 | `remote set-url origin open--claw.git` | **PASS** | exit 0 |
+| A3 | `git remote -v` (after) | **PASS** | both fetch+push = `open--claw.git` ✓ |
+| A4 | `git fetch --all --prune` | **PASS** | exit 0, clean |
+| A5 | `git push` | **PASS** | "Everything up-to-date" |
+| Doc scan | grep `ynotfins/open-claw` in tracked files | **PASS** | 2 stale refs found + fixed |
+| Doc scan | grep GitHub URLs in remaining files | **PASS** | no further stale refs |
+| Memory Tool | `add_memory` corrected repo name | **PASS** | queued (event_id: 5950d9e4) |
+
+### Canonical facts post-rename
+- **GitHub repo**: `ynotfins/open--claw` (double-dash)
+- **Clone URL**: `https://github.com/ynotfins/open--claw.git`
+- **Local workspace**: `D:\github\open--claw` / WSL: `/mnt/d/github/open--claw`
+- **All three names are consistent** — no further single-dash references remain
+
+### What's next
+- Laptop reclone (if needed): `git clone https://github.com/ynotfins/open--claw.git`
+- Phase 2: still blocked on API key
 
 <!--
 Format:
