@@ -58,10 +58,20 @@ wsl -d Ubuntu -e bash -c 'ls /mnt/d/github'
 
 ---
 
-## Proof Reads (to be updated after Cursor reload)
+### Attempt 5 — PASS (current working config)
+- **Config location**: project-level `D:\github\open--claw\.cursor\mcp.json` (gitignored)
+- **Server identifier in agent context**: `project-0-open--claw-filesystem-windows`
+- **Global `~/.cursor/mcp.json`**: duplicate entry removed (was causing two instances)
+- **Key finding**: Global MCP servers show green in UI but are NOT injected into agent `CallMcpTool` context. Only project-level `.cursor/mcp.json` servers are callable by the agent.
 
-| Test | Path | Status |
-|------|------|--------|
-| Windows read 1 | `D:\github\open--claw\README.md` | PENDING |
-| Windows read 2 | `D:\github\AI-Project-Manager\AGENTS.md` | PENDING |
-| WSL read | `\\wsl.localhost\Ubuntu\mnt\d\github\open--claw\README.md` | BLOCKED (UNC denied) |
+## Proof Reads — FINAL RESULTS
+
+| Test | Path | Status | Evidence |
+|------|------|--------|----------|
+| Windows read 1 | `D:\github\open--claw\README.md` | **PASS** | Full README content returned |
+| Windows list | `D:\github\open--claw` | **PASS** | 9 entries listed (.cursor, .git, docs, etc.) |
+| Cross-project read | `D:\github\AI-Project-Manager\AGENTS.md` | **PASS** | Full AGENTS.md content returned |
+| Cross-project list | `D:\github\AI-Project-Manager` | **PASS** | Directory info + 6 entries returned |
+| WSL UNC read | `\\wsl.localhost\Ubuntu\mnt\d\github\...` | **BLOCKED** | UNC access denied from PowerShell |
+
+## Final Status: PASS (Windows), BLOCKED (WSL cross-platform)

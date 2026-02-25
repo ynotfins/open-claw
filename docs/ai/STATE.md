@@ -550,8 +550,24 @@ Thinking-class models (GPT-5.2 High, GPT-5.2 Extra High, GPT-5.2 Codex High, GPT
 | `D:\github\AI-Project-Manager\AGENTS.md` | PENDING |
 | WSL UNC read | BLOCKED |
 
+### Evidence — Phase C (proof reads) — UPDATED
+| Test | Status | Detail |
+|------|--------|--------|
+| `D:\github\open--claw\README.md` | **PASS** | Full content returned via MCP |
+| `D:\github\open--claw` list | **PASS** | 9 entries listed |
+| `D:\github\AI-Project-Manager\AGENTS.md` | **PASS** | Cross-project read succeeded |
+| WSL UNC read | **BLOCKED** | UNC `\\wsl.localhost\Ubuntu\...` access denied |
+
+### Key finding
+- Global `~/.cursor/mcp.json` servers: visible in UI (green) but NOT callable by agent
+- Project `.cursor/mcp.json` servers: registered as `project-0-open--claw-filesystem-windows` and fully callable
+- Removed duplicate from global config
+
+### Final status: **PASS** (Windows filesystem), **BLOCKED** (WSL cross-platform)
+
 ### What's next
-- Reload Cursor → verify `filesystem-windows` green → run proof reads → update MCP_HEALTH.md
+- Phase 2: still blocked on API key
+- WSL fix (optional): investigate UNC path access for cross-platform reads
 
 <!--
 Format:
