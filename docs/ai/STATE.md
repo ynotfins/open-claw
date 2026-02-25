@@ -492,9 +492,27 @@ Thinking-class models (GPT-5.2 High, GPT-5.2 Extra High, GPT-5.2 Codex High, GPT
 }
 ```
 
+### What's next (superseded — see entry below)
+- Project-level `.cursor/mcp.json` was removed; Filesystem MCP moved to global config
+
+---
+
+## 2026-02-23 — Filesystem MCP Moved to Global Config
+
+### Changes
+- Discovered `Filesystem` MCP (`https://file-mcp-smith--bhushangitfull.run.tools`) was **already present** in global `~/.cursor/mcp.json` (line 91-95)
+- Deleted project-level `D:\github\open--claw\.cursor\mcp.json` (the npx-based local install)
+- Global entry uses the Smithery-hosted remote HTTP transport — no npx required
+
+### Evidence
+| Check | Status | Detail |
+|-------|--------|--------|
+| Global `~/.cursor/mcp.json` read | **PASS** | `Filesystem` entry confirmed at line 91 |
+| Project-level `.cursor/mcp.json` deleted | **PASS** | `Test-Path` returns `False` |
+| Global config untouched | **PASS** | No edits needed — entry already correct |
+
 ### What's next
-- **Reload Cursor** (Ctrl+Shift+P → "Reload Window") to activate the filesystem MCP
-- Verify it appears as green in Tools & MCP tab
+- **Reload Cursor** to deactivate old project-level server and confirm global `Filesystem` is green
 - Phase 2: still blocked on API key
 
 <!--
