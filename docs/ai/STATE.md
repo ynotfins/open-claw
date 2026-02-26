@@ -569,6 +569,42 @@ Thinking-class models (GPT-5.2 High, GPT-5.2 Extra High, GPT-5.2 Codex High, GPT
 - Phase 2: still blocked on API key
 - WSL fix (optional): investigate UNC path access for cross-platform reads
 
+---
+
+## 2026-02-25 — Canonical sync to GitHub (ChaosCentral wins)
+
+### Gates
+| Gate | Check | Status |
+|------|-------|--------|
+| A1 | Inside git work tree | **PASS** |
+| A1 | Branch = master | **PASS** |
+| A2 | Working tree clean | **PASS** (after .vscode ignored) |
+| A3 | origin = `https://github.com/ynotfins/open--claw.git` | **PASS** |
+| B | fetch --all --prune | **PASS** |
+| B | Divergence check | **PASS** — no divergence |
+
+### Hashes
+| Ref | SHA |
+|-----|-----|
+| HEAD (local) | `02cdaf23c526a75bd4dceb4a53537a302d110bb9` |
+| origin/master (before push) | `bfca8fe6a3d624c538d128b38dd3cb3d1dec8142` |
+
+### Ahead/behind: `0 1` (local 1 ahead, remote 0 ahead — safe fast-forward)
+
+### .vscode fix
+- `.vscode/` was untracked and blocking clean-tree gate
+- Added `.vscode/` to `.gitignore` (IDE/OS section)
+- Committed as `02cdaf2`
+
+### Push result
+- **PASS** — `bfca8fe..02cdaf2` pushed to `origin/master`
+- No force push required
+
+### What's next
+- Laptop clone: `git clone https://github.com/ynotfins/open--claw.git`
+- Serena roots verification on laptop
+- Phase 2: still blocked on API key
+
 <!--
 Format:
 
