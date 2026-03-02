@@ -75,3 +75,49 @@ wsl -d Ubuntu -e bash -c 'ls /mnt/d/github'
 | WSL UNC read | `\\wsl.localhost\Ubuntu\mnt\d\github\...` | **BLOCKED** | UNC access denied from PowerShell |
 
 ## Final Status: PASS (Windows), BLOCKED (WSL cross-platform)
+
+---
+
+## 2026-02-25 — OpenMemory MCP Health Check
+
+### A) Global MCP presence
+
+| Check | Result |
+|-------|--------|
+| `openmemory` key in `~/.cursor/mcp.json` | **PRESENT** |
+| Server type | SSE (`url: https://api.openmemory.dev/mcp-stream?client=cursor`) |
+| Tools registered (`add_memories` / `search_memory` etc.) | **FAIL — 0 tools** |
+| `mcps/user-openmemory/STATUS.md` | `"The MCP server errored"` |
+| `mcps/user-openmemory/tools/` directory | **Empty — server never exposed tools** |
+
+### B) Root cause
+
+`Authorization` header in `~/.cursor/mcp.json` is **blank** (`"Authorization": ""`).  
+OpenMemory SSE endpoint requires a Bearer token. Server returns an auth error before the handshake completes, so Cursor cannot enumerate tools.
+
+### C) Functional proof
+
+| Operation | Status | Reason |
+|-----------|--------|--------|
+| `add_memories` | **FAIL** | Tool not found (server errored) |
+| `search_memory` | **FAIL** | Tool not found (server errored) |
+| `list_memories` | **FAIL** | Tool not found (server errored) |
+
+### D) Fix steps (BLOCKED — requires user action)
+
+1. Go to [https://app.openmemory.ai](https://app.openmemory.ai) → Settings → API Keys.
+2. Copy your API key (format: `Bearer <key>`).
+3. Open `~/.cursor/mcp.json` and update the openmemory entry:
+   ```json
+   "openmemory": {
+     "headers": {
+       "Authorization": "Bearer YOUR_KEY_HERE"
+     },
+     "url": "https://api.openmemory.dev/mcp-stream?client=cursor"
+   }
+   ```
+4. Cursor → Reload Window.
+5. Confirm tools appear: `add_memories`, `search_memory`, `list_memories`, `delete_all_memories`.
+6. Rerun this verification mission.
+
+### Status: BLOCKED (missing auth token)

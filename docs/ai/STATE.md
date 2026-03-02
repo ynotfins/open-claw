@@ -605,6 +605,34 @@ Thinking-class models (GPT-5.2 High, GPT-5.2 Extra High, GPT-5.2 Codex High, GPT
 - Serena roots verification on laptop
 - Phase 2: still blocked on API key
 
+---
+
+## 2026-02-25 — OpenMemory MCP Verification
+
+### Summary
+BLOCKED. `openmemory` SSE server is registered globally but errors on startup because the `Authorization` header is blank. No tools are exposed.
+
+### Evidence
+| Check | Status | Detail |
+|-------|--------|--------|
+| `openmemory` key in `~/.cursor/mcp.json` | PASS | SSE entry present |
+| Server startup | FAIL | `STATUS.md` = "The MCP server errored" |
+| Tools registered | FAIL | 0 tool descriptors in `mcps/user-openmemory/tools/` |
+| `add_memories` callable | FAIL | "Tool not found" |
+| `search_memory` callable | FAIL | "Tool not found" |
+| `list_memories` callable | FAIL | "Tool not found" |
+
+### Root cause
+`~/.cursor/mcp.json` `openmemory.headers.Authorization` is `""` (blank). The OpenMemory SSE endpoint rejects unauthenticated connections before completing the handshake.
+
+### Fix required (user action)
+1. Obtain API key from [https://app.openmemory.ai](https://app.openmemory.ai) → Settings → API Keys.
+2. Add `"Authorization": "Bearer <key>"` to the `openmemory` entry in `~/.cursor/mcp.json`.
+3. Cursor → Reload Window → verify tools appear.
+
+### Full log
+See `docs/tooling/MCP_HEALTH.md` → "2026-02-25 — OpenMemory MCP Health Check"
+
 <!--
 Format:
 
