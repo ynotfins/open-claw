@@ -696,6 +696,32 @@ BLOCKED. `openmemory` SSE server is registered globally but errors on startup be
 ### Full log
 See `docs/tooling/MCP_HEALTH.md` → "2026-02-25 — OpenMemory MCP Health Check"
 
+---
+
+## 2026-03-02 — OpenMemory MCP Functional Verification
+
+### Summary
+PASS. OpenMemory is fully operational from the open--claw project context. 7 tools registered, `add-memory` and `search-memory` both confirmed working.
+
+### Evidence
+
+| Check | Status | Detail |
+|-------|--------|--------|
+| Server healthy (no STATUS.md error file) | **PASS** | Server started cleanly |
+| 7 tools registered | **PASS** | add-memory, search-memory, list-memories, delete-memory, delete-memories-by-namespace, update-memory, health-check |
+| `add-memory` | **PASS** | Memory ingested async; id `ab8c2eca-d119-4247-98b0-c2d9099243bc` |
+| `search-memory` (query: "five-tab workflow") | **PASS** | 1 result, score 0.692, exact content verified |
+
+### Memory stored
+- **Content**: `"OpenClaw governance: five-tab workflow PLAN/AGENT/DEBUG/ASK/ARCHIVE; evidence in docs/ai/STATE.md; MCP-first policy."`
+- **Tags**: `namespace=open--claw`, `git_repo_name=ynotfins/open--claw`, `git_branch=master`, `memory_types=[project_info]`
+
+### Key finding
+`add-memory` requires `project_id` or `user_preference=true` — metadata alone is insufficient (returns `-32602`).
+
+### Full log
+`docs/tooling/MCP_HEALTH.md` → "2026-03-02 — OpenMemory MCP Functional Verification"
+
 <!--
 Format:
 

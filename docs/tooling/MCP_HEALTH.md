@@ -330,3 +330,31 @@ OpenMemory SSE endpoint requires a Bearer token. Server returns an auth error be
 6. Rerun this verification mission.
 
 ### Status: BLOCKED (missing auth token)
+
+---
+
+## 2026-03-02 — OpenMemory MCP Functional Verification
+
+### A) Server presence
+
+| Check | Status | Detail |
+|-------|--------|--------|
+| `openmemory` in global `~/.cursor/mcp.json` | **PASS** | SSE entry present |
+| Server error file present | **PASS** | `STATUS.md` absent → server healthy |
+| Tools registered | **PASS** | 7 tools in `mcps/user-openmemory/tools/` |
+| Tool list | — | `add-memory`, `search-memory`, `list-memories`, `delete-memory`, `delete-memories-by-namespace`, `update-memory`, `health-check` |
+
+### B) Functional proof
+
+| Operation | Status | Detail |
+|-----------|--------|--------|
+| `add-memory` | **PASS** | `"Memory ingestion started asynchronously."` — id `ab8c2eca-d119-4247-98b0-c2d9099243bc` |
+| `search-memory` (query: "five-tab workflow") | **PASS** | 1 result returned, score 0.692 |
+| Content verified | **PASS** | Exact content stored and retrieved: `"OpenClaw governance: five-tab workflow PLAN/AGENT/DEBUG/ASK/ARCHIVE; evidence in docs/ai/STATE.md; MCP-first policy."` |
+
+### Notes
+- `add-memory` requires either `project_id` or `user_preference=true` — bare metadata alone is rejected with `-32602`.
+- Ingestion is async; ~4s delay before `search-memory` returns results.
+- Memory tagged: `namespace=open--claw`, `git_repo_name=ynotfins/open--claw`, `git_branch=master`, `memory_types=[project_info]`.
+
+### Status: PASS
