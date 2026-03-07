@@ -1,15 +1,27 @@
 # OpenClaw — Setup Notes
 
+## Purpose
+
+This is a local wrapper note for running OpenClaw in this environment.
+
+For runtime behavior, command support, onboarding, and environment loading, the upstream source of truth is:
+
+- `vendor/openclaw/README.md`
+- `vendor/openclaw/docs/start/getting-started.md`
+- `vendor/openclaw/docs/cli/index.md`
+- `vendor/openclaw/docs/cli/gateway.md`
+- `vendor/openclaw/docs/help/environment.md`
+
 ## Prerequisites
 
 | Requirement | Version | Notes |
-|-------------|---------|-------|
+| --- | --- | --- |
 | OS | Windows 10/11 with WSL2 | Ubuntu 24.04 recommended |
-| Node.js | 22+ | Required by Gateway (`module.enableCompileCache`) |
-| pnpm | Latest | Monorepo workspace manager |
-| Git | 2.x | Shallow clone for vendor |
+| Node.js | `>=22.12.0` | Matches upstream runtime guard and `package.json` |
+| pnpm | `10.23.0` | Pinned by upstream `packageManager` |
+| Git | 2.x | Used for repo + vendor sync |
 
-## WSL2 Setup (Windows)
+## WSL2 Setup
 
 ```powershell
 # Install WSL2 (PowerShell, admin)
@@ -17,71 +29,119 @@ wsl --install -d Ubuntu-24.04
 ```
 
 ```bash
-# Inside WSL — install Node 22 via nvm
+# Inside WSL - install Node 22 via nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 source ~/.bashrc
 nvm install 22
 nvm use 22
 
-# Install pnpm
+# Pin pnpm to the version expected by upstream
 corepack enable
-corepack prepare pnpm@latest --activate
+corepack prepare pnpm@10.23.0 --activate
 ```
 
 ## Path Mapping
 
 | Context | Path |
-|---------|------|
-| Windows | `D:\github\open--claw\` |
-| WSL | `/mnt/d/github/open--claw/` |
-| Vendor repo | `vendor/openclaw/` (gitignored, shallow clone) |
-| OpenClaw state | `~/.openclaw/` (inside WSL home) |
+| --- | --- |
+| Windows repo | `D:\github\open--claw\` |
+| WSL repo mirror | `/mnt/d/github/open--claw/` |
+| Vendor repo checkout | `/mnt/d/github/open--claw/vendor/openclaw/` |
+| Working build | `~/openclaw-build/` |
+| OpenClaw state | `~/.openclaw/` |
 | OpenClaw config | `~/.openclaw/openclaw.json` |
 
-## Development Loop (when ready)
+## Runtime Entrypoints
+
+Use these command paths in this order of preference:
+
+1. Installed/runtime CLI: `openclaw ...`
+2. Source-repo helper script: `pnpm openclaw ...`
+3. Direct bootstrap: `node openclaw.mjs ...`
+
+Notes:
+
+- `pnpm openclaw ...` is the supported source checkout helper because upstream wires it to `node scripts/run-node.mjs`.
+- `node openclaw.mjs ...` is the direct CLI bootstrap when you want to bypass the package script layer.
+- Do not rely on legacy `start` aliases as the canonical boot path. Upstream documents `openclaw gateway`, `openclaw gateway status`, `openclaw health`, and `openclaw dashboard` instead.
+- Do not treat `pnpm exec` wrappers as the primary or canonical entrypoint for this repo.
+
+## Recommended Local Development Loop
 
 ```bash
-cd /mnt/d/github/open--claw/vendor/openclaw
+cd ~/openclaw-build
 
-# Install dependencies (NOT done in Phase 0)
+# Install dependencies in the Linux build copy, not on /mnt/d
 pnpm install
 
-# Build
+# Build runtime + UI assets
 pnpm build
 pnpm ui:build
 
-# Onboard (interactive setup)
-openclaw onboard
+# Run the upstream onboarding wizard
+pnpm openclaw onboard --install-daemon
 
-# Start gateway
-openclaw start
-# or: node openclaw.mjs start
+# Verify the managed gateway service
+pnpm openclaw gateway status
+pnpm openclaw health
+
+# Open the Control UI
+pnpm openclaw dashboard
 ```
 
-## Key Dev Commands
+For foreground debugging instead of the managed service:
+
+```bash
+cd ~/openclaw-build
+pnpm openclaw gateway
+```
+
+## Key Commands
 
 | Command | Purpose |
-|---------|---------|
-| `openclaw start` | Start the Gateway daemon |
-| `openclaw config set <key> <value>` | Update config |
-| `openclaw doctor` | Diagnostics + token generation |
-| `openclaw sandbox explain` | Debug sandbox/tool policy |
-| `pnpm test` | Run test suite (vitest) |
+| --- | --- |
+| `pnpm openclaw onboard --install-daemon` | Run upstream onboarding and install the gateway service |
+| `pnpm openclaw gateway status` | Check the managed gateway service and probe reachability |
+| `pnpm openclaw health` | Query gateway health through the CLI |
+| `pnpm openclaw dashboard` | Open the Control UI |
+| `pnpm openclaw gateway` | Run the gateway in the foreground for debugging |
+| `pnpm openclaw config set <key> <value>` | Update config |
+| `pnpm openclaw doctor` | Diagnostics and repair helpers |
+| `pnpm test` | Run test suite |
 | `pnpm build` | TypeScript build |
 
-## Environment Variables
+## Environment And Secrets
 
-Source of truth: `.env` or `~/.openclaw/.env` (never committed).
-See `vendor/openclaw/.env.example` for all keys.
+Upstream environment precedence is:
 
-Critical keys:
-- `OPENCLAW_GATEWAY_TOKEN` — required if binding beyond loopback
-- Model API keys: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`
-- Channel tokens: `TELEGRAM_BOT_TOKEN`, `DISCORD_BOT_TOKEN`, `SLACK_BOT_TOKEN`
+1. Process environment
+2. `.env` in the current working directory
+3. `~/.openclaw/.env`
+4. Config `env` block in `~/.openclaw/openclaw.json`
+5. Optional shell import
 
-## What NOT to Do
+Wrapper guidance:
 
-- Do NOT run `pnpm install` until Phase 1 approves it
-- Do NOT start the Gateway until channel config is reviewed
-- Do NOT put any `.env` or API keys in the repo
-- Do NOT use `vendor/openclaw/.git/` for our commits (it's a separate repo)
+- Never commit `.env` files, tokens, or API keys.
+- `~/.openclaw/.env` is the simplest shared local store, but it is not the only supported source.
+- Some provider credentials may be written to auth profiles under the agent directory instead of shared `.env`.
+- See `vendor/openclaw/docs/help/environment.md` for upstream details.
+
+Common variables you may still use locally:
+
+- `OPENCLAW_GATEWAY_TOKEN`
+- `OPENCLAW_GATEWAY_PASSWORD`
+- `OPENAI_API_KEY`
+- `ANTHROPIC_API_KEY`
+- `GEMINI_API_KEY`
+- `TELEGRAM_BOT_TOKEN`
+- `DISCORD_BOT_TOKEN`
+- `SLACK_BOT_TOKEN`
+
+## What Not To Do
+
+- Do not build on `/mnt/d/...` when `pnpm` needs to mutate or rename many files. Use `~/openclaw-build/`.
+- Do not describe `~/.openclaw/.env` as the only valid config source.
+- Do not reintroduce legacy `start`-style startup instructions into local docs.
+- Do not commit secrets, `.env` files, or provider credentials.
+- Do not use `vendor/openclaw/.git/` for wrapper-repo commits.

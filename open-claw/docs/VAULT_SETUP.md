@@ -1,15 +1,28 @@
-# OpenClaw — Vault Setup & Secret Management
+# OpenClaw — Vault Setup And Secret Management
 
 ## Secret Storage Policy
 
-- **Source of truth**: `~/.openclaw/.env` (inside WSL home directory)
-- **Never in repo**: no `.env`, API keys, tokens, or credentials in git
-- **Never in config**: `openclaw.json` references env vars by name, not value
-- **Rotation**: secrets should be rotated on a regular schedule
+Use non-committed secret sources only.
+
+Preferred sources, matching upstream behavior:
+
+1. Process environment
+2. `.env` in the current working directory
+3. `~/.openclaw/.env`
+4. Config `env` block in `~/.openclaw/openclaw.json`
+5. SecretRef-backed config values or optional shell import
+
+Wrapper rules:
+
+- Never commit `.env`, API keys, tokens, or credentials.
+- Avoid plaintext secrets in tracked docs or checked-in config templates.
+- `~/.openclaw/.env` is a convenient local store, not the only supported source.
+- Some provider credentials may be stored in auth profiles rather than shared `.env`.
 
 ## Option 1: 1Password CLI
 
 ### Setup
+
 ```bash
 # Install 1Password CLI in WSL
 curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
@@ -20,34 +33,37 @@ sudo apt update && sudo apt install -y 1password-cli
 ```
 
 ### Startup Script
+
 ```bash
 #!/bin/bash
 # ~/.openclaw/load-secrets.sh
-# Run before starting the gateway: source ~/.openclaw/load-secrets.sh
 
 export OPENCLAW_GATEWAY_TOKEN=$(op read "op://OpenClaw/Gateway/token")
 export ANTHROPIC_API_KEY=$(op read "op://OpenClaw/Anthropic/api-key")
 export OPENAI_API_KEY=$(op read "op://OpenClaw/OpenAI/api-key")
 export TELEGRAM_BOT_TOKEN=$(op read "op://OpenClaw/Telegram/bot-token")
-# Add more as needed
 ```
 
 ### Usage
+
 ```bash
 eval $(op signin)
 source ~/.openclaw/load-secrets.sh
-openclaw start
+cd ~/openclaw-build && pnpm openclaw gateway status
+cd ~/openclaw-build && pnpm openclaw dashboard
 ```
 
 ## Option 2: Bitwarden CLI
 
 ### Setup
+
 ```bash
 # Install Bitwarden CLI
 npm install -g @bitwarden/cli
 ```
 
 ### Startup Script
+
 ```bash
 #!/bin/bash
 # ~/.openclaw/load-secrets-bw.sh
@@ -58,7 +74,15 @@ export ANTHROPIC_API_KEY=$(bw get password "Anthropic API Key")
 export OPENAI_API_KEY=$(bw get password "OpenAI API Key")
 ```
 
-## Option 3: Plain `.env` File (Simplest)
+### Usage
+
+```bash
+source ~/.openclaw/load-secrets-bw.sh
+cd ~/openclaw-build && pnpm openclaw gateway status
+cd ~/openclaw-build && pnpm openclaw dashboard
+```
+
+## Option 3: Plain `.env` File
 
 ```bash
 # ~/.openclaw/.env
@@ -71,34 +95,44 @@ OPENAI_API_KEY=sk-...
 ```
 
 Protect the file:
+
 ```bash
 chmod 600 ~/.openclaw/.env
 ```
 
+## Auth Profile Note
+
+Current OpenClaw behavior can store some provider credentials in auth profiles instead of shared `.env`.
+
+That means:
+
+- shared env files are still useful for gateway tokens and simple local setups
+- provider onboarding may write credentials somewhere other than `~/.openclaw/.env`
+- when debugging missing provider auth, check both env sources and the provider auth/profile flow
+
 ## Secret Rotation Checklist
 
-| Secret | Rotation Frequency | How to Rotate |
-|--------|--------------------|---------------|
-| Gateway token | Every 90 days | `openclaw doctor --generate-gateway-token` |
-| Anthropic API key | On compromise | Regenerate at https://console.anthropic.com |
-| OpenAI API key | On compromise | Regenerate at https://platform.openai.com |
+| Secret | Rotation Frequency | How To Rotate |
+| --- | --- | --- |
+| Gateway token | Every 90 days | Rotate through current gateway/auth workflow |
+| Anthropic API key | On compromise | Regenerate in Anthropic console |
+| OpenAI API key | On compromise | Regenerate in OpenAI console |
 | Google OAuth refresh token | On revocation | Re-run OAuth flow |
-| Telegram bot token | On compromise | `/revoke` via @BotFather |
+| Telegram bot token | On compromise | Revoke via BotFather |
 | Twilio auth token | Every 90 days | Rotate in Twilio console |
 
-## Pre-Deploy Verification
+## Verification
 
-Before starting the Gateway, verify:
+Before running the gateway, verify:
+
 ```bash
-# Check no secrets in repo
+# Check no secrets in repo docs/config templates
 cd /mnt/d/github/open--claw
-grep -rn "sk-\|ghp_\|AIza\|AKIA\|token=\|password=" --include="*.md" --include="*.json*" \
-  --exclude-dir=vendor --exclude-dir=.git --exclude-dir=node_modules
+rg -n "sk-|ghp_|AIza|AKIA|token=|password=" --glob "*.md" --glob "*.json*" --glob "!vendor/**" --glob "!.git/**"
 
-# Check .env permissions
+# Check .env permissions if using ~/.openclaw/.env
 ls -la ~/.openclaw/.env
-# Should show: -rw------- (600)
 
-# Check env vars loaded
+# Check env vars without printing values
 env | grep -E "OPENCLAW_|ANTHROPIC_|OPENAI_" | sed 's/=.*/=<set>/'
 ```

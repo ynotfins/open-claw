@@ -11,62 +11,66 @@
 - [x] Development environment requirements identified (`open-claw/docs/SETUP_NOTES.md`)
 - [x] Phase 1 plan drafted (below)
 - [x] Vendor repo cloned (`vendor/openclaw/`) and architecture mapped
-- [x] Blueprint docs created: ARCHITECTURE_MAP, SETUP_NOTES, SECURITY_MODEL, INTEGRATIONS_PLAN, COST_MODEL
+- [x] Blueprint docs created: `ARCHITECTURE_MAP`, `SETUP_NOTES`, `SECURITY_MODEL`, `INTEGRATIONS_PLAN`, `COST_MODEL`
 - [x] Validation: no duplicate filenames, no dangling refs, no secrets
 
 ---
 
-## Phase 1 — Development Environment & Gateway Boot
+## Phase 1 — Development Environment And Gateway Boot
 
-**Goal:** Install dependencies, build OpenClaw, boot the Gateway, and verify basic connectivity.
+**Goal:** Install dependencies, build OpenClaw, run onboarding, and verify gateway connectivity.
 
 **Exit criteria:**
-- [ ] Node.js 22+ and pnpm verified in WSL
-- [ ] `pnpm install` completes successfully in `vendor/openclaw/`
+- [ ] Node.js `>=22.12.0` and pnpm `10.23.0` verified in WSL
+- [ ] `pnpm install` completes successfully in the Linux build copy
 - [ ] `pnpm build` and `pnpm ui:build` succeed
-- [ ] `openclaw onboard` runs (interactive setup)
-- [ ] Gateway starts on `127.0.0.1:18789` and responds to health check
-- [ ] Control UI loads in browser at `http://127.0.0.1:18789/openclaw`
+- [ ] `openclaw onboard --install-daemon` runs successfully
+- [ ] `openclaw gateway status` shows the managed gateway is reachable
+- [ ] `openclaw health` succeeds
+- [ ] Control UI opens at `http://127.0.0.1:18789/` or via `openclaw dashboard`
 - [ ] `openclaw.json` created with secure defaults (loopback, token auth)
 - [ ] No secrets committed to repo
 - [ ] `docs/ai/STATE.md` updated with Phase 1 evidence
 
 **AGENT prompt:**
-<!-- Executed 2026-02-18; see STATE.md for evidence -->
+<!-- Historical execution details live in STATE.md. -->
 
 ---
 
 ## Phase 1 — Gateway Boot + Integration Scaffold ✅ (partial)
 
-**Status**: PASS with 1 BLOCKED item (Gateway Boot — no API key)
+**Status:** PASS — Gateway Boot completed on ChaosCentral; dashboard reachability verified with one residual token-auth caveat in the Control UI.
 
 **Completed:**
-- [x] Node.js 22+ and pnpm verified in WSL
+- [x] Node.js and pnpm verified in WSL
 - [x] `pnpm install` + `pnpm build` + `pnpm ui:build` succeed
-- [x] 8 skill stubs created with valid SKILL.md frontmatter
+- [x] 8 skill stubs created with valid `SKILL.md` frontmatter
 - [x] Config template with 3-tier model routing
-- [x] VAULT_SETUP.md + BLOCKED_ITEMS.md
+- [x] `VAULT_SETUP.md` + `BLOCKED_ITEMS.md` created
 - [x] Validation: secrets, frontmatter, paths all clean
+- [x] `openclaw onboard --install-daemon` completed via the supported non-interactive flow
+- [x] `openclaw gateway status` succeeds
+- [x] `openclaw health` succeeds
+- [x] Control UI renders at `http://127.0.0.1:18789/openclaw` and screenshot evidence was captured
 
-**Blocked:**
-- [ ] `openclaw onboard` — requires API key in `~/.openclaw/.env`
-- [ ] Gateway start + health check — depends on onboard
-- [ ] Control UI screenshot — depends on gateway
+**Residual caveat:**
+- [ ] Paste the gateway token into Control UI settings if you want the in-browser chat session to authenticate immediately
 
 ---
 
 ## Phase 2 — First Live Integration
 
-**Goal:** Unblock the Gateway, connect the first integration, and verify end-to-end flow with approval gate.
+**Goal:** Unblock the gateway, connect the first integration, and verify end-to-end flow with an approval gate.
 
 **Prerequisites (user must provide):**
-- At least one model API key (Anthropic or OpenAI) in `~/.openclaw/.env`
+- At least one model credential available to the local runtime
 - Optionally: Google Cloud project for Gmail/Calendar/Contacts
 
 **Exit criteria:**
 - [ ] Gateway running on loopback with token auth
-- [ ] Health check returns 200 at `http://127.0.0.1:18789/health`
-- [ ] Control UI loads and screenshot captured
+- [ ] `openclaw gateway status` succeeds
+- [ ] `openclaw health` succeeds
+- [ ] Control UI opens and screenshot is captured
 - [ ] At least one integration fully connected end-to-end
 - [ ] Approval gate tested (outbound action blocked until human approves)
 - [ ] Audit log captures the full action chain
@@ -75,4 +79,4 @@
 - [ ] `docs/ai/STATE.md` updated with Phase 2 evidence
 
 **AGENT prompt:**
-<!-- To be written by PLAN tab before Phase 2 execution -->
+<!-- To be written by PLAN tab before Phase 2 execution. -->

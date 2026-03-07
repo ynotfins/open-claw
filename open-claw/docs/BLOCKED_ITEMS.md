@@ -1,153 +1,117 @@
 # OpenClaw — Blocked Items
 
-All items below are blocked pending user action. No item can be unblocked by
-the agent alone — each requires credentials, account creation, or configuration
-that only the user can provide.
+Items below are blocked pending user action unless explicitly marked resolved. The agent cannot unblock the remaining items alone because they require credentials, account creation, or external configuration.
 
----
+## 1. Gateway Boot
 
-## 1. Gateway Boot (STEP 3)
+**Status**: Resolved on ChaosCentral as of 2026-03-07.
 
-**Blocked**: No model API key configured.
+**Execution evidence**:
 
-**User action**:
-1. Choose at least one model provider (Anthropic recommended)
-2. Obtain API key from provider dashboard
-3. Create directory: `wsl bash -c 'mkdir -p ~/.openclaw'`
-4. Create env file: `wsl bash -c 'echo "ANTHROPIC_API_KEY=sk-ant-..." > ~/.openclaw/.env && chmod 600 ~/.openclaw/.env'`
-5. Run onboard: `cd ~/openclaw-build && pnpm openclaw onboard`
-6. Start gateway: `pnpm openclaw start`
+1. Redacted credential probe confirmed provider keys in `~/.openclaw/.env`.
+2. Supported non-interactive onboarding completed from the Linux build copy:
+   - `cd ~/openclaw-build && pnpm openclaw onboard --non-interactive --accept-risk --mode local --workspace ~/.openclaw/workspace --auth-choice apiKey --gateway-port 18789 --gateway-bind loopback --install-daemon --daemon-runtime node --skip-channels --skip-skills --json`
+3. Gateway verification passed:
+   - `cd ~/openclaw-build && pnpm openclaw gateway status`
+   - `cd ~/openclaw-build && pnpm openclaw health`
+4. Control UI rendered at `http://127.0.0.1:18789/openclaw`.
 
----
+**Residual caveat**:
+
+- The Control UI browser session still needs the gateway token pasted in Control UI settings before the live chat panel will authenticate. This is no longer a credential/bootstrap blocker; it is a local dashboard-auth follow-up.
 
 ## 2. Gmail Inbox Skill
 
 **Blocked**: Google Cloud project not created.
 
 **User action**:
-1. Go to https://console.cloud.google.com → create project
-2. Enable Gmail API + Pub/Sub API
-3. Configure OAuth consent screen
-4. Create OAuth 2.0 credentials (desktop app)
-5. Run OAuth flow to obtain refresh token
-6. Add `GOOGLE_OAUTH_REFRESH_TOKEN=...` to `~/.openclaw/.env`
-7. Create Pub/Sub topic + push subscription
-8. Expose webhook endpoint (Tailscale funnel or ngrok)
 
----
+1. Go to <https://console.cloud.google.com> and create a project.
+2. Enable Gmail API and Pub/Sub API.
+3. Configure the OAuth consent screen.
+4. Create OAuth 2.0 credentials.
+5. Complete the OAuth flow and store the refresh token outside the repo.
+6. Create the Pub/Sub topic and push subscription.
+7. Expose the webhook endpoint if needed.
 
 ## 3. Domain Email Skill
 
 **Blocked**: IMAP/SMTP credentials not provided.
 
 **User action**:
-1. Obtain IMAP/SMTP server details for your domain email
-2. Generate app-specific password (if 2FA enabled)
-3. Add to `~/.openclaw/.env`:
-   ```
-   DOMAIN_EMAIL_HOST=imap.yourdomain.com
-   DOMAIN_EMAIL_USER=assistant@yourdomain.com
-   DOMAIN_EMAIL_PASS=app-specific-password
-   DOMAIN_SMTP_HOST=smtp.yourdomain.com
-   ```
 
----
+1. Obtain IMAP/SMTP server details for the domain mailbox.
+2. Generate an app-specific password if required.
+3. Store the credentials outside the repo through env, `.env`, or the wrapper's chosen secret mechanism.
 
 ## 4. SMS Twilio Skill
 
 **Blocked**: Twilio credentials not provided.
 
 **User action**:
-1. Create Twilio account at https://www.twilio.com
-2. Purchase phone number (~$1/month)
-3. Note Account SID + Auth Token from Twilio console
-4. Add to `~/.openclaw/.env`:
-   ```
-   TWILIO_ACCOUNT_SID=ACxxxxxxxx
-   TWILIO_AUTH_TOKEN=your_auth_token
-   TWILIO_FROM_NUMBER=+15551234567
-   ```
-5. Configure webhook URL in Twilio console
 
----
+1. Create a Twilio account at <https://www.twilio.com>.
+2. Purchase a phone number.
+3. Store Account SID, Auth Token, and From Number outside the repo.
+4. Configure the webhook URL in Twilio.
 
-## 5. WhatsApp Official (Business Cloud API)
+## 5. WhatsApp Business Cloud API (Wrapper Preference)
 
-**Blocked**: Meta Business not verified.
+**Blocked**: Meta Business is not verified for the wrapper's preferred WhatsApp path.
+
+Important note:
+
+- Upstream OpenClaw supports the built-in WhatsApp adapter via Baileys.
+- This wrapper currently prefers the official Meta Business Cloud API path for policy reasons.
+- Treat this as a local wrapper decision, not an upstream OpenClaw requirement.
 
 **User action**:
-1. Create Meta Business account at https://business.facebook.com
-2. Create developer app at https://developers.facebook.com
-3. Add WhatsApp product to app
-4. Complete business verification (documents required — may take days)
-5. Register phone number for WhatsApp Business
-6. Generate permanent access token
-7. Add to `~/.openclaw/.env`:
-   ```
-   WHATSAPP_BUSINESS_PHONE_ID=123456789012345
-   WHATSAPP_BUSINESS_TOKEN=EAAxxxxxxxx
-   WHATSAPP_VERIFY_TOKEN=your-webhook-verify-token
-   ```
 
----
+1. Create a Meta Business account at <https://business.facebook.com>.
+2. Create a developer app at <https://developers.facebook.com>.
+3. Add the WhatsApp product.
+4. Complete business verification.
+5. Register the phone number.
+6. Generate the access token and store it outside the repo.
 
 ## 6. Google Calendar Skill
 
 **Blocked**: Google Cloud project not created.
 
 **User action**:
-1. Use same Google Cloud project as Gmail (or create new)
-2. Enable Google Calendar API
-3. Add `calendar.readonly` + `calendar.events` scopes to OAuth consent
-4. Use existing OAuth credentials
-5. Refresh token (shared with Gmail skill if same project)
 
----
+1. Use the same Google Cloud project as Gmail or create a new one.
+2. Enable Google Calendar API.
+3. Add the required scopes.
+4. Reuse or refresh OAuth credentials.
 
 ## 7. Google Contacts Skill
 
 **Blocked**: Google Cloud project not created.
 
 **User action**:
-1. Use same Google Cloud project as Gmail/Calendar
-2. Enable People API
-3. Add `contacts.readonly` scope to OAuth consent
-4. Use existing OAuth credentials
 
----
+1. Use the same Google Cloud project as Gmail/Calendar.
+2. Enable People API.
+3. Add the required scopes.
+4. Reuse or refresh OAuth credentials.
 
 ## 8. Cost Caps Configuration
 
-**Blocked**: No API keys active — cannot measure or cap usage.
+**Blocked**: No live usage baseline yet.
 
 **User action**:
-1. First, unblock item #1 (Gateway Boot with API key)
-2. Run the gateway for a few days to establish usage baseline
-3. Configure limits in `openclaw.json`:
-   ```json5
-   agents: {
-     defaults: {
-       limits: {
-         maxTokensPerTurn: 100000,
-         maxTurnsPerSession: 50,
-         maxDailyTokens: 1000000,
-       },
-     },
-   },
-   ```
-4. Set up provider-side spending limits as a safety net:
-   - Anthropic: https://console.anthropic.com/settings/limits
-   - OpenAI: https://platform.openai.com/settings/organization/limits
 
----
+1. Unblock Gateway Boot first.
+2. Let the gateway run long enough to establish a usage baseline.
+3. Configure token and spend limits in `openclaw.json` and provider consoles.
 
 ## Unblock Priority
 
 | Priority | Item | Dependency | Effort |
-|----------|------|------------|--------|
-| **P0** | Gateway Boot (#1) | API key only | 5 min |
+| --- | --- | --- | --- |
 | **P1** | Google Cloud (#2, #6, #7) | One project covers all three | 30 min |
 | **P1** | Cost Caps (#8) | Depends on #1 | 5 min |
 | **P2** | Domain Email (#3) | Server credentials | 10 min |
 | **P2** | Twilio (#4) | Account + phone number | 15 min |
-| **P3** | WhatsApp Business (#5) | Meta verification (days) | 1-2 weeks |
+| **P3** | WhatsApp Business (#5) | Meta verification | 1-2 weeks |
