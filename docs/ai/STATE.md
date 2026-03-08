@@ -1287,3 +1287,120 @@ None
 
 ### What's Next
 - Proceed to Phase 6C or next operational step per `docs/ai/PLAN.md`.
+
+---
+
+## 2026-03-08 — Fix nvm not auto-loading after reboot (hardcoded PATH clobber)
+
+### Goal
+Make `node` and `pnpm` available automatically in fresh WSL interactive shells without manual recovery.
+
+### Scope
+- `~/.bashrc` (WSL home, machine-local)
+- `docs/ai/STATE.md` appended
+
+### Commands / Tool Calls
+- `wsl bash --noprofile --norc -c "grep -n 'export PATH=' ~/.bashrc"` — find PATH exports
+- `wsl bash --noprofile --norc -c "cp ~/.bashrc ~/.bashrc.bak.nvm_path_fix"` — backup
+- `wsl bash --noprofile --norc -c "sed -i '133d' ~/.bashrc"` — delete hardcoded PATH
+- `wsl bash --noprofile --norc -c "bash -n ~/.bashrc"` — syntax check
+- `wsl bash -ic "command -v nvm && node -v && pnpm -v"` — auto-load test
+- `wsl bash -ic "cd ~/openclaw-build && pnpm openclaw gateway status"` — gateway
+- `wsl bash -ic "cd ~/openclaw-build && pnpm openclaw health"` — health
+- `wsl bash -ic "cd ~/openclaw-build && pnpm openclaw config get gateway.auth.token"` — token
+- `wsl bash -ic "cd ~/openclaw-build && pnpm openclaw dashboard --no-open"` — URL
+
+### Changes
+- `~/.bashrc` line 133 deleted — hardcoded `export PATH=...` that clobbered nvm's PATH additions after every shell init.
+
+### Evidence
+- Root cause: frozen `export PATH=...` snapshot appeared after nvm init, overwriting PATH on every `.bashrc` source.
+- `bash -ic "command -v nvm && node -v && pnpm -v"`: `nvm`, `v22.22.0`, `10.23.0`: **PASS**
+- Gateway status: `running (pid 366)`, `RPC probe: ok`: **PASS**
+- Health: `Agents: main (default)`: **PASS**
+- Token: present: **PASS**
+- Dashboard URL: `#token=<REDACTED>`: **PASS**
+
+### Verdict
+READY — nvm auto-loads, gateway healthy.
+
+### Blockers
+None
+
+### Fallbacks Used
+None
+
+### Cross-Repo Impact
+- `AI-Project-Manager/docs/ai/STATE.md` records the same evidence.
+
+### Decisions Captured
+- Hardcoded PATH at EOF of `.bashrc` was the root cause of nvm failing to persist across reboots. Removed it; system PATH is inherited from WSL init.
+
+### Pending Actions
+- Optional: `openclaw doctor --repair`.
+
+### What Remains Unverified
+- Real WSL terminal window (from Windows Terminal) auto-load test not performed.
+
+### What's Next
+- Proceed to Phase 6C or next operational step per `docs/ai/PLAN.md`.
+
+---
+
+## 2026-03-08 18:38 — Phase 6B.2: Canonical Source Alignment + HH:MM
+
+### Goal
+Add HH:MM timestamps to STATE template, establish canonical runtime sources rule, fix Control UI URL drift, and record governance decisions from the comprehensive audit.
+
+### Scope
+Files touched: AI-PM `.cursor/rules/10-project-workflow.md`, AI-PM `docs/ai/memory/DECISIONS.md`, open--claw `.cursor/rules/10-project-workflow.md`, open--claw `open-claw/docs/SETUP_NOTES.md`, open--claw `docs/ai/PLAN.md`, both `docs/ai/STATE.md`. Both repos affected.
+
+### Commands / Tool Calls
+- `StrReplace` (6 edits across 5 files)
+- `git ls-files | Sort-Object | Get-Unique` (case-duplicate scan, both repos)
+- `Grep` for secret patterns (both repos)
+- `git add`, `git commit`, `git push` (both repos)
+
+### Changes
+1. STATE template header changed from `<YYYY-MM-DD>` to `<YYYY-MM-DD HH:MM>` in both repos' `10-project-workflow.md`
+2. Canonical runtime sources paragraph added to open--claw's `10-project-workflow.md`
+3. Official docs URL added to `open-claw/docs/SETUP_NOTES.md` header
+4. Control UI URL fixed in `open--claw/docs/ai/PLAN.md` (`/openclaw` → `/`)
+5. Phase 6B.2 governance decisions recorded in `AI-PM/docs/ai/memory/DECISIONS.md`
+
+### Evidence
+- PASS: AI-PM template header now reads `## <YYYY-MM-DD HH:MM> — <task name>`
+- PASS: open--claw template header matches
+- PASS: Canonical sources paragraph added after "Project notes" section
+- PASS: SETUP_NOTES.md starts with `> Official docs: https://docs.openclaw.ai/`
+- PASS: PLAN.md URL changed to `http://127.0.0.1:18789/`
+- PASS: DECISIONS.md appended with 8 governance decisions
+- PASS: No case-duplicate files (AI-PM: 26/26, open--claw: 40/40)
+- PASS: No secrets detected in either repo
+- PASS: No circular rule references
+- PASS: AI-PM commit `662be3f` pushed to origin/main
+- PASS: open--claw commit `3a4ec1a` pushed to origin/master
+
+### Verdict
+READY — all Phase 6B.2 exit criteria met.
+
+### Blockers
+None
+
+### Fallbacks Used
+None
+
+### Cross-Repo Impact
+Both repos updated in lockstep. Template and canonical-source changes mirror across the workspace.
+
+### Decisions Captured
+Recorded in AI-PM `docs/ai/memory/DECISIONS.md`: canonical runtime sources, HH:MM adoption, ClawHub skill evaluation plan, Lobster deferral, openclaw-studio deferral, Docker deferral.
+
+### Pending Actions
+None for this phase.
+
+### What Remains Unverified
+None — all changes are documentation/governance with no runtime component.
+
+### What's Next
+Phase 6C: First live integration (requires Gateway running with ANTHROPIC_API_KEY).
