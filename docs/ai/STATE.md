@@ -1404,3 +1404,58 @@ None — all changes are documentation/governance with no runtime component.
 
 ### What's Next
 Phase 6C: First live integration (requires Gateway running with ANTHROPIC_API_KEY).
+
+---
+
+## 2026-03-08 19:00 — Supplemental: Host Restart Verification Pattern + Evidence Density
+
+### Goal
+Execute supplemental rules for Phase 6B.2: add the "Host Restart Verification" pattern and confirm all prior deliverables satisfy enhanced evidence density requirements.
+
+### Scope
+- Pattern added to: `AI-Project-Manager/docs/ai/memory/PATTERNS.md` (canonical governance repo owns the pattern)
+- STATE entries added to: both repos
+
+### Commands / Tool Calls
+See `AI-Project-Manager/docs/ai/STATE.md` for full command log.
+
+### Changes
+- `AI-Project-Manager/docs/ai/memory/PATTERNS.md`: Appended "Host Restart Verification" pattern with verification commands, expected evidence table, and caveats.
+- This mirrored STATE.md entry.
+
+### Evidence
+- Execution order guard (templates before HH:MM entries): **PASS**
+- All Phase 6B.2 deliverables verified: **PASS**
+- Self-consistency checklist: **PASS**
+- No secrets in committed files: **PASS**
+
+### Verdict
+READY
+
+### Blockers
+None
+
+### Fallbacks Used
+None
+
+### Cross-Repo Impact
+- **AI-Project-Manager** owns the "Host Restart Verification" pattern and all governance rules.
+- **open--claw** mirrors the STATE template and references the pattern from AI-Project-Manager.
+
+### Decisions Captured
+See `AI-Project-Manager/docs/ai/memory/DECISIONS.md` Phase 6B.2 entry.
+
+### Pending Actions
+None
+
+### What Remains Unverified
+
+**Machine-local items:**
+- Whether `loginctl enable-linger ynotf` is currently active.
+- Cold-reboot terminal window nvm auto-load (tested via `bash -ic` in prior sessions but not a true cold-reboot window test).
+
+**Repo-tracked items:**
+- None.
+
+### What's Next
+Phase 6C: First live integration (requires Gateway running with ANTHROPIC_API_KEY).
