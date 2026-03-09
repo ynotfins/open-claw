@@ -1656,3 +1656,31 @@ READY — session bootstrap complete.
 
 ### What's Next
 PLAN cycle for Phase 1 (Phase 6C.1): weather skill integration test.
+
+---
+
+## Execution Block: Phase 6C.1 — SOP Docs + 12 Skills + Smoke Tests
+**Timestamp:** 2026-03-09 22:50
+**Agent:** AGENT
+
+### Summary
+- Created 3 SOP documents (RUNTIME_REFERENCE, SKILL_MANAGEMENT, SESSION_BOOTSTRAP_SOP)
+- Installed 12 ClawHub skills (all 12 successful)
+- Skills list: 19/60 ready (up from 10/50)
+- Smoke tests: 5/5 Tier 1 PASS (weather, healthcheck, github, self-improving-agent, humanize-ai-text)
+- Tier 2: web-search-exa BLOCKED (needs MCP config), playwright-mcp PARTIAL (needs system Chromium)
+- Installed to `~/.openclaw/workspace/skills/` (workspace dir)
+- Playwright + chromium downloaded to `~/.cache/ms-playwright/`
+
+### Files Created
+- `docs/ai/operations/RUNTIME_REFERENCE.md`
+- `docs/ai/operations/SKILL_MANAGEMENT.md`
+
+### Cross-Repo Impact
+- AI-Project-Manager: SESSION_BOOTSTRAP_SOP.md + STATE.md + DECISIONS.md
+
+### What's Next
+1. Wire Exa MCP endpoint for web-search-exa
+2. System Chromium for Playwright in WSL
+3. Tier 3 credential setup (gmail, whatsapp, imap)
+4. Multi-skill agent workflows
