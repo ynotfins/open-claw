@@ -1526,3 +1526,64 @@ None
 
 ### What's Next
 Phase 2: First live integration — connect one external integration, test approval gate, validate audit log.
+
+---
+
+## 2026-03-08 20:37 — GitHub Restore Point: restore-20260308-2037-phase6c0
+
+### Goal
+Create a durable, named GitHub-backed restore point for both repos at post-Phase 6C.0 state, with HANDOFF.md updated and repo-tracked.
+
+### Scope
+- Tag created: `restore-20260308-2037-phase6c0` in this repo at `3807712`
+- Canonical evidence lives in `AI-Project-Manager/docs/ai/STATE.md`
+
+### Commands / Tool Calls
+See `AI-Project-Manager/docs/ai/STATE.md 2026-03-08 20:37` for full command log.
+
+### Changes
+- `open--claw/docs/ai/HANDOFF.md`: updated to Phase 1 COMPLETE, Phase 2 OPEN; 6C.0 evidence added
+- `open--claw/docs/ai/STATE.md`: this entry
+- Annotated tag `restore-20260308-2037-phase6c0` at `3807712` pushed to `origin/master`
+
+### Evidence
+- open--claw HEAD SHA: `380771275f6afe4245c2da61dfa0832c1d7fcb18`
+- Tag `restore-20260308-2037-phase6c0` pushed to `origin`: **PASS**
+- HANDOFF.md updated: **PASS**
+
+### Verdict
+READY — restore point committed and tagged.
+
+### Blockers
+None
+
+### Fallbacks Used
+None
+
+### Cross-Repo Impact
+- **AI-Project-Manager** (canonical governance repo): owns restore point metadata, HANDOFF screenshots, and full STATE evidence.
+- **open--claw** (this repo): tagged at `3807712`; HANDOFF.md updated.
+
+### Decisions Captured
+None
+
+### Pending Actions
+None
+
+### What Remains Unverified
+
+**Machine-local items (NOT covered by GitHub restore):**
+
+| Item | Location | Restore action |
+|---|---|---|
+| Model credentials | `~/.openclaw/.env` | Manually recreate (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`) |
+| Gateway config + token | `~/.openclaw/openclaw.json` | Re-run `pnpm openclaw onboard --install-daemon` |
+| OpenClaw build | `~/openclaw-build/` (WSL ext4) | Re-run `pnpm install && pnpm build && pnpm ui:build` |
+| Bitwarden access token | `BWS_ACCESS_TOKEN` env var | Set in PowerShell before `bws run` |
+| nvm / `.bashrc` fix | `~/.bashrc` lines 125-128 | Verify after any distro reset |
+
+**Repo-tracked items:**
+- None.
+
+### What's Next
+Phase 2: First live integration — connect one external integration, test approval gate, validate audit log.
