@@ -1701,3 +1701,52 @@ PLAN cycle for Phase 1 (Phase 6C.1): weather skill integration test.
 1. User: `pnpm openclaw configure --section channels` for built-in WhatsApp (QR scan)
 2. User: Delete MATON_API_KEY from Bitwarden
 3. Continue skill testing and multi-skill workflows
+
+## 2026-03-10 01:00 — Phase 6C.2 mirror: Audit Log Verification + Hybrid Model Routing
+
+### Goal
+Enable audit logging and configure hybrid model routing on the OpenClaw gateway.
+
+### Scope
+Machine-local: `~/.openclaw/openclaw.json`. Governance: AI-Project-Manager owns full evidence. This is a mirror entry.
+
+### Commands / Tool Calls
+See AI-Project-Manager/docs/ai/STATE.md for full command log.
+
+### Changes
+- `command-logger` hook enabled in `openclaw.json`
+- Model routing added: primary `anthropic/claude-sonnet-4-20250514`, fallback `openai/gpt-4o-mini`
+- Weather query tested via Control UI — PASS (Open-Meteo, 59°F NYC)
+- Model identity confirmed by agent — PASS
+
+### Evidence
+| Check | Result |
+|---|---|
+| Audit logging enabled | PASS |
+| Model routing configured | PASS |
+| Agent confirmed model identity | PASS |
+| Weather skill test | PASS |
+
+### Verdict
+READY
+
+### Blockers
+None
+
+### Fallbacks Used
+None (see AI-PM STATE.md for details)
+
+### Cross-Repo Impact
+AI-Project-Manager: PLAN.md exit criteria updated, full STATE entry appended.
+
+### Decisions Captured
+See AI-Project-Manager/docs/ai/STATE.md.
+
+### Pending Actions
+First integration + approval gate test (Phase 6C / Phase 2 remaining criteria).
+
+### What Remains Unverified
+`commands.log` file creation after next qualifying command event.
+
+### What's Next
+Phase 2 exit criteria: first integration connected, approval gate tested.
