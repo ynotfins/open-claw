@@ -1882,3 +1882,18 @@ None
 ### What's Next
 1. Remove backup directories after 24-hour verification
 2. Continue Phase 2 exit criteria: agent naming, Gmail OAuth, email integration
+
+## 2026-03-11 04:10 — Windows Node Host Connected (mirror)
+
+Full entry in `AI-Project-Manager/docs/ai/STATE.md`.
+
+**Summary**: Windows Desktop node host connected to WSL gateway. Copied WSL `dist/` to Windows vendor dir (native build failed due to bash scripts). Token synced between Windows and WSL configs. Auto-paired on first connect. Capabilities: browser, system (system.run, system.which). Agent can now access Windows filesystem and execute native commands.
+
+**Startup**: `cd D:\github\open--claw\vendor\openclaw && node openclaw.mjs node run --host 127.0.0.1 --port 18789 --display-name "Windows Desktop"` (gateway must be running first).
+
+**Verdict**: PASS — paired, connected, operational.
+
+### What's Next
+1. Test Windows file access via Sparky
+2. Consider `openclaw node install` for auto-start
+3. Continue Phase 2 exit criteria
