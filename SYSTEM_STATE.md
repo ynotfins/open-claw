@@ -24,11 +24,12 @@ GIT_EMAIL="tony@openclaw.ai"
 ## 🚨 Current Issues & Status
 
 ### ❌ BLOCKERS
-1. **🚨 CRITICAL: Windows Node Disconnected**
-   - Root cause discovered: Windows Desktop node paired but not connected
-   - Impact: ALL exec commands failing (not rate limits!)
+1. **🚨 CRITICAL: Windows Node Disconnected - SOLUTION FOUND**
+   - Root cause: Windows Desktop node paired but not connected (companion app missing)
+   - Impact: ALL exec commands failing (not Claude API rate limits!)
    - Node ID: 891178e980ebe57e373035ebbfc10162d228f649b46aeda07b1ff8696492f112
-   - **Fix needed**: Reconnect Windows companion app
+   - **Solution**: Install Windows companion app from https://github.com/shanselman/openclaw-windows-hub
+   - **Alternative**: Use Cursor's PowerShell MCP server for immediate testing
    
 2. **Build Environment**: Missing tools for APK build
    - pnpm command not found (may resolve after node reconnection)
