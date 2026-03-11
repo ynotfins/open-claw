@@ -1897,3 +1897,63 @@ Full entry in `AI-Project-Manager/docs/ai/STATE.md`.
 1. Test Windows file access via Sparky
 2. Consider `openclaw node install` for auto-start
 3. Continue Phase 2 exit criteria
+
+## 2026-03-11 04:10 — Molty (OpenClaw Windows Hub) v0.4.5 Installed
+
+### Goal
+Replace foreground Node.js node host with Molty, a persistent .NET WinUI system tray companion app providing richer node capabilities, auto-start, toast notifications, and embedded web chat.
+
+### Architecture
+```
+WSL Gateway (:18789) <--WebSocket--> Molty Tray App (Windows, system tray)
+                                      Caps: system, canvas, screen, camera
+```
+
+Replaces: `node openclaw.mjs node run --host 127.0.0.1 --port 18789` (foreground, terminal-bound)
+
+### Commands / Steps Executed
+1. Preflight: gateway health, token present, WebView2 v145.0.3800.97 — PASS
+2. Downloaded `OpenClawTray-Setup-x64.exe` v0.4.5 from `shanselman/openclaw-windows-hub` releases (65.7 MB) — PASS
+3. Stopped existing Node.js node host (PID 38812) — PASS
+4. User ran installer, Molty launched as `OpenClaw.Tray.WinUI` (PID 33224) — PASS
+5. Configured settings: token set, Node Mode enabled, gateway URL `ws://localhost:18789` — PASS
+6. Molty registered as "Windows Node (CHAOSCENTRAL)", request ID `f6fd2b5c-...` — PASS
+7. Approved device: `pnpm openclaw devices approve f6fd2b5c-...` — PASS (device ID `8af2d7db...`)
+8. Added `gateway.nodes.allowCommands` (13 commands) to WSL config, restarted gateway — PASS
+9. Molty reconnected after restart — PASS (logs: "Node status: Connected")
+10. Test `system.run` via Molty: `echo hello` → stdout "hello", exitCode 0 — PASS
+11. Test `system.notify` via Molty: toast notification sent — PASS
+
+### Evidence
+| Check | Result | Detail |
+|-------|--------|--------|
+| Gateway health | PASS | curl :18792 → OK |
+| Molty installed | PASS | OpenClaw.Tray.WinUI at `%LOCALAPPDATA%\OpenClawTray\` |
+| Node paired | PASS | ID 8af2d7db..., status: paired · connected |
+| Capabilities | PASS | camera, canvas, screen, system |
+| system.run test | PASS | stdout "hello", exitCode 0, 541ms |
+| system.notify test | PASS | sent: true |
+| Known nodes | 2 | Molty (connected), old Node.js "Windows Desktop" (disconnected) |
+
+### Verdict
+PASS — Molty v0.4.5 installed, paired, connected, and operational. System tray persistent node replaces foreground Node.js node.
+
+### Changes Made
+- Installed OpenClaw Windows Hub (Molty) v0.4.5 via setup exe
+- Molty settings at `%APPDATA%\OpenClawTray\settings.json`: token, Node Mode enabled
+- WSL gateway config: added `gateway.nodes.allowCommands` (13 commands)
+- Old Node.js node host stopped (was PID 38812)
+
+### Startup
+Molty auto-starts from system tray. If not, launch from Start Menu or `%LOCALAPPDATA%\OpenClawTray\OpenClaw.Tray.WinUI.exe`.
+
+### Pending
+- Remove stale "Windows Desktop" node entry (old Node.js node): `pnpm openclaw devices remove 891178e9...`
+- Enable auto-start in Molty Settings
+- Configure exec approval policy at `%LOCALAPPDATA%\OpenClawTray\exec-policy.json`
+
+### What's Next
+1. Enable Molty auto-start with Windows
+2. Remove stale old Node.js node registration
+3. Test canvas, screen capture capabilities
+4. Continue Phase 2 exit criteria
