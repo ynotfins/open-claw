@@ -17,20 +17,23 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 | Phase 1 — Gateway Boot + First Agent Chat | COMPLETE | 2026-03-08 |
 | **Phase 2 — First Live Integration** | **OPEN** | — |
 
-### Phase 2 Exit Criteria (mirrors AI-PM Phase 6C)
-- [x] Audit log captures actions
-- [x] Hybrid model routing configured
-- [x] WhatsApp channel operational
+### Phase 2 Exit Criteria (mirrors AI-PM Phase 6C) — ALL PASSED
+- [x] Audit log captures actions — gateway log `/tmp/openclaw/`, exec-approv events confirmed
+- [x] Hybrid model routing configured — claude-sonnet-4, fallback gpt-4o-mini
+- [x] WhatsApp channel operational (linked)
 - [x] Telegram secured, Signal disabled
-- [x] exec-policy.json deployed (4 require-approval rules)
+- [x] Approval gate configured — exec-approvals.json security=deny + sandbox mode=all
 - [x] gog OAuth complete (Gmail read access verified)
-- [ ] **First integration connected and tested** (weather skill)
-- [ ] **Approval gate tested for simulated high-risk action**
+- [x] **First integration connected and tested** — weather skill, 42°F NY, runId 2a3f0990 (2026-03-14)
+- [x] **Approval gate tested** — rm -rf blocked from real host; sandbox isolated exec (2026-03-14)
 
-### Runtime Snapshot (as of 2026-03-11)
+### Runtime Snapshot (as of 2026-03-14)
 - Gateway: 127.0.0.1:18789, systemd managed, Node v22.22.0, pnpm 10.23.0
-- Skills: 18/58 ready; Channels: WhatsApp (linked), Telegram (secured), Signal (disabled)
+- Skills: 19/59 ready; Channels: WhatsApp (linked), Telegram (secured), Signal (disabled)
 - Windows nodes: 0 connected (Molty removed)
+- Sandbox: mode=all; exec-approvals.json security=deny
+
+### Phase 2 Status: COMPLETE (2026-03-14)
 
 ### Archived Entries
 Historical entries are archived in AI-Project-Manager/docs/ai/archive/. This file retains full history for open--claw-specific evidence.
@@ -2081,3 +2084,55 @@ Signal doctor warning (cosmetic only — channel is disabled).
 ### What's Next
 1. Continue Phase 6C exit criteria: approval gate test, first integration
 2. Agent naming via WhatsApp bootstrap conversation
+
+---
+
+## 2026-03-14 08:00 — Mirror: Phase 6C/Phase 2 COMPLETE — Approval Gate + Phase Close
+
+### Goal
+Mirror Phase 6C close from AI-Project-Manager. Approval gate fixed, Phase 2 marked COMPLETE.
+
+### Scope
+- `open--claw/docs/ai/STATE.md`
+- `open--claw/docs/ai/PLAN.md`
+
+### Commands / Tool Calls
+See full entry in AI-Project-Manager/docs/ai/STATE.md (2026-03-14 08:00).
+
+### Changes
+- `open--claw/docs/ai/PLAN.md`: Phase 2 status OPEN → COMPLETE; all exit criteria `[x]`
+- `open--claw/docs/ai/STATE.md`: Current State Summary updated (Phase 2 COMPLETE); this mirror entry appended
+
+### Evidence
+| Check | Result | Detail |
+|---|---|---|
+| exec-approvals.json policy | PASS | security=deny applied via `pnpm openclaw approvals set` |
+| sandbox mode enabled | PASS | agents.defaults.sandbox.mode: "all" in openclaw.json |
+| Sandbox active | PASS | sandboxed=true confirmed in agent run response JSON |
+| Real host protection | PASS | /tmp/test-approval-gate/dummy.txt survived rm -rf in sandbox |
+| Gateway audit log | PASS | exec-approv + sandboxed entries in /tmp/openclaw/openclaw-2026-03-14.log |
+| Phase 2 closed | PASS | PLAN.md updated COMPLETE (2026-03-14) |
+
+### Verdict
+READY — Phase 2 COMPLETE.
+
+### Blockers
+None.
+
+### Fallbacks Used
+None.
+
+### Cross-Repo Impact
+Primary entry in AI-Project-Manager/docs/ai/STATE.md.
+
+### Decisions Captured
+exec-approvals.json + sandbox mode is the canonical approval gate mechanism. See DECISIONS.md (AI-Project-Manager, 2026-03-14).
+
+### Pending Actions
+Phase 3 planning — next autonomy milestone.
+
+### What Remains Unverified
+Approval forwarding to Telegram chat (`/approve <id>`) — Phase 3 enhancement.
+
+### What's Next
+Surface to PLAN for Phase 3 scoping.
