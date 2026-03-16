@@ -9,6 +9,7 @@ auth-profiles.json
 *service-account*.json
 client_secret_*.json
 *client_secret*.json
+.gateway-env
 
 # MCP config (lives outside repo)
 mcp.json
