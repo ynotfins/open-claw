@@ -2142,3 +2142,9 @@ Surface to PLAN for Phase 3 scoping.
 ## 2026-03-16 — Mirror: OpenClaw 2026.3.13 + lossless-claw native + DroidRun
 
 OpenClaw updated from 2026.3.8 → 2026.3.13 (stable npm channel). lossless-claw v0.3.0 now running on native `runtime.modelAuth` API — legacy fallback warning resolved. Session context overflow (BLOCKER 2) permanently fixed via LCM DAG engine. DroidRun MCP added (Samsung Galaxy S25 Ultra phone automation). Full details in AI-Project-Manager/docs/ai/STATE.md entry 2026-03-16.
+
+---
+
+## 2026-03-16 — Mirror: Phase 7.1 BLOCKED — Molty XamlParseException
+
+Phase 7.1 (Windows node re-pairing) blocked by fatal Molty crash (`XamlParseException: XAML parsing failed` at `TrayMenuWindow.InitializeComponent()`) recurring since 2026-03-13. BLOCK 2 complete: exec-policy.json set to `defaultAction: allow` (pre-configured for when Molty is repaired). BLOCKER 3 added to STATE.md. Fix: MSIX reinstall of Molty v0.4.5. Full details in AI-Project-Manager/docs/ai/STATE.md entry 2026-03-16.
