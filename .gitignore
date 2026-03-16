@@ -1,9 +1,12 @@
-# Secrets and local config
+# Secrets and local config — NEVER commit secrets (see global rule no-secrets-in-files.mdc)
 .env
 .env.*
 .env.local
 *.pem
 *.key
+auth-profiles.json
+*-key-ed25519.json
+*service-account*.json
 client_secret_*.json
 *client_secret*.json
 
