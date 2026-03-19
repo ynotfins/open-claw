@@ -1,4 +1,5 @@
 # Secrets and local config — NEVER commit secrets (see global rule no-secrets-in-files.mdc)
+open-claw/employees/deployed/
 .env
 .env.*
 .env.local
