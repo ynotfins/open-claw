@@ -53,3 +53,16 @@
 
 **AGENT prompt:**
 <!-- To be written by PLAN tab before Phase 2 execution. -->
+
+---
+
+## Phase 3 — Runtime Hardening + Employee Operations (ACTIVE)
+
+**Goal:** Maintain stable autonomous runtime and safely scale controlled employee workflows.
+
+**Priority outcomes:**
+- [x] Gateway/channel baseline stable on OpenClaw v2026.3.13
+- [x] Windows execution path connected for host operations
+- [x] Bitwarden-injected Docker employee deployment baseline established
+- [ ] Complete remaining employee rollout items under controlled permissions
+- [ ] Keep docs synchronized with governance repo (`AI-Project-Manager`)

@@ -7,7 +7,7 @@ This document is the human-readable guide to the Cursor workflow used in the Ope
 We use exactly five Cursor chat tabs, each with a distinct role:
 
 | Tab     | Role                     | Edits files? | Runs commands? |
-|---------|--------------------------|--------------|----------------|
+| ------- | ------------------------ | ------------ | -------------- |
 | PLAN    | Architect / Strategist   | No           | No             |
 | AGENT   | Executor / Implementer   | Yes          | Yes            |
 | DEBUG   | Investigator / Forensics | No           | No             |
@@ -16,9 +16,18 @@ We use exactly five Cursor chat tabs, each with a distinct role:
 
 See `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md` for the first prompt to paste into each tab.
 
+PLAN output requirement:
+
+- Every PLAN response must end with exactly one copy-pastable AGENT execution prompt.
+- The AGENT prompt must start with:
+  - `You are AGENT (Executioner)`
+  - `Model: <model> — <thinking|non-thinking>`
+- Prefer lowest-cost safe model; default non-thinking for straightforward execution.
+
 ## Where Rules Live
 
 Authoritative (repo-tracked):
+
 - `.cursor/rules/00-global-core.md` — non-negotiable behaviors
 - `.cursor/rules/05-global-mcp-usage.md` — MCP tool usage policy
 - `.cursor/rules/10-project-workflow.md` — tab contracts (Open Claw specific)
@@ -26,18 +35,36 @@ Authoritative (repo-tracked):
 - `AGENTS.md` — agent operating contract (repo root)
 
 Developer-local (optional):
+
 - Cursor User Rules for personal preferences (formatting, tone)
 - Never put project invariants solely in user-local rules
 
 ## State and Planning
 
 - `docs/ai/STATE.md` — current execution state; updated after every AGENT block
+- `docs/ai/HANDOFF.md` — concise operator snapshot; AGENT keeps this accurate after meaningful state changes
 - `docs/ai/PLAN.md` — active plan with phases and exit criteria
 - `docs/ai/ARCHIVE.md` — compressed decisions and knowledge from past sessions
+- `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` — runtime mission, priorities, and anti-drift constraints
+- `docs/ai/operations/CONTEXT_WINDOW_MONITORING.md` — context budget and file-size guardrails
+- `AI-Project-Manager/docs/ai/operations/POLICY_DRIFT_CHECKER.md` — canonical parity checker for mirrored rules
 
 ## Excluded directories
 
+- `docs/ai/context/` — non-canonical artifact storage: transcript-derived files, bulk session dumps, ephemeral context. Informative only; never authoritative.
 - `docs/ai/archive/` — superseded docs. **Never consulted** by PLAN. Historical reference only.
+
+## Context source priority
+
+When PLAN or DEBUG needs to understand current state, consult sources in this order:
+
+1. `docs/ai/STATE.md` — primary
+2. `docs/ai/memory/DECISIONS.md` — key decisions
+3. `docs/ai/memory/PATTERNS.md` — reusable patterns
+4. `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` — long-term goals and constraints
+5. `docs/ai/operations/CONTEXT_WINDOW_MONITORING.md` — context budget guardrails
+6. `docs/ai/context/` — session artifacts and dumps
+7. `@Past Chats` — **last resort only**; use only if all above sources are insufficient
 
 ## Memory
 

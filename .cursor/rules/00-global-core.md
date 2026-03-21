@@ -1,5 +1,7 @@
 # 00 — Global Core (non-negotiables)
 
+AI-Project-Manager is the canonical governance authority for workflow, state, and tool policy. This repo mirrors those standards and must not weaken them.
+
 ## Tab separation
 
 Five tabs only: PLAN / AGENT / DEBUG / ASK / ARCHIVE.

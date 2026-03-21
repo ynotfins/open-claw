@@ -2,12 +2,16 @@
 
 A modular AI assistant platform for code, communication, and workflow automation.
 
+Current status: Phase 2 (First Live Integration) is complete; runtime hardening and autonomous operations are active.
+
 ## Project structure
 
 - `.cursor/rules/` — layered Cursor rules (global + project)
 - `docs/ai/` — workflow docs, state tracking, planning, memory
 - `open-claw/docs/` — project vision, requirements, modules, integrations
 - `AGENTS.md` — agent operating contract
+
+This execution repo is governed by `AI-Project-Manager` in the tri-workspace stack (`AI-Project-Manager` + `open--claw` + `droidrun`).
 
 ## Getting started
 

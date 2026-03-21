@@ -41,4 +41,4 @@ the orchestrator, not direct imports.
 
 - Pin versions once stable.
 - Document upgrades in commit messages.
-- Use a docs MCP tool to verify library APIs before adopting new versions.
+- Use Context7 (`query-docs`) to verify library APIs before adopting new versions.

@@ -1,5 +1,14 @@
 # MCP Health Log
 
+## Current Status (2026-03-19)
+
+- This file is primarily a historical MCP troubleshooting log.
+- Canonical active behavior is governed by:
+  - `AI-Project-Manager/docs/tooling/MCP_CANONICAL_CONFIG.md`
+  - `AI-Project-Manager/.cursor/rules/05-global-mcp-usage.md`
+  - `docs/ai/STATE.md` for current execution evidence
+- Older FAIL/BLOCKED entries below should be interpreted in their original time context.
+
 ## 2026-02-24 — Filesystem MCP Setup Attempts
 
 ### Environment
