@@ -1,74 +1,55 @@
 # Agent Handoff — Open Claw
 
-**Date**: 2026-03-11
-**Handing off after**: Phase 1 COMPLETE, Phase 2 in progress (WhatsApp verified, Windows node host connected)
-**Next action**: Phase 2 — first integration connected, approval gate tested
+**Date**: 2026-03-21  
+**Status**: Current handoff (replaces 2026-03-11 snapshot)  
+**Primary source of truth**: `docs/ai/STATE.md` (mirrors governance state)
 
-Previous handoff archived at `docs/ai/archive/handoff-2026-03-08.md`.
-
----
-
-## 1. What This Project Is
-
-**Open Claw** is a modular AI assistant platform built on [OpenClaw](https://github.com/openclaw/openclaw) v2026.3.8. It orchestrates code development, communication, and workflow automation. This is the **execution** repo; governance lives in `AI-Project-Manager`.
+Previous handoff snapshot remains at `docs/ai/archive/handoff-2026-03-08.md`.
 
 ---
 
-## 2. Current State
+## 1. Project Role
 
-### Runtime (ChaosCentral)
-
-- **Gateway**: `127.0.0.1:18789`, WSL, systemd managed, token auth
-- **WhatsApp**: linked, connected, selfChatMode, allowlist
-- **Windows node host**: paired + connected ("Windows Desktop"), caps: browser, system
-- **Skills**: 19/58 ready
-- **Model routing**: primary `anthropic/claude-sonnet-4-20250514`, fallback `openai/gpt-4o-mini`
-- **Agent**: not yet named (bootstrap pending)
-
-### Phase Status
-
-| Phase | Status |
-|-------|--------|
-| Phase 0 — Project Kickoff | COMPLETE |
-| Phase 1 — Gateway Boot + Integration Scaffold | COMPLETE |
-| Phase 2 — First Live Integration | **OPEN** |
-
-### Startup
-
-```
-bws run --project-id f14a97bb-5183-4b11-a6eb-b3fe0015fedf -- pwsh -NoProfile -File "$HOME\.openclaw\start-cursor-with-secrets.ps1"
-```
+`open--claw` is the execution/runtime repository for the OpenClaw-based assistant stack.  
+Governance, workflow policy, and cross-project orchestration remain in `AI-Project-Manager`.
 
 ---
 
-## 3. Phase 2 — What Remains
+## 2. Current Runtime Truth
 
-- [ ] First integration connected end-to-end
-- [ ] Approval gate tested
-- [ ] Audit log captures full action chain
-- [ ] Cost tracking active
-- [ ] Security review
-
-**Pending user actions:**
-1. Name agent via WhatsApp
-2. Gmail OAuth: `gog auth credentials` + `gog auth add ynotfins@gmail.com`
-3. MXRoute email: install `imap-smtp-email` + provide credentials
+- OpenClaw runtime: **`v2026.3.13-1` via `~/openclaw-build`** (CLI `pnpm openclaw` matches systemd `dist/index.js`)
+- Gateway: healthy on `127.0.0.1:18789` (UI) and `127.0.0.1:18792` (API health)
+- Channels: Telegram + WhatsApp healthy; Signal disabled
+- Windows node: **verify** `nodes status` — Desktop host may be **disconnected** until `node.cmd` is relaunched after reboot
+- Execution mode: direct host path active (sandbox mode off by design for autonomous operation)
+- Context engine: lossless-claw active for long-session resilience
+- Canonical gateway restart: see `AI-Project-Manager/docs/ai/operations/openclaw-gateway-restart.md` (mirror: `docs/ai/operations/openclaw-gateway-restart.md`)
 
 ---
 
-## 4. Key Facts
+## 3. Phase Status
 
-- REST API chat: 405 (WebSocket only on this gateway version)
-- Build in `~/openclaw-build/`, never `/mnt/d/`
-- Windows node host dist copied from WSL build to `D:\github\open--claw\vendor\openclaw\dist\`
-- `docs/ai/archive/` — never consulted by PLAN (historical only)
+- Phase 0 — Project Kickoff: COMPLETE
+- Phase 1 — Gateway Boot + Integration Scaffold: COMPLETE
+- Phase 2 — First Live Integration: COMPLETE (2026-03-14)
+- Post-Phase-2 hardening/ops: ACTIVE
 
 ---
 
-## 5. Files to Read First
+## 4. Current Focus
 
-1. `AGENTS.md` — operating contract
-2. `docs/ai/STATE.md` — execution log
-3. `docs/ai/PLAN.md` — active plan
-4. `open-claw/docs/SETUP_NOTES.md` — local runtime setup
-5. `open-claw/docs/ARCHITECTURE_MAP.md` — hub-and-spoke architecture
+1. Keep runtime startup and node connectivity stable across reboots.
+2. Maintain secure secrets path (Bitwarden injection; no committed `.env*` files).
+3. Continue controlled CrewClaw employee rollout and operational verification.
+
+---
+
+## 5. Read Order For Sessions
+
+1. `AGENTS.md`
+2. `docs/ai/STATE.md`
+3. `docs/ai/PLAN.md`
+4. `docs/ai/memory/DECISIONS.md`
+5. `open-claw/docs/SETUP_NOTES.md`
+
+Use archive docs as historical evidence only.
