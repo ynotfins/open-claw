@@ -2846,3 +2846,19 @@ WhatsApp NOT LINKED — user must run pnpm openclaw channels login --channel wha
 
 ### What's Next
 User scans WhatsApp QR; verify channel probe. See full entry in AI-Project-Manager/docs/ai/STATE.md.
+
+## 2026-03-21 19:00 - Mirror: STATE.md Rolling Archive (842 -> 280 lines)
+
+### Goal
+Mirror of AI-Project-Manager STATE entry. STATE.md brought into compliance: 842 -> 280 lines. 8 entries archived verbatim to 2 new archive files. No operational truth lost.
+
+### Verdict
+PASS — 280 lines, 2 active entries kept, DECISIONS.md/PATTERNS.md continuity confirmed.
+
+### Changes
+- state-log-windows-node-crewclaw-2026-03-17-18.md created (5 entries)
+- state-log-ops-governance-2026-03-19.md created (5 entries)
+- rchive/README.md updated (14 entries indexed)
+
+### What's Next
+Continue normal operations. See full entry in AI-Project-Manager/docs/ai/STATE.md.
