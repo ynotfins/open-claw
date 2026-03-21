@@ -2826,3 +2826,23 @@ None.
 ### What's Next
 
 Proceed with runtime tasks using updated prompt and workflow contracts.
+
+## 2026-03-21 18:00 — Mirror: Post-Restart Hardening (WhatsApp + Rate Limit + Node Hygiene)
+
+### Goal
+Mirror of AI-Project-Manager STATE entry. Post-restart OpenClaw hardening: rate limiting, WhatsApp session recovery (pending QR scan), stale node removal, orphan transcript archive, Windows Desktop node reconnected.
+
+### Verdict
+PARTIAL — All automated fixes PASS. WhatsApp: PENDING USER ACTION (QR scan).
+
+### Key Changes
+- gateway.auth.rateLimit added to openclaw.json
+- Stale node 847202f0 removed
+- 7 orphan transcripts archived
+- Windows Desktop: Connected:1
+
+### Blockers
+WhatsApp NOT LINKED — user must run pnpm openclaw channels login --channel whatsapp and scan QR.
+
+### What's Next
+User scans WhatsApp QR; verify channel probe. See full entry in AI-Project-Manager/docs/ai/STATE.md.
