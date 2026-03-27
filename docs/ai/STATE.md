@@ -2858,7 +2858,7 @@ PASS — 280 lines, 2 active entries kept, DECISIONS.md/PATTERNS.md continuity c
 ### Changes
 - state-log-windows-node-crewclaw-2026-03-17-18.md created (5 entries)
 - state-log-ops-governance-2026-03-19.md created (5 entries)
-- rchive/README.md updated (14 entries indexed)
+- `docs/ai/archive/README.md` updated (14 entries indexed)
 
 ### What's Next
 Continue normal operations. See full entry in AI-Project-Manager/docs/ai/STATE.md.
