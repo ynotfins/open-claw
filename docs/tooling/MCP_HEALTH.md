@@ -147,7 +147,7 @@ projects:
 | `plugin-cloudflare-cloudflare-builds` | YES (1 tool: mcp_auth) | UNKNOWN | **WARN** | Auth gate tool only |
 | `plugin-cloudflare-cloudflare-observability` | YES (1 tool: mcp_auth) | UNKNOWN | **WARN** | Auth gate tool only |
 | `serena` | **NO** | **NO** | **FAIL** | Not registered in this workspace |
-| `sequential-thinking` | **NO** | **NO** | **FAIL** | Not registered in this workspace |
+| `Clear Thought 1.5` | **NO** | **NO** | **FAIL** | Not registered in this workspace |
 | `Memory Tool (mem0)` | **NO** | **NO** | **FAIL** | Not registered in this workspace (was registered in open--claw workspace context previously) |
 | `filesystem` (RO) | **NO** | **NO** | **FAIL** | Project-level `.cursor/mcp.json` removed (per 2026-02-24 entry); global config only has GitKraken |
 
@@ -235,7 +235,7 @@ The `@modelcontextprotocol/server-filesystem` MCP server is not active in this s
 | `Stripe` | http | none | **WRITTEN** |
 | `playwright` | stdio (npx) | none | **WRITTEN** |
 | `github` | stdio (npx) | `GITHUB_PERSONAL_ACCESS_TOKEN` | **BLOCKED** — placeholder; fill from Bitwarden |
-| `sequential-thinking` | stdio (npx) | none | **WRITTEN** |
+| `Clear Thought 1.5` | stdio (npx) | none | **WRITTEN** |
 | `firecrawl-mcp` | stdio (npx) | `FIRECRAWL_API_KEY` | **BLOCKED** — placeholder; fill from Bitwarden |
 | `firestore-mcp` | stdio (npx smithery) | none | **WRITTEN** |
 | `Magic MCP` | stdio (cmd/npx) | Magic API key | **BLOCKED** — placeholder; fill from Bitwarden |
@@ -278,7 +278,7 @@ The `@modelcontextprotocol/server-filesystem` MCP server is not active in this s
 | Memory Tool | PASS (no secret) |
 | Stripe | PASS (no secret) |
 | playwright | PASS (no secret) |
-| sequential-thinking | PASS (no secret) |
+| Clear Thought 1.5 | PASS (no secret) |
 | serena | PASS (uvx pulls from git on first use) |
 | filesystem_scoped | PASS (no secret) |
 | shell-mcp | PASS (no secret) |

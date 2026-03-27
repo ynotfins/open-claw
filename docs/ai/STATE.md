@@ -2862,3 +2862,47 @@ PASS — 280 lines, 2 active entries kept, DECISIONS.md/PATTERNS.md continuity c
 
 ### What's Next
 Continue normal operations. See full entry in AI-Project-Manager/docs/ai/STATE.md.
+
+## 2026-03-27 12:00 — GitHub sync: rebase local master onto origin
+
+### Goal
+Resolve divergence (local 2 commits vs origin 36) and push a single linear history to `origin/master`.
+
+### Scope
+`docs/ai/PLAN.md`, `docs/ai/STATE.md`, `.cursor/rules/05-global-mcp-usage.md`, `.cursor/rules/10-project-workflow.md`, `docs/ai/HANDOFF.md`, `open-claw/docs/CODING_AGENT_MAPPING.md`
+
+### Commands / Tool Calls
+`git fetch origin`; `git pull --rebase origin master`; conflict resolution; `git rebase --continue`; `git push origin master`
+
+### Changes
+Rebase applied local commits onto latest GitHub mirror. Conflicts resolved by keeping upstream operational docs where they are the governance mirror; `CODING_AGENT_MAPPING.md` updated so orchestrator row uses Clear Thought 1.5 and `openmemory` (aligned with `05-global-mcp-usage.md`). Minor PLAN typo corrected (`MODULES.md`). Rolling-archive STATE line uses `` `docs/ai/archive/README.md` `` path.
+
+### Evidence
+- **git fetch origin**: **PASS** — `master` advanced to `55dac3f`
+- **git pull --rebase origin master**: **PARTIAL then PASS** — conflicts in PLAN/STATE/rules/HANDOFF/CODING_AGENT_MAPPING; resolved manually
+- **rebase --continue (2 commits)**: **PASS** — both commits replayed after resolution
+- **git push origin master**: **PENDING** — run after rebase completes clean
+
+### Verdict
+PARTIAL until push confirms.
+
+### Blockers
+None for conflict resolution.
+
+### Fallbacks Used
+None.
+
+### Cross-Repo Impact
+None.
+
+### Decisions Captured
+Prefer upstream (`HEAD` during rebase) for mirrored governance files; merge only mapping table naming to match current MCP policy.
+
+### Pending Actions
+Confirm `git push origin master` succeeds; user auth if prompted.
+
+### What Remains Unverified
+Remote `master` SHA after push.
+
+### What's Next
+Complete push; verify `git status` clean and branch tracking `origin/master`.

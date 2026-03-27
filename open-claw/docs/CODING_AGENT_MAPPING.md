@@ -25,7 +25,7 @@ The Cursor IDE provides additional capabilities that complement OpenClaw's codin
 | Context7 | Library docs, API reference | dev |
 | playwright | Browser testing, UI verification | web |
 | openmemory | Cross-session recall | memory |
-| sequential-thinking | Reasoning, planning | orchestrator |
+| Clear Thought 1.5 | Reasoning, planning | orchestrator |
 
 ## Dev Loop
 
