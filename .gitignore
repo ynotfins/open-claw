@@ -1,4 +1,7 @@
 # Secrets and local config — NEVER commit secrets (see global rule no-secrets-in-files.mdc)
+open-claw/Agents-Bulk/
+open-claw/AI_Employee_knowledgebase/source_repos/
+open-claw/employees/
 open-claw/employees/deployed/
 .env
 .env.*
