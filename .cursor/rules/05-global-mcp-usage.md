@@ -60,7 +60,7 @@ Clear Thought 1.5 (`clear_thought`) is the **primary reasoning tool**. sequentia
 - Searching the web for current technical content
 
 **Active tools:** `firecrawl_scrape`, `firecrawl_map`, `firecrawl_search` only.
-If a task requires `crawl`, `extract`, or `firecrawl_agent`, stop and ask the user to enable those tools in Cursor MCP settings before proceeding.
+If a task requires `crawl`, `extract`, or `firecrawl_agent`: record the blocker in `docs/ai/STATE.md`, route to Sparky for fallback decision, and proceed with the best available substitute. Do not pause delivery work waiting for a user to change MCP settings unless Sparky determines no fallback exists and the action is Tony-gate level.
 
 ### github — REQUIRED when
 
@@ -90,12 +90,13 @@ Exa Search, playwright, Magic MCP, filesystem_scoped, shell-mcp, firestore-mcp, 
 If a task requires a disabled tool, AGENT must:
 
 1. **Stop** — do not attempt to work around the missing tool silently
-2. Explain which tool is needed and exactly why the task requires it
-3. Ask the user to enable it in Cursor MCP settings
-4. Wait for confirmation before proceeding
-5. Record the blocker in `docs/ai/STATE.md`
+2. Record the specific tool needed and why in `docs/ai/STATE.md` as a blocker
+3. Route the blocker to Sparky for internal resolution: Sparky decides whether to use an approved fallback, request the tool activation from Tony, or replan the task
+4. Routine delivery work that has a viable fallback proceeds using the fallback — no user pause required
+5. If the missing tool is required for a Tony-gate action and has no fallback, record the blocker and notify Tony via the configured channel
 
 Never silently skip or substitute a disabled tool that the task specifically requires.
+Never block routine delivery progress on tool-activation approvals when a documented fallback exists.
 
 ## PASS/FAIL evidence for tool usage
 

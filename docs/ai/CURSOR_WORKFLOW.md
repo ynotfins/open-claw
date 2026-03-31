@@ -2,6 +2,26 @@
 
 This document is the human-readable guide to the Cursor workflow used in the Open Claw project.
 
+## Authority Hierarchy
+
+`open--claw` is the **strict enforcement center** of the tri-workspace. The product charter lives here.
+
+| Priority | Document | Status |
+| --- | --- | --- |
+| 1 | `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` | **Supreme product charter** — no agent, rule, doc, or prompt in any repo overrides it |
+| 2 | Tony's explicit permission to change that file | Only way to amend the charter |
+| 3 | `AUTHORITATIVE_STANDARD.md` and `TEAM_ROSTER.md` | Subordinate translations of the charter |
+| 4 | Repo-local rules and workflow docs (this file, `.cursor/rules/*`) | Valid only when they do not conflict with the above |
+| 5 | `docs/ai/STATE.md`, `docs/ai/HANDOFF.md` | **Operational evidence only** — never product law |
+
+**Workspace layer model:**
+
+| Workspace | Role |
+| --- | --- |
+| `AI-Project-Manager` | Workflow and process layer — tab discipline, execution contracts, state tracking, tool policy, cross-repo orchestration. Does not issue product law. |
+| `open--claw` | **Strict enforcement center** — product charter, AI employee knowledgebase, Sparky's mandate, quality standards |
+| `droidrun` | Actuator layer — phone automation, MCP phone tools, Portal/APK runtime bridge |
+
 ## Five-Tab Model
 
 We use exactly five Cursor chat tabs, each with a distinct role:
@@ -28,6 +48,7 @@ PLAN output requirement:
 
 Authoritative (repo-tracked):
 
+- `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — **supreme product charter**
 - `.cursor/rules/00-global-core.md` — non-negotiable behaviors
 - `.cursor/rules/05-global-mcp-usage.md` — MCP tool usage policy
 - `.cursor/rules/10-project-workflow.md` — tab contracts (Open Claw specific)
@@ -41,8 +62,8 @@ Developer-local (optional):
 
 ## State and Planning
 
-- `docs/ai/STATE.md` — current execution state; updated after every AGENT block
-- `docs/ai/HANDOFF.md` — concise operator snapshot; AGENT keeps this accurate after meaningful state changes
+- `docs/ai/STATE.md` — **operational evidence log**; PLAN reads this to understand current state, blockers, and cross-repo effects. **This is evidence, not product law.**
+- `docs/ai/HANDOFF.md` — concise operator snapshot; AGENT keeps this accurate after meaningful state changes. **Operational evidence only.**
 - `docs/ai/PLAN.md` — active plan with phases and exit criteria
 - `docs/ai/ARCHIVE.md` — compressed decisions and knowledge from past sessions
 - `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` — runtime mission, priorities, and anti-drift constraints
@@ -58,13 +79,14 @@ Developer-local (optional):
 
 When PLAN or DEBUG needs to understand current state, consult sources in this order:
 
-1. `docs/ai/STATE.md` — primary
-2. `docs/ai/memory/DECISIONS.md` — key decisions
-3. `docs/ai/memory/PATTERNS.md` — reusable patterns
-4. `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` — long-term goals and constraints
-5. `docs/ai/operations/CONTEXT_WINDOW_MONITORING.md` — context budget guardrails
-6. `docs/ai/context/` — session artifacts and dumps
-7. `@Past Chats` — **last resort only**; use only if all above sources are insufficient
+1. `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — supreme product charter
+2. `docs/ai/STATE.md` — operational evidence
+3. `docs/ai/memory/DECISIONS.md` — key decisions
+4. `docs/ai/memory/PATTERNS.md` — reusable patterns
+5. `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` — long-term goals and constraints
+6. `docs/ai/operations/CONTEXT_WINDOW_MONITORING.md` — context budget guardrails
+7. `docs/ai/context/` — session artifacts and dumps
+8. `@Past Chats` — **last resort only**; use only if all above sources are insufficient
 
 ## Memory
 
@@ -72,10 +94,13 @@ When PLAN or DEBUG needs to understand current state, consult sources in this or
 - `docs/ai/memory/DECISIONS.md` — log of key decisions with rationale
 - `docs/ai/memory/PATTERNS.md` — reusable patterns discovered during development
 
-Memory MCP tools supplement these docs for cross-session and cross-project recall.
+Memory MCP tools supplement these docs for cross-session and cross-project recall. All stored memory is subordinate to the product charter.
 
 ## Open Claw Project Docs
 
+- `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — supreme product charter
+- `open-claw/AI_Employee_knowledgebase/AUTHORITATIVE_STANDARD.md` — curated house standard
+- `open-claw/AI_Employee_knowledgebase/TEAM_ROSTER.md` — AI employee team structure
 - `open-claw/docs/VISION.md` — project vision and goals
 - `open-claw/docs/REQUIREMENTS.md` — initial requirements
 - `open-claw/docs/MODULES.md` — module boundaries

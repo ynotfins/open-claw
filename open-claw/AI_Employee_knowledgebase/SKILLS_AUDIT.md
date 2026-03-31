@@ -26,3 +26,11 @@
 
 ## Audit Verdict
 The repo already had communication and approval primitives, but it lacked the software-delivery skill layer. This pass adds the missing build, QA, architecture, release, and handoff playbooks needed for a real development team.
+
+## Current Runtime Status
+- Tracked skill folders present in `open-claw/skills/`: **18**
+- Communication and approval skills tracked: **8**
+- Curated delivery skills assigned to the 15-employee roster: **10**
+- The assigned curated skills are copied into each employee packet under `AI_employees/<employee>/skills/`.
+- Structural validation is complete: the generated runtime packets, copied skill files, and generated worker scripts all pass repo-side validation.
+- Live skill invocation is **not yet fully proven** for the generated curated runtime because only 10 assigned workers currently have direct Bitwarden secret IDs wired in repo, 3 already-assigned workers still need env vars or recorded secret IDs, 2 curated workers still need brand-new Telegram bots, and the generated workers have not yet completed end-to-end gateway smoke tests.

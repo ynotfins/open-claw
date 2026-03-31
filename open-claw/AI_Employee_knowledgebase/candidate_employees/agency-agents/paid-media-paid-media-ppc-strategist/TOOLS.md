@@ -1,0 +1,13 @@
+# Tools
+
+## Expected Tools
+- WebFetch
+- WebSearch
+- Read
+- Write
+- Edit
+- Bash
+
+## Notes
+- Tool expectations come from source frontmatter and role/category inference.
+- Validate real tool availability before using this role in live runtime work.

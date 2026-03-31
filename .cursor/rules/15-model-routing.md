@@ -1,6 +1,9 @@
 # 15 — Model Routing (Open Claw)
 
 > Extends: `10-project-workflow.md`
+> Subordinate to: `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` (supreme authority)
+
+Routine delivery work does not stop to wait for user-confirmed model switches. The team escalates internally — AGENT may route to a stronger model or to Sparky without user confirmation. Tony approval is not required for model selection.
 
 ---
 
@@ -9,6 +12,7 @@
 All model references must use these exact labels. No aliases, no abbreviations.
 
 ### Thinking-class models
+
 These models perform extended internal reasoning before responding. Use for ambiguous,
 high-stakes, multi-step, or architectural tasks where correctness matters more than speed.
 
@@ -19,6 +23,7 @@ high-stakes, multi-step, or architectural tasks where correctness matters more t
 - **GPT-5.2 Codex Fast**
 
 ### Non-thinking-class models
+
 These models respond directly without extended reasoning. Use for implementation,
 code generation, and execution tasks where the plan is already clear.
 
@@ -29,6 +34,7 @@ code generation, and execution tasks where the plan is already clear.
 - **Opus 4.5**
 
 ### Fast utility models
+
 Optimized for speed and low cost. Use for triage, summarization, compression,
 and single-turn lookups where reasoning depth is not needed.
 
@@ -62,68 +68,89 @@ OVERRIDE: yes — <reason> | no
 | ARCHIVE | GPT-5.2 Low | fast utility |
 
 **Rationale:**
-- PLAN and DEBUG require deep reasoning to catch design flaws and root causes before
-  any code is written or changed. Thinking-class models catch contradictions and
-  edge cases that non-thinking models miss.
-- AGENT executes a plan that has already been reasoned through. Non-thinking-class
-  models are faster for straightforward implementation work.
-- ASK and ARCHIVE handle lightweight single-turn lookups and compression where
-  reasoning depth provides no benefit.
+
+- PLAN and DEBUG require deep reasoning to catch design flaws and root causes before any code is written or changed. Thinking-class models catch contradictions and edge cases that non-thinking models miss.
+- AGENT executes a plan that has already been reasoned through. Non-thinking-class models are faster for straightforward implementation work.
+- ASK and ARCHIVE handle lightweight single-turn lookups and compression where reasoning depth provides no benefit.
 
 ---
 
-## Escalation Rules
+## Internal Escalation Rules
 
-### Rule A — AGENT Hard Escalation (MUST stop, no exceptions)
+Model escalation is an internal delivery decision. AGENT does not stop and wait for the user to confirm a model switch — it escalates internally and continues.
 
-If AGENT is asked to perform any of the following:
+### Rule A — AGENT Internal Escalation (no user stop required)
+
+If AGENT encounters any of the following situations during delivery:
+
 - Multi-module refactor (touching more than one module boundary)
 - Any change touching auth, security, secrets, or credential handling
 - Designing new architecture or routing
 - Modifying rules or governance files (`.cursor/rules/`, `AGENTS.md`)
 - Debugging nondeterministic failures (flaky tests, race conditions, intermittent errors)
+- Any situation where the current reasoning depth is clearly insufficient
 
-AGENT **must stop immediately** and output exactly:
+AGENT must:
 
-```
-SWITCH MODEL TO: GPT-5.2 Codex High (thinking-class)
-WHY: <one sentence explaining the trigger>
-NEXT PROMPT AFTER SWITCH: <one complete prompt ready to paste>
-```
+1. **Record** the trigger in `docs/ai/STATE.md` (what triggered escalation and why)
+2. **Route to Sparky** — delegate the problematic step to `sparky-chief-product-quality-officer` for resolution or re-planning
+3. **Or self-escalate** — if routing to Sparky is not available in the current session, continue using a thinking-class model (GPT-5.2 Codex High) for the current step
+4. **Continue delivery** — do not stop and wait for user confirmation of the model change
 
-AGENT must not continue the task until the user confirms the model switch was applied.
-This is a hard stop — no partial work, no "I'll just do the easy parts first."
+AGENT must record in the response header: `OVERRIDE: yes — <trigger reason>`.
 
-### Rule B — PLAN Soft Escalation (recommend, may proceed if declined)
+AGENT must **not** halt the entire delivery pipeline waiting for a user to manually switch models. The team resolves model routing internally.
 
-If PLAN is asked to design any of the following:
+### Rule B — PLAN Internal Escalation (route internally; no user stop)
+
+If PLAN is designing any of the following:
+
 - Security boundaries or trust model
 - Pricing or cost model decisions
 - Multi-system integration design
 
-PLAN should output:
+PLAN should switch internally to GPT-5.2 Extra High and record `OVERRIDE: yes — <reason>` in the response header. PLAN does not ask the user to confirm this switch — it makes the decision and continues.
 
-```
-RECOMMENDED SWITCH: GPT-5.2 Extra High (thinking-class)
-WHY: <one sentence>
-```
+### Rule C — ASK Unresolved Turn Escalation (internal re-route at turn 3)
 
-PLAN may proceed with the current model if the user declines the switch.
+If ASK has not resolved a question within 2 turns, ASK must:
 
-### Rule C — ASK Unresolved Turn Escalation (must stop at turn 3)
-
-If ASK has not resolved the user's question within 2 turns, ASK must stop and output:
-
-```
-SWITCH MODEL TO: GPT-5.2 High (thinking-class)
-WHY: <one sentence explaining why deeper reasoning is needed>
-NEXT PROMPT AFTER SWITCH: <one complete prompt ready to paste>
-```
+1. Record the escalation in its response
+2. Produce a structured prompt for PLAN or Sparky to resolve with deeper reasoning
+3. Hand off — do not continue spinning on the same question with the same model
 
 ---
 
-## No Silent Escalation
+## Sparky Routing
 
-If an escalation trigger occurs, the assistant must issue the switch request and
-**must not continue the task**. Silently proceeding with the wrong model class
-is a rule violation regardless of output quality.
+When a delivery problem exceeds AGENT's current model capacity or confidence, AGENT routes to Sparky rather than stopping for user input.
+
+Sparky routing format (include in AGENT's response):
+
+```
+ROUTING TO SPARKY: <sparky-chief-product-quality-officer>
+REASON: <one sentence — what exceeded AGENT's resolution capacity>
+INPUT: <what Sparky needs to resolve this — specific question or decision>
+EXPECTED OUTPUT: <what resolution AGENT needs to continue>
+```
+
+Sparky resolves internally and returns a decision. Delivery resumes without Tony involvement unless the decision touches a Tony-gate action.
+
+---
+
+## Tony-Gate Actions (still require Tony confirmation)
+
+Model routing, escalation decisions, and Sparky delegation are **not** Tony-gate actions. The following are Tony-gate and still require Tony's explicit confirmation regardless of model or escalation state:
+
+- Changing `FINAL_OUTPUT_PRODUCT.md`
+- Issuing or revoking privileged credentials
+- Irreversible external-world actions
+- Redefining the product goal
+
+See `AI-Project-Manager/docs/ai/architecture/GOVERNANCE_MODEL.md` for the full Tony-gate list.
+
+---
+
+## No Silent Degradation
+
+If an escalation trigger occurs, AGENT must record it — in the response header and in `docs/ai/STATE.md`. Silently proceeding without recording the escalation event is a rule violation regardless of output quality. The record exists for Sparky's mandatory file-change review.

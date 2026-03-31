@@ -2,6 +2,9 @@
 
 > Extends: `00-global-core.md` (tab separation, evidence, state discipline)
 > Extends: `05-global-mcp-usage.md` (tool-first behavior)
+> Subordinate to: `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` (supreme authority)
+
+This file governs the **workflow and process layer** for the open--claw repo. Routine delivery work does not require user approval — Sparky is the internal approval authority. Tony approval is required only for Tony-gate actions defined in `AI-Project-Manager/docs/ai/architecture/GOVERNANCE_MODEL.md`.
 
 ## PLAN output contract
 
@@ -15,6 +18,7 @@ PLAN must produce:
   - Line 1: `You are AGENT (Executioner)`
   - Line 2: `Model: <model> — <thinking|non-thinking>`
   - Choose lowest-cost model that safely fits task complexity; default non-thinking for straightforward execution
+  - PLAN may escalate to a stronger model internally without waiting for user confirmation — see `15-model-routing.md`
 - If the phase has >5 connected steps, use Clear Thought 1.5 (`mental_model` or `sequential_thinking` operation) before finalizing
 
 ## AGENT execution contract
@@ -30,8 +34,20 @@ AGENT must:
 - Update `docs/ai/STATE.md` after each execution block
 - Keep `docs/ai/HANDOFF.md` accurate after meaningful project-state changes; if no handoff change was needed, state that explicitly in `docs/ai/STATE.md`
 - Produce PASS/FAIL evidence for every tool call and command
-- Stop immediately if assumptions break or requirements conflict
-- After meaningful verified work, commit focused changes and push the current repo to origin unless explicitly blocked, unsafe, or awaiting approval. In a shared multi-root workspace, apply this per repo. If commit or push is skipped, record why in docs/ai/STATE.md.
+- Stop immediately if assumptions break or requirements conflict — route to Sparky for internal resolution, not to the user
+- After meaningful verified work, commit focused changes and push the current repo to origin unless blocked by a safety constraint or Tony-gate action. If commit or push is skipped, record why in `docs/ai/STATE.md`.
+- May escalate to a stronger model or route a problem to Sparky without waiting for user confirmation — see `15-model-routing.md`
+
+## Sparky review — mandatory on every file change
+
+After any employee makes a file change, Sparky must review the changed files and determine:
+
+- Whether the change followed best practices
+- Whether architectural integrity was preserved
+- Whether the change moves the project closer to the finished product in `FINAL_OUTPUT_PRODUCT.md`
+- Whether refactoring is required before the work is accepted
+
+Sparky's review does not require user involvement. It is an internal quality gate.
 
 ## DEBUG output contract
 
@@ -122,12 +138,13 @@ PLAN must reconstruct current system state from repository-tracked sources befor
 
 Priority order:
 
-1. `docs/ai/STATE.md`
-2. `docs/ai/memory/DECISIONS.md`
-3. `docs/ai/memory/PATTERNS.md`
-4. `docs/ai/HANDOFF.md`
-5. `docs/ai/context/`
-6. Chat history / pasted artifacts (last resort)
+1. `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — supreme product charter
+2. `docs/ai/STATE.md`
+3. `docs/ai/memory/DECISIONS.md`
+4. `docs/ai/memory/PATTERNS.md`
+5. `docs/ai/HANDOFF.md`
+6. `docs/ai/context/`
+7. Chat history / pasted artifacts (last resort)
 
 If repository-tracked sources and chat context disagree, repository-tracked sources win unless current execution evidence proves otherwise.
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 import textwrap
@@ -15,6 +16,9 @@ ZIP_ROOT = EMPLOYEE_ROOT / "_zips"
 REFERENCE_ROOT = KB_ROOT / "reference_assets"
 SOURCE_ROOT = KB_ROOT / "source_repos"
 SKILLS_ROOT = OPEN_CLAW_ROOT / "skills"
+CURATED_AUDIT_ROOT = KB_ROOT / "employee_audits" / "curated"
+LEGACY_EMPLOYEE_ROOT = OPEN_CLAW_ROOT / "employees"
+LEGACY_GENERIC_ROOT = LEGACY_EMPLOYEE_ROOT / "generic"
 
 TODAY = "2026-03-30"
 
@@ -936,6 +940,76 @@ If it is not written down, it does not count as handed off.
     },
 }
 
+COMMON_CURATED_GAPS = [
+    "Not yet wrapped into the live `open-claw/employees` runtime packet layout with Docker and bot wiring.",
+    "Tool access is documented, but not yet proven end-to-end against the real worker runtime and installed integrations.",
+    "No per-role activation smoke test has been recorded yet for the current OpenClaw/CrewClaw deployment path.",
+    "No full clone-and-rebrand rehearsal has been executed yet with this packet as the primary operator.",
+]
+
+ROLE_SPECIFIC_GAPS = {
+    "sparky-chief-product-quality-officer": [
+        "Needs a recurring audit cadence wired into the live workflow so simplicity and quality checks happen automatically.",
+        "Needs a standard scorecard template for approving or rejecting website-clone deliveries.",
+    ],
+    "delivery-director": [
+        "Needs a reusable execution board and handoff template for multi-agent website projects.",
+        "Needs a concrete dependency-tracking workflow tied to the active runtime workers.",
+    ],
+    "product-manager": [
+        "Needs a rebrand intake template that captures source URL, target name, contact info, palette, and success criteria in one place.",
+        "Needs a repeatable PRD/checklist for simple site-clone pilots before larger rebuilds.",
+    ],
+    "software-architect": [
+        "Needs a packaging pattern that maps the curated architecture standard into the CrewClaw/OpenClaw runtime shell.",
+        "Needs a reference implementation for modular boundaries inside a real starter repo.",
+    ],
+    "frontend-developer": [
+        "Needs a proven starter workflow for swapping branding, contact info, theme tokens, and later image/content replacement.",
+        "Needs a live demo repo run showing App Router build, smoke tests, and screenshot evidence after rebrand.",
+    ],
+    "backend-architect": [
+        "Needs deployment-target templates for APIs, env contracts, and integration tests used by the actual runtime stack.",
+        "Needs a documented pattern for data/auth boundaries when cloned sites graduate into app features.",
+    ],
+    "ux-architect": [
+        "Needs a reusable sitemap/content-inventory template for rapid website cloning.",
+        "Needs a practical page audit workflow that turns a target URL into prioritized structure and UX changes.",
+    ],
+    "ui-designer": [
+        "Needs a brand-kit swap checklist for typography, palette, iconography, and image direction.",
+        "Needs an asset specification workflow so later image replacement is systematic instead of ad hoc.",
+    ],
+    "code-reviewer": [
+        "Needs automated review hooks or a repeatable diff-review procedure attached to the runtime delivery loop.",
+        "Needs explicit rejection criteria for low-quality clone/rebrand edits before they reach release.",
+    ],
+    "qa-evidence-collector": [
+        "Needs a repeatable screenshot and artifact capture pipeline for desktop, tablet, and mobile after each rebrand pass.",
+        "Needs a standard evidence bundle format for handing findings to Sparky and Delivery Director.",
+    ],
+    "reality-checker": [
+        "Needs a live preview validation checklist for catching false confidence before a site is called ready.",
+        "Needs production-like smoke criteria for content, links, forms, metadata, and visual regressions.",
+    ],
+    "devops-automator": [
+        "Needs a one-command bootstrap for repo clone, dependency install, build, test, and preview launch.",
+        "Needs a repeatable release recipe tied to the real environments this team will use.",
+    ],
+    "accessibility-auditor": [
+        "Needs automated contrast, keyboard, and screen-reader verification integrated into the QA flow.",
+        "Needs a documented remediation checklist for common website-clone accessibility regressions.",
+    ],
+    "seo-ai-discovery-strategist": [
+        "Needs a metadata and local-business/contact rewrite checklist for rebrands.",
+        "Needs an AI-discovery audit routine for titles, descriptions, structured data, and crawl-critical content.",
+    ],
+    "mcp-integration-engineer": [
+        "Needs a live entitlement matrix showing which runtime workers can reach which tools safely.",
+        "Needs a standard fallback plan for missing tools so worker quality does not collapse when an integration is unavailable.",
+    ],
+}
+
 REFERENCE_COPIES = [
     {
         "source": SOURCE_ROOT / "agency-agents" / "agency-agents-main" / "product" / "product-manager.md",
@@ -1088,6 +1162,174 @@ def copy_reference_assets() -> list[tuple[str, str]]:
             copied.append((item["label"], relative_to_open_claw(dest)))
     return copied
 
+
+
+def normalize_packet_text(text: str, tokens: list[str]) -> str:
+    normalized = text
+    for token in sorted({token for token in tokens if token}, key=len, reverse=True):
+        variants = {
+            token,
+            token.replace("-", " "),
+            token.replace("-", " ").title(),
+            token.replace("-", " ").upper(),
+            token.replace("-", "_"),
+        }
+        for variant in variants:
+            normalized = normalized.replace(variant, "<ROLE>")
+    return normalized
+
+
+def build_legacy_signature(zip_path: Path) -> str:
+    with ZipFile(zip_path) as archive:
+        files = sorted(name for name in archive.namelist() if not name.endswith("/"))
+        agent_roots = sorted({name.split("/")[1] for name in files if name.startswith("agents/") and len(name.split("/")) > 2})
+        tokens = [zip_path.stem, *agent_roots]
+        normalized_parts: list[str] = []
+        for name in files:
+            if not (
+                name.endswith(".md")
+                or name.endswith(".js")
+                or name == "Dockerfile"
+                or name.endswith(".env.example")
+            ):
+                continue
+            text = archive.read(name).decode("utf-8", "replace")
+            normalized_parts.append(f"{Path(name).name}\n{normalize_packet_text(text, tokens)}")
+    return hashlib.sha256("\n---\n".join(normalized_parts).encode("utf-8")).hexdigest()
+
+
+def inspect_legacy_packets() -> dict[str, object]:
+    named_packets = sorted(
+        path
+        for path in LEGACY_EMPLOYEE_ROOT.glob("*.zip")
+        if path.name not in {"awesome-openclaw-agents-main.zip", "crewclaw-anthony-bundle.zip"}
+    )
+    generic_packets = sorted(LEGACY_GENERIC_ROOT.glob("*.zip"))
+
+    signature_groups: dict[str, list[str]] = {}
+    for path in [*named_packets, *generic_packets]:
+        signature_groups.setdefault(build_legacy_signature(path), []).append(path.name)
+
+    duplicate_groups = [names for names in signature_groups.values() if len(names) > 1]
+
+    return {
+        "named_packets": [path.name for path in named_packets],
+        "generic_packets": [path.name for path in generic_packets],
+        "has_bundle": (LEGACY_EMPLOYEE_ROOT / "crewclaw-anthony-bundle.zip").exists(),
+        "has_reference_library": (LEGACY_EMPLOYEE_ROOT / "awesome-openclaw-agents-main.zip").exists(),
+        "duplicate_groups": duplicate_groups,
+    }
+
+
+def grade_curated_employee(spec: EmployeeSpec) -> str:
+    return "A-"
+
+
+def render_employee_checklist(spec: EmployeeSpec) -> str:
+    doc_files = [
+        "README.md",
+        "PROVENANCE.md",
+        "IDENTITY.md",
+        "SOUL.md",
+        "AGENTS.md",
+        "TOOLS.md",
+        "SKILLS.md",
+        "WORKFLOWS.md",
+        "MEMORY.md",
+        "USER.md",
+        "BOOTSTRAP.md",
+        "HEARTBEAT.md",
+        "SCHEDULE.md",
+        "CHECKLIST.md",
+        "AUDIT.md",
+    ]
+    runtime_files = [
+        "Dockerfile",
+        "docker-compose.yml",
+        "entrypoint.sh",
+        "setup.sh",
+        ".env.example",
+        "package.json",
+        "bot-telegram.js",
+        "bot-discord.js",
+        "bot-slack.js",
+        "bot-whatsapp.js",
+        "heartbeat.sh",
+    ]
+    doc_lines = "\n".join(f"- [x] `{name}`" for name in doc_files)
+    runtime_lines = "\n".join(f"- [ ] `{name}`" for name in runtime_files)
+    skill_lines = "\n".join(f"- [x] `{skill}`" for skill in spec.skills)
+    return f"""
+# {spec.name} Checklist
+
+## Grade Target
+- Current grade: **{grade_curated_employee(spec)}**
+- Target grade for live-runtime readiness: **A**
+
+## Required Docs
+{doc_lines}
+
+## Required Runtime Files
+{runtime_lines}
+
+## Assigned Skills
+{skill_lines}
+
+## Remaining Gaps
+- [ ] Runtime shell is not yet attached to this curated packet.
+- [ ] Tool access is documented but not yet proven against the live worker runtime.
+- [ ] Activation smoke test is still missing for this packet.
+"""
+
+
+def render_employee_audit(spec: EmployeeSpec) -> str:
+    outcome_lines = "\n".join(f"- {item}" for item in spec.outcomes)
+    skill_lines = "\n".join(f"- `{skill}`" for skill in spec.skills)
+    tool_lines = "\n".join(f"- {tool}" for tool in spec.tools)
+    handoff_lines = "\n".join(f"- {item}" for item in spec.handoffs)
+    missing_lines = "\n".join(
+        f"- {item}" for item in [*COMMON_CURATED_GAPS, *ROLE_SPECIFIC_GAPS.get(spec.slug, [])]
+    )
+
+    return f"""
+# {spec.name} Audit
+
+## Grade
+- **Current grade:** {grade_curated_employee(spec)}
+
+## Role Snapshot
+- **Slug:** `{spec.slug}`
+- **Title:** {spec.title}
+- **Manager:** `{spec.manager}`
+- **Status:** Strong curated packet, not yet live-runtime validated
+
+## What This Employee Can Do Now
+{outcome_lines}
+
+## Assigned Skills
+{skill_lines}
+
+## Tool Expectations
+{tool_lines}
+
+## Collaboration Fit
+{handoff_lines}
+
+## Missing Before High-Level Runtime Readiness
+{missing_lines}
+
+## Verdict
+Use this packet as part of the authoritative standard now. Before treating it as a fully autonomous live worker, pair it with runtime packaging, real tool-entitlement proof, and a recorded smoke test.
+"""
+
+
+def create_employee_audits() -> None:
+    ensure_dir(CURATED_AUDIT_ROOT)
+    for spec in EMPLOYEES:
+        employee_dir = EMPLOYEE_ROOT / spec.slug
+        audit = render_employee_audit(spec)
+        write(employee_dir / "AUDIT.md", audit)
+        write(CURATED_AUDIT_ROOT / f"{spec.slug}.md", audit)
 
 
 def render_employee_files(spec: EmployeeSpec) -> dict[str, str]:
@@ -1263,6 +1505,7 @@ The founder wants a development team that can build Apple-quality software with 
 - Pre-release: verify build, QA evidence, and rollback path.
 - Post-release: record lessons and unresolved issues.
 """,
+        "CHECKLIST.md": render_employee_checklist(spec),
     }
 
 
@@ -1304,6 +1547,7 @@ roles:
 
 def create_docs(copied_assets: list[tuple[str, str]]) -> None:
     ensure_dir(KB_ROOT)
+    legacy_summary = inspect_legacy_packets()
     roster_rows = "\n".join(
         f"| `{spec.slug}` | {spec.title} | `{spec.manager}` | {', '.join(spec.skills)} |"
         for spec in EMPLOYEES
@@ -1317,6 +1561,10 @@ def create_docs(copied_assets: list[tuple[str, str]]) -> None:
         f"| `{slug}` | {data['description']} | {', '.join(data['roles'])} |"
         for slug, data in SKILLS.items()
     )
+    duplicate_lines = "\n".join(
+        f"- Duplicate normalized content group: {', '.join(f'`{name}`' for name in group)}"
+        for group in legacy_summary["duplicate_groups"]
+    )
 
     write(
         KB_ROOT / "README.md",
@@ -1327,11 +1575,18 @@ This directory is the curated, repo-tracked source of truth for the development 
 
 ## Folder Map
 - `AI_employees/` — curated employee folders plus `_zips/` with portable employee packet archives.
+- `candidate_employees/agency-agents/` — standardized packet wrappers for the imported agency-agents role library.
+- `employee_audits/` — repeatable audit notes for curated employees and readiness planning.
 - `reference_assets/` — copied high-signal upstream files and examples worth keeping.
+- `AI-EMPLOYEE-STANDARD.md` — the required model for every future AI employee packet.
+- `EMPLOYEE-FOLDER-BLUEPRINT.md` — exact docs and runtime files each employee folder must carry.
+- `AGENCY_IMPORT_SUMMARY.md` — import counts, category coverage, and grades for the agency-agents library.
+- `SOURCE_LIBRARY_CATALOG.md` — ranked source repos and what was actually kept from each.
 - `AUTHORITATIVE_STANDARD.md` — the house standard all employees must follow.
 - `TEAM_ROSTER.md` — hierarchy and responsibilities for the current dream team.
 - `PROVENANCE_MATRIX.md` — where each employee packet came from.
 - `SKILLS_AUDIT.md` — tracked skill inventory and what was added.
+- `EMPLOYEE_READINESS_AUDIT.md` — current verdict on curated packets vs legacy purchased packets.
 
 ## Notes
 - `source_repos/` is local research material and not the authoritative tracked standard.
@@ -1442,6 +1697,47 @@ The repo already had communication and approval primitives, but it lacked the so
     )
 
     write(
+        KB_ROOT / "EMPLOYEE_READINESS_AUDIT.md",
+        f"""
+# Employee Readiness Audit
+
+## Curated Standard Verdict
+- `AI_Employee_knowledgebase/AI_employees/` now contains 15 curated employee packets with identity, rules, tools, skills, workflows, memory, provenance, and portable zip bundles.
+- Each curated employee now also has an `AUDIT.md` that explains what it can do now and what is still missing before live-runtime readiness.
+- Verdict: the curated roster is strong as a source-of-truth library, but it is not yet fully runtime-complete because the packets are not yet wired into the active OpenClaw/CrewClaw worker shell and do not yet have recorded activation smoke tests.
+
+## Legacy Packet Findings
+- Named purchased packets detected: {len(legacy_summary["named_packets"])}
+- Generic downloaded packets detected: {len(legacy_summary["generic_packets"])}
+- Shared bundle present: {"yes" if legacy_summary["has_bundle"] else "no"}
+- Reference library present: {"yes" if legacy_summary["has_reference_library"] else "no"}
+- The five generic downloads are template workers, not five distinct specialists.
+- Several named purchased packets still look like thin role wrappers rather than deeply specialized autonomous employees.
+{duplicate_lines if duplicate_lines else '- No duplicate normalized content groups detected in the current legacy packet scan.'}
+
+## Recommended Website Clone Squad
+- `sparky-chief-product-quality-officer`
+- `delivery-director`
+- `product-manager`
+- `software-architect`
+- `frontend-developer`
+- `ux-architect`
+- `ui-designer`
+- `code-reviewer`
+- `qa-evidence-collector`
+- `reality-checker`
+- `devops-automator`
+- `seo-ai-discovery-strategist`
+
+## What Still Needs To Happen
+1. Package the curated squad into the live runtime layout used by `open-claw/employees`.
+2. Prove real tool access and permissions for each live worker.
+3. Run a first website clone-and-rebrand pilot and capture build, QA, accessibility, and release evidence.
+4. Replace or retire thin generic legacy packets once the curated runtime replacements are proven.
+""",
+    )
+
+    write(
         REFERENCE_ROOT / "README.md",
         f"""
 # Reference Assets
@@ -1460,6 +1756,7 @@ Each copied file remains supplemental. The house standard still lives in `AUTHOR
 
 def main() -> None:
     copied_assets = copy_reference_assets()
+    create_employee_audits()
     create_employee_packets()
     create_skills()
     create_docs(copied_assets)
@@ -1467,6 +1764,7 @@ def main() -> None:
         "generated_on": TODAY,
         "employee_count": len(EMPLOYEES),
         "skill_count": len(SKILLS),
+        "audit_count": len(EMPLOYEES),
         "employees": [spec.slug for spec in EMPLOYEES],
         "skills": list(SKILLS.keys()),
         "copied_assets": [path for _, path in copied_assets],
