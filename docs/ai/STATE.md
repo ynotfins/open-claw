@@ -8,6 +8,158 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 
 ---
 
+## 2026-03-31 — Sparky Enforcement Gate + Non-Overlapping Delegation Chain
+
+### Goal
+Rewrite leadership and quality packets so Sparky becomes the mandatory post-edit enforcement gate, the delegation chain has no overlap, and every role has a single clear authority boundary.
+
+### Scope
+- `open-claw/AI_Employee_knowledgebase/TEAM_ROSTER.md`
+- `open-claw/AI_Employee_knowledgebase/AI_employees/sparky-chief-product-quality-officer/AGENTS.md`
+- `open-claw/AI_Employee_knowledgebase/AI_employees/sparky-chief-product-quality-officer/WORKFLOWS.md`
+- `open-claw/AI_Employee_knowledgebase/AI_employees/delivery-director/AGENTS.md`
+- `open-claw/AI_Employee_knowledgebase/AI_employees/product-manager/AGENTS.md`
+- `open-claw/AI_Employee_knowledgebase/AI_employees/code-reviewer/AGENTS.md`
+- `open-claw/AI_Employee_knowledgebase/AI_employees/qa-evidence-collector/AGENTS.md`
+- `open-claw/AI_Employee_knowledgebase/AI_employees/reality-checker/AGENTS.md`
+- `open-claw/AI_Employee_knowledgebase/AI_employees/software-architect/AGENTS.md`
+- `open-claw/AI_Employee_knowledgebase/AI_employees/backend-architect/AGENTS.md`
+- `open--claw/docs/ai/STATE.md` (this file)
+
+### Commands / Tool Calls
+- Read: `FINAL_OUTPUT_PRODUCT.md`, `TEAM_ROSTER.md`, Sparky `AGENTS.md`, Sparky `WORKFLOWS.md`, all 8 target `AGENTS.md` files — PASS
+- Write: `TEAM_ROSTER.md` — PASS
+- Write: `sparky-chief-product-quality-officer/AGENTS.md` — PASS
+- Write: `sparky-chief-product-quality-officer/WORKFLOWS.md` — PASS
+- Write: `delivery-director/AGENTS.md` — PASS
+- Write: `product-manager/AGENTS.md` — PASS
+- Write: `code-reviewer/AGENTS.md` — PASS
+- Write: `qa-evidence-collector/AGENTS.md` — PASS
+- Write: `reality-checker/AGENTS.md` — PASS
+- Write: `software-architect/AGENTS.md` — PASS
+- Write: `backend-architect/AGENTS.md` — PASS
+
+### Changes
+
+**TEAM_ROSTER.md** — Added `Role Boundaries` table (exclusive responsibilities + what each role is explicitly NOT responsible for) and a `Deterministic Handoff Chain` section (6-step canonical sequence: brief → routing → implement → evidence collection → Sparky gate → release). Updated `Leadership Spine` to state Sparky as mandatory post-edit gate.
+
+**sparky-chief-product-quality-officer/AGENTS.md** — Added `Mandatory Post-Edit Review Gate` section: every file change must be reviewed by Sparky; decisions are exactly ACCEPT / REFACTOR / REJECT; no other employee may issue these decisions. Rewrote Collaboration Rules: all advisors and evidence providers submit to Sparky; Sparky decides. Removed ambiguous "require final proof from reality-checker before green-lighting" framing (replaced with Sparky consulting reality-checker's recommendation, then making the final call).
+
+**sparky-chief-product-quality-officer/WORKFLOWS.md** — Replaced vague 5-step delivery pattern with: (a) `Mandatory Post-Edit Review Procedure` (5-step gate with explicit "no advance on incomplete evidence" rule), (b) `Deterministic Handoff Chain` (ASCII diagram), (c) `Pre-Release Checklist`, (d) `Ongoing Cadence`.
+
+**delivery-director/AGENTS.md** — Added `Role Boundary` section: sequencing, dependencies, and work-packet routing only; does not accept or reject implementation; routes Sparky's decisions, does not issue them.
+
+**product-manager/AGENTS.md** — Added `Role Boundary` section: briefs, scope definitions, non-goals, and acceptance criteria only; does not make implementation or quality decisions.
+
+**code-reviewer/AGENTS.md** — Added `Role Boundary` section: evidence provider and advisor only; delivers findings to Sparky; does not have final accept/reject authority.
+
+**qa-evidence-collector/AGENTS.md** — Added `Role Boundary` section: evidence provider only; delivers proof artifacts to Sparky; does not make final quality decisions.
+
+**reality-checker/AGENTS.md** — Added `Role Boundary` section: go/no-go recommender to Sparky only; removed routing to `delivery-director` from Collaboration Rules; Sparky makes the final decision.
+
+**software-architect/AGENTS.md** — Added `Role Boundary` section: technical advisor; submits risk findings to Sparky; does not accept or reject implementation.
+
+**backend-architect/AGENTS.md** — Added `Role Boundary` section: technical advisor on backend concerns; submits findings to Sparky; does not accept or reject implementation.
+
+### Evidence
+
+- PASS: `TEAM_ROSTER.md` — Role Boundaries table and Deterministic Handoff Chain present; no employee is listed as having accept/reject authority except Sparky.
+- PASS: Sparky `AGENTS.md` — `Mandatory Post-Edit Review Gate` section present; ACCEPT/REFACTOR/REJECT vocabulary defined; "no other employee may issue these decisions" is explicit.
+- PASS: Sparky `WORKFLOWS.md` — Handoff chain diagram present; pre-release checklist present; post-edit review procedure present with "gate does not move forward on incomplete evidence" rule.
+- PASS: Delivery Director `AGENTS.md` — "does not accept or reject implementation" explicit; "routes Sparky's decisions, does not issue them" explicit.
+- PASS: Product Manager `AGENTS.md` — "does not make implementation decisions, architecture decisions, or final quality judgments" explicit.
+- PASS: Code Reviewer `AGENTS.md` — "does not have final accept/reject authority" explicit; advisor framing.
+- PASS: QA Evidence Collector `AGENTS.md` — "does not make final quality decisions" explicit; evidence provider framing.
+- PASS: Reality Checker `AGENTS.md` — "go/no-go recommender" framing; "does not route release decisions to delivery-director directly" explicit; "does not issue an independent final go/no-go decision" explicit.
+- PASS: Software Architect `AGENTS.md` — "does not accept or reject implementation independently" explicit.
+- PASS: Backend Architect `AGENTS.md` — "does not accept or reject backend implementation independently" explicit.
+- PASS: `FINAL_OUTPUT_PRODUCT.md` not modified.
+- PASS: Role language is non-overlapping — only one entity (Sparky) holds final accept/reject/refactor authority; all other roles are producers, advisors, or evidence providers feeding into that gate.
+
+### Verdict
+PASS — Sparky enforcement gate installed. Delegation chain is deterministic and non-overlapping. All 10 target files updated. Charter alignment confirmed.
+
+### Blockers
+None.
+
+### Fallbacks Used
+None.
+
+### Cross-Repo Impact
+AI-Project-Manager `docs/ai/STATE.md` and `AGENT_EXECUTION_LEDGER.md` updated with this block as required by AGENT contract.
+
+### Decisions Captured
+- Sparky is the exclusive ACCEPT/REFACTOR/REJECT authority for all file changes and release decisions.
+- The handoff chain is: brief → routing → implement → evidence collection (parallel) → Sparky gate → release → post-release verification.
+- Reality Checker is a go/no-go recommender, not a parallel decision-maker.
+- Delivery Director sequences and routes only; it does not make quality decisions.
+- Product Manager produces briefs and acceptance criteria only; it does not make quality decisions.
+
+### Pending Actions
+Commit and push open--claw changes to origin.
+
+### What Remains Unverified
+CrewClaw deployed worker packets are still the older versions; the updated `AI_employees/` standard applies to the curated knowledgebase only until the deployed workers are re-synced.
+
+### What's Next
+Commit open--claw changes. Update AI-Project-Manager STATE.md and AGENT_EXECUTION_LEDGER.md. Optionally: carry the same role-boundary language into BOOTSTRAP.md and SOUL.md/IDENTITY.md files if Sparky determines that is needed.
+
+---
+
+## 2026-03-31 — Employee KB: charter-first hierarchy in house standards and all curated packets
+### Goal
+Align `AI_Employee_knowledgebase` docs and every curated packet under `AI_employees/` so all employees read `FINAL_OUTPUT_PRODUCT.md` first and treat `AUTHORITATIVE_STANDARD.md`, `TEAM_ROSTER.md`, and `AI-EMPLOYEE-STANDARD.md` as subordinate interpreters—never overriding the charter.
+### Scope
+- Modified: `open-claw/AI_Employee_knowledgebase/README.md`, `AUTHORITATIVE_STANDARD.md`, `AI-EMPLOYEE-STANDARD.md`, `TEAM_ROSTER.md`
+- Modified: `.cursor/rules/25-ai-employee-standard.mdc`
+- Modified: 15× `AGENTS.md`, `BOOTSTRAP.md`, `README.md`, `PROVENANCE.md` under `open-claw/AI_Employee_knowledgebase/AI_employees/*`
+- Not modified: `FINAL_OUTPUT_PRODUCT.md` (explicitly excluded)
+### Validation
+- PASS — pattern `Charter (read first` in `open-claw/AI_Employee_knowledgebase/AI_employees/**/AGENTS.md` → 15 files (PowerShell `Select-String`)
+- PASS — `FINAL_OUTPUT_PRODUCT` in every curated `BOOTSTRAP.md` → 15 files
+- PASS — `Product charter (supreme)` in every curated `PROVENANCE.md` → 15 files
+- PASS — no remaining `## House Standard` section in packet `PROVENANCE.md` files (deduped into charter + interpreters block)
+### Verdict
+PASS — docs-only; charter supremacy explicit across house standard and curated packets.
+
+---
+
+## 2026-03-31 17:00 — Charter Enforcement Kernel Installed (Reconciliation Pass)
+### Goal
+Install enforcement kernel in open--claw repo so charter violations are blocked by rules, not merely described.
+### Scope
+open--claw repo (part of tri-workspace pass).
+### Commands / Tool Calls
+- Created `.cursor/rules/01-charter-enforcement.md` — PASS
+- Updated `AGENTS.md` — PASS
+- Updated `.cursor/rules/00-global-core.md` — PASS
+- Updated `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md` (all five tabs) — PASS
+### Changes
+- New: `.cursor/rules/01-charter-enforcement.md`
+- Modified: `AGENTS.md` (enforcement kernel added to authoritative rules)
+- Modified: `.cursor/rules/00-global-core.md` (Enforcement Kernel section added at top)
+- Modified: `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md` (all five tabs: added `01-charter-enforcement.md` second in read order)
+### Evidence
+PASS — all files written and verified. `FINAL_OUTPUT_PRODUCT.md` not modified.
+### Verdict
+PASS — Enforcement kernel active.
+### Blockers
+None.
+### Fallbacks Used
+None.
+### Cross-Repo Impact
+Tri-workspace pass: same changes applied in AI-Project-Manager and droidrun.
+### Decisions Captured
+Forbidden platforms for tri-workspace: macOS, iOS, Swift, Xcode, CocoaPods. Violations stop execution and route to Sparky.
+### Pending Actions
+None.
+### What Remains Unverified
+Runtime tab-load order requires live session confirmation.
+### What's Next
+Normal operations resume. Enforcement kernel is live.
+
+---
+
 ## Current State Summary
 
 > Last updated: 2026-03-29
