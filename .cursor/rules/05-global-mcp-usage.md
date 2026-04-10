@@ -1,123 +1,221 @@
+---
+description: "MCP tool selection and No-Loss memory integration"
+globs: ["**/*"]
+alwaysApply: true
+---
+
 # 05 — Global MCP Usage Policy (strict)
 
-AGENT must use installed MCP tools by name. Manual approaches are fallbacks, never defaults.
+AGENT must use the best available tool for the job. Manual approaches are fallbacks, never defaults.
 
-## Preferred MCP tools (by name)
+## Preferred tools
 
-| Category             | Preferred tool    | Fallback                         |
-| -------------------- | ----------------- | -------------------------------- |
-| Reasoning / analysis | Clear Thought 1.5 | sequential-thinking, then manual |
-| Code intelligence    | serena            | Grep/glob + targeted file reads  |
-| Documentation        | Context7          | Built-in WebSearch / WebFetch    |
-| Web extraction       | firecrawl-mcp     | Built-in WebFetch                |
-| Repo operations      | github            | gh CLI via built-in Shell        |
-| Memory               | openmemory        | File-based in `docs/ai/memory/`  |
-| Phone automation     | droidrun          | Manual device interaction        |
+| Category | Preferred tool | Fallback |
+|---|---|---|
+| Reasoning / analysis | thinking-patterns | Manual reasoning only if the user explicitly approves continuing without it |
+| Code intelligence | serena | `rg`/`Glob`/`ReadFile` |
+| External library docs | Context7 | Built-in WebSearch / WebFetch |
+| Current web research | Exa Search | Built-in WebSearch |
+| Web extraction | firecrawl-mcp | Built-in WebFetch |
+| Browser verification | playwright | Manual browser / screenshot verification |
+| UI generation / design scaffolding | Magic MCP | Hand-written scaffold |
+| Repo operations | github | `gh` CLI via built-in `Shell` |
+| Memory | openmemory | File-based in `docs/ai/memory/` |
+| Phone automation | droidrun | Manual device interaction |
 
-AGENT must use the preferred tool by name. If it is unavailable, use the fallback and record a FAIL entry in `docs/ai/STATE.md`.
+## Repo-first discipline
+
+- Project docs and repo code are the authority for project-specific behavior.
+- External tools supplement repo truth; they do not replace it.
+- For the active repo, read internal docs/code first, then use external-doc tools only for outside dependencies or current public information.
 
 ## Mandatory tool triggers
 
-### Clear Thought 1.5 — REQUIRED operations by situation
+### thinking-patterns — REQUIRED
 
-Clear Thought 1.5 (`clear_thought`) is the **primary reasoning tool**. sequential-thinking is a fallback only.
+Use `thinking-patterns` for:
 
-| Situation                                                                | Operation (required)                      |
-| ------------------------------------------------------------------------ | ----------------------------------------- |
-| Bug investigation, build failures, test failures, unexpected behavior    | `debugging_approach`                      |
-| Starting a new project, major feature, or large architectural change     | `mental_model`                            |
-| Cross-repo changes or changes affecting 3+ modules                       | `systems_thinking`                        |
-| Choosing between multiple implementation approaches or trade-offs        | `decision_framework`                      |
-| Root cause analysis when a failure has multiple possible causes          | `causal_analysis`                         |
-| Complex multi-path problems with no obvious single solution              | `tree_of_thought`                         |
-| Optimizing performance, costs, or resource usage                         | `optimization`                            |
-| Hypothesis-driven investigation (e.g., "is the crash caused by X or Y?") | `scientific_method`                       |
-| Basic step-by-step reasoning with >5 steps                               | `sequential_thinking` (via Clear Thought) |
-| Exploring new technologies or unfamiliar domains                         | `research`                                |
+- bug investigation, build failures, test failures, unexpected behavior: `debugging_approach`
+- starting a new project, major feature, or large architecture change: `mental_model`
+- cross-repo changes or changes affecting 3+ modules: `problem_decomposition`, `domain_modeling`, or `sequential_thinking`
+- choosing between multiple implementation approaches: `decision_framework`
+- critique, challenge, or assumption-checking passes: `critical_thinking` or `structured_argumentation`
+- hypothesis-driven investigations: `scientific_method`
 
-### sequential-thinking — FALLBACK only (use Clear Thought 1.5 first)
+The old standalone `sequential-thinking` server remains removed. The `sequential_thinking` tool inside `thinking-patterns` is allowed. If `thinking-patterns` is unavailable for a task that requires structured reasoning, stop and notify the user.
 
-- When Clear Thought 1.5 is unavailable or returns an error
-- Record the fallback as FAIL in `docs/ai/STATE.md`
+### serena — REQUIRED when:
 
-### serena — REQUIRED when
+- locating symbols, references, or call paths
+- editing more than one code file in a single phase
+- reading a large code file
+- understanding class/function relationships before changing code
 
-- Locating symbols, references, or call paths
-- Editing more than one file in a single phase
-- Reading a large file (must locate the target symbol first, not read the entire file)
-- Understanding class/function relationships before making changes
+### serena — activation protocol:
 
-### Context7 — REQUIRED before
+- Activate Serena by exact path on first access to the codebase actually in scope.
+- Do not rely on dashboard names when switching between tri-workspace repos.
+- Serena project map:
+  - `D:/github/AI-Project-Manager`
+  - `D:/github/open--claw`
+  - `D:/github/open--claw/open-claw`
+  - `D:/github/droidrun`
+- If a path is missing from Serena, activate it by exact path immediately to register it.
+- `D:/github/open--claw` repo root is the governance/docs Serena project; `D:/github/open--claw/open-claw` is the runtime Serena project.
+- If the task is docs-only or the root in scope has no valid Serena project, declare Serena not applicable and use targeted `rg`/`Glob`/`ReadFile` work instead.
+- If Serena is required but disabled, unavailable, or failing, stop and notify the user.
 
-- Changing behavior that depends on a third-party API or library
-- Adopting a new dependency or upgrading an existing one
-- Verifying correct usage of any framework or library function
+### Context7 — REQUIRED when:
 
-### firecrawl-mcp — REQUIRED when
+- changing behavior that depends on a third-party API, framework, SDK, CLI, or cloud service
+- adopting a new dependency or upgrading an existing one
+- verifying correct usage of external library/framework APIs
 
-- Scraping or extracting structured data from web pages
-- Mapping a site to discover URLs before scraping specific pages
-- Searching the web for current technical content
+Context7 is for external docs only. It must be constrained to the technologies relevant to the active repo. It is not a substitute for project docs.
 
-**Active tools:** `firecrawl_scrape`, `firecrawl_map`, `firecrawl_search` only.
-If a task requires `crawl`, `extract`, or `firecrawl_agent`: record the blocker in `docs/ai/STATE.md`, route to Sparky for fallback decision, and proceed with the best available substitute. Do not pause delivery work waiting for a user to change MCP settings unless Sparky determines no fallback exists and the action is Tony-gate level.
+### context-matic — CONDITIONAL
 
-### github — REQUIRED when
+Use `context-matic` only for vendor API integration work when:
 
-- Creating, listing, or reviewing branches, pull requests, or issues
-- Managing releases or file operations via the hosting platform
-- Searching code or users across repositories
+- the task is specifically about integrating with a third-party API or SDK
+- repo docs and Context7 are not sufficient by themselves
+- you need endpoint discovery, SDK-oriented integration steps, or generated guideline scaffolding
 
-### openmemory — REQUIRED
+Preferred sequence:
 
-- Before planning: call `search-memory` to retrieve prior decisions and patterns related to the current task
-- After completing a phase: call `add-memory` to store new decisions, patterns, or stable facts
-- See `docs/ai/memory/MEMORY_CONTRACT.md` for what must and must not be stored
+1. `fetch_api`
+2. `ask`
+3. `add_guidelines` only if the workspace does not already contain the needed language guideline files
 
-### droidrun — REQUIRED when
+Do not use `context-matic` for general repo planning, business logic debugging, or as a substitute for Context7.
 
-- Interacting with the user's phone (Samsung Galaxy S25 Ultra)
-- Testing mobile apps or checking device state
-- Automating phone actions (tap, type, navigate, read screen)
+### Exa Search — REQUIRED when:
 
-Use `phone_ping` to verify device is connected before any `phone_do` or `phone_apps` call.
+- current web research is needed beyond vendor docs
+- Context7 cannot answer because the task depends on public examples, current ecosystem state, or broader web discovery
 
-## Disabled tool activation policy
+### firecrawl-mcp — REQUIRED when:
 
-The following tools are currently **disabled** to reduce context window consumption:
-Exa Search, playwright, Magic MCP, filesystem_scoped, shell-mcp, firestore-mcp, googlesheets, Stripe, extension-GitKraken, cloudflare-bindings, cloudflare-builds, cloudflare-docs, cloudflare-observability.
+- scraping or extracting structured data from public web pages
+- mapping a site before scraping specific pages
+- collecting structured public-web evidence
 
-If a task requires a disabled tool, AGENT must:
+Use only `firecrawl_scrape`, `firecrawl_map`, and `firecrawl_search`.
 
-1. **Stop** — do not attempt to work around the missing tool silently
-2. Record the specific tool needed and why in `docs/ai/STATE.md` as a blocker
-3. Route the blocker to Sparky for internal resolution: Sparky decides whether to use an approved fallback, request the tool activation from Tony, or replan the task
-4. Routine delivery work that has a viable fallback proceeds using the fallback — no user pause required
-5. If the missing tool is required for a Tony-gate action and has no fallback, record the blocker and notify Tony via the configured channel
+### playwright — REQUIRED when:
 
-Never silently skip or substitute a disabled tool that the task specifically requires.
-Never block routine delivery progress on tool-activation approvals when a documented fallback exists.
+- verifying browser-based UI behavior after web/frontend changes
+- capturing screenshots as evidence
+- smoke-testing a dev server or live page where browser execution is part of acceptance
+
+### Magic MCP — REQUIRED when:
+
+- generating UI component scaffolds from design intent
+- translating visual references into component structure
+- producing design-system-oriented UI starting points
+
+### github — REQUIRED when:
+
+- creating, listing, or reviewing branches, pull requests, or issues
+- managing releases or file operations via GitHub
+- searching code or users across repositories
+
+### openmemory — REQUIRED when:
+
+- before planning: retrieve prior decisions and patterns related to the task
+- after completing a phase: store new stable decisions or patterns
+
+### droidrun — REQUIRED when:
+
+- interacting with the user's phone
+- testing mobile apps or checking device state
+- automating phone actions
+
+Use `phone_ping` before `phone_do` or `phone_apps`.
+
+### obsidian-vault — CONDITIONAL
+
+Use `obsidian-vault` only for targeted fast-access note memory and durable operator knowledge when the task explicitly needs it.
+
+**Preferred use:**
+- Targeted note reads and searches (not broad vault dumps)
+- Daily-note updates for operator workflows
+- Cross-project operator knowledge and personal research findings
+- Quick-reference lookups when the information is known to exist in Obsidian
+
+**Relationship to OpenMemory:**
+- OpenMemory is the **primary durable structured memory backbone** for agent decisions, patterns, and project state
+- Obsidian is a **fast-access scoped note memory sidecar** for operator-facing knowledge and personal context
+- Do NOT treat Obsidian as repo truth over project docs, code, or OpenMemory
+- Do NOT use Obsidian to replace OpenMemory for agent operational state
+
+**When NOT to use:**
+- As a replacement for OpenMemory durable memory
+- As a replacement for repo-tracked docs (STATE.md, DECISIONS.md, PATTERNS.md)
+- As default bootstrap context (OpenMemory-first retrieval is preferred)
+- For storing agent operational decisions (use OpenMemory instead)
+
+### filesystem — CONDITIONAL
+
+Use `filesystem` only when local machine files outside the active repo are explicitly required and no repo-native source exists.
+
+## Tool management protocol
+
+PLAN must include a `Required Tools` section in every AGENT prompt when specific MCP tools matter:
+
+```text
+Required Tools: [tool1, tool2]
+Optional Tools: [tool3]
+Safe to disable: [tool4, tool5]
+```
+
+Tool tiers:
+
+- Core default-on: `openmemory`, `Context7`, `thinking-patterns`
+- Code work: `serena`, `github`
+- Research: `Exa Search`, `firecrawl-mcp`, `context-matic`
+- UI/testing: `playwright`, `Magic MCP`
+- Device/knowledge: `droidrun`, `obsidian-vault`, `filesystem`
+
+## Unavailable-tool policy
+
+If a high-value tool is required for the current task and it is disabled, unavailable, or failing:
+
+1. Stop immediately.
+2. Name the exact tool.
+3. State exactly why it is required for this task.
+4. Ask the user to enable or restore it in Cursor if it is a toggle/config issue.
+5. Record the blocker in `docs/ai/STATE.md`.
+
+Do not silently continue without a required high-value tool.
+Do not pretend a disabled tool is active.
+
+## Removed / unsupported toolchain
+
+- `sequential-thinking` — removed as a standalone server; use `thinking-patterns.sequential_thinking` instead
+- `shell-mcp` — removed; use built-in `Shell` when terminal access is required
+- `extension-GitKraken` / GitKraken MCP — removed from the supported toolchain
+- `googlesheets-tvi8pq-94` — removed from the supported toolchain
+- `firestore-mcp` — removed from the supported toolchain
+
+## Tool isolation model
+
+- Serena depends on exact project activation and repo-local `project.yml`.
+- Context7, Exa Search, Firecrawl, Playwright, and Magic are query-scoped: use them only when the active repo's task actually needs them.
+- OpenMemory and other MCPs stay repo-aware through repo-local rules, prompts, and task framing.
+
+## MCP configuration model
+
+- Active MCP servers live in the single global config at `C:\Users\ynotf\.cursor\mcp.json`. No workspace-local `.cursor/mcp.json` files.
+- Never hardcode secrets in committed repo files.
+- MCP configuration is tooling plumbing, not product law.
 
 ## PASS/FAIL evidence for tool usage
 
 AGENT must explicitly state for each MCP tool invocation:
 
-- The **exact tool name** that was invoked (e.g., `clear_thought`, `serena`, `Context7`, `firecrawl_scrape`, `github`, `openmemory`)
-- What it returned (brief summary)
+- the exact tool name
+- what it returned
 - PASS if successful; FAIL if it errored
 
 This evidence must appear in the execution block recorded in `docs/ai/STATE.md`.
-
-## Failure and fallback policy
-
-1. If a preferred tool fails: report **FAIL** immediately with the exact tool name and error.
-2. Attempt the fallback listed in the "Preferred MCP tools" table above.
-3. Record both the failed tool and the fallback used in `docs/ai/STATE.md`.
-4. If the fallback is also insufficient: **stop** and surface the blocker to PLAN.
-5. Never silently skip a tool — always announce degradation by name.
-
-## Boundaries
-
-- Never hardcode MCP server URLs, tokens, or configuration in repo files.
-- MCP configuration lives outside the repo (IDE settings, environment).
-- Rules enforce behavior, not plumbing.

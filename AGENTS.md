@@ -23,9 +23,14 @@ This repo uses a five-tab Cursor workflow: PLAN / AGENT / DEBUG / ASK / ARCHIVE.
 ## Authoritative rules
 
 - `.cursor/rules/00-global-core.md` — non-negotiable behaviors
+- `.cursor/rules/01-charter-enforcement.md` — **enforcement kernel** (read immediately after 00; charter violations are blocked here, not merely described)
+- `.cursor/rules/02-non-routable-exclusions.md` — quarantine and out-of-scope exclusions
 - `.cursor/rules/05-global-mcp-usage.md` — MCP tool usage policy
 - `.cursor/rules/10-project-workflow.md` — tab contracts (Open Claw specific)
+- `.cursor/rules/15-model-routing.md` — model selection and escalation policy
 - `.cursor/rules/20-project-quality.md` — engineering standards (Open Claw specific)
+- `.cursor/rules/25-ai-employee-standard.mdc` — curated employee packet standard
+- `.cursor/rules/sparky-mandatory-tool-usage.md` — **Sparky-specific mandatory tool enforcement** (alwaysApply: true)
 - `docs/ai/CURSOR_WORKFLOW.md` — human-readable workflow overview
 
 ## State tracking
@@ -53,14 +58,28 @@ MCP tool usage is enforced via `.cursor/rules/05-global-mcp-usage.md`.
 Tools are used for: code navigation, documentation lookup, reasoning, browser automation, web extraction, repo operations, and persistent memory.
 Configuration lives outside the repo. Rules enforce behavior, not plumbing.
 
+### Serena local scope
+
+For OpenClaw runtime code, activate Serena by exact path: `D:/github/open--claw/open-claw`.
+
+- Do not rely on the repo-root dashboard entry or project name alone.
+- `D:/github/open--claw` repo root is governance/docs heavy; use targeted read/search tools there unless a dedicated Serena project is activated for that root.
+- If work moves into `AI-Project-Manager` or `droidrun`, activate that project by exact path before using Serena there.
+
 ## Agent contract
 
 AGENT must:
 
 - Follow PLAN prompts exactly
 - Update `docs/ai/STATE.md` after each execution block using the enforced template in `10-project-workflow.md`
+- Append one entry to `docs/ai/context/AGENT_EXECUTION_LEDGER.md` after each completed prompt block (exact prompt text + exact final response + files changed + verdict). This is mandatory and equally required as the STATE.md update.
 - Provide PASS/FAIL evidence for every tool call and command
 - Use MCP tools before falling back to manual approaches
+- Promote unresolved execution turbulence to `docs/ai/HANDOFF.md § Recent Unresolved Issues` when it remains operationally relevant after a task block.
+
+## Execution Ledger (non-canonical)
+
+`docs/ai/context/AGENT_EXECUTION_LEDGER.md` records verbatim AGENT execution events. It is **non-canonical** — informative only, never authoritative. It must never be part of default bootstrap reads for any tab. PLAN and DEBUG may consult it only when STATE.md, DECISIONS.md, PATTERNS.md, and HANDOFF.md are insufficient, and only by reading the specific needed block(s) **one block at a time** — stop as soon as sufficient context is recovered; do not preload multiple entries unless one block proved insufficient. Archive overflow to `docs/ai/context/archive/` when the active ledger exceeds 5 entries or ~300 lines.
 
 ## Project docs
 

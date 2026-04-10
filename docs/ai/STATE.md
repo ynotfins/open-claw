@@ -8,193 +8,90 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 
 ---
 
-## 2026-03-31 — Sparky Enforcement Gate + Non-Overlapping Delegation Chain
-
-### Goal
-Rewrite leadership and quality packets so Sparky becomes the mandatory post-edit enforcement gate, the delegation chain has no overlap, and every role has a single clear authority boundary.
-
-### Scope
-- `open-claw/AI_Employee_knowledgebase/TEAM_ROSTER.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/sparky-chief-product-quality-officer/AGENTS.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/sparky-chief-product-quality-officer/WORKFLOWS.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/delivery-director/AGENTS.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/product-manager/AGENTS.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/code-reviewer/AGENTS.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/qa-evidence-collector/AGENTS.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/reality-checker/AGENTS.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/software-architect/AGENTS.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/backend-architect/AGENTS.md`
-- `open--claw/docs/ai/STATE.md` (this file)
-
-### Commands / Tool Calls
-- Read: `FINAL_OUTPUT_PRODUCT.md`, `TEAM_ROSTER.md`, Sparky `AGENTS.md`, Sparky `WORKFLOWS.md`, all 8 target `AGENTS.md` files — PASS
-- Write: `TEAM_ROSTER.md` — PASS
-- Write: `sparky-chief-product-quality-officer/AGENTS.md` — PASS
-- Write: `sparky-chief-product-quality-officer/WORKFLOWS.md` — PASS
-- Write: `delivery-director/AGENTS.md` — PASS
-- Write: `product-manager/AGENTS.md` — PASS
-- Write: `code-reviewer/AGENTS.md` — PASS
-- Write: `qa-evidence-collector/AGENTS.md` — PASS
-- Write: `reality-checker/AGENTS.md` — PASS
-- Write: `software-architect/AGENTS.md` — PASS
-- Write: `backend-architect/AGENTS.md` — PASS
-
-### Changes
-
-**TEAM_ROSTER.md** — Added `Role Boundaries` table (exclusive responsibilities + what each role is explicitly NOT responsible for) and a `Deterministic Handoff Chain` section (6-step canonical sequence: brief → routing → implement → evidence collection → Sparky gate → release). Updated `Leadership Spine` to state Sparky as mandatory post-edit gate.
-
-**sparky-chief-product-quality-officer/AGENTS.md** — Added `Mandatory Post-Edit Review Gate` section: every file change must be reviewed by Sparky; decisions are exactly ACCEPT / REFACTOR / REJECT; no other employee may issue these decisions. Rewrote Collaboration Rules: all advisors and evidence providers submit to Sparky; Sparky decides. Removed ambiguous "require final proof from reality-checker before green-lighting" framing (replaced with Sparky consulting reality-checker's recommendation, then making the final call).
-
-**sparky-chief-product-quality-officer/WORKFLOWS.md** — Replaced vague 5-step delivery pattern with: (a) `Mandatory Post-Edit Review Procedure` (5-step gate with explicit "no advance on incomplete evidence" rule), (b) `Deterministic Handoff Chain` (ASCII diagram), (c) `Pre-Release Checklist`, (d) `Ongoing Cadence`.
-
-**delivery-director/AGENTS.md** — Added `Role Boundary` section: sequencing, dependencies, and work-packet routing only; does not accept or reject implementation; routes Sparky's decisions, does not issue them.
-
-**product-manager/AGENTS.md** — Added `Role Boundary` section: briefs, scope definitions, non-goals, and acceptance criteria only; does not make implementation or quality decisions.
-
-**code-reviewer/AGENTS.md** — Added `Role Boundary` section: evidence provider and advisor only; delivers findings to Sparky; does not have final accept/reject authority.
-
-**qa-evidence-collector/AGENTS.md** — Added `Role Boundary` section: evidence provider only; delivers proof artifacts to Sparky; does not make final quality decisions.
-
-**reality-checker/AGENTS.md** — Added `Role Boundary` section: go/no-go recommender to Sparky only; removed routing to `delivery-director` from Collaboration Rules; Sparky makes the final decision.
-
-**software-architect/AGENTS.md** — Added `Role Boundary` section: technical advisor; submits risk findings to Sparky; does not accept or reject implementation.
-
-**backend-architect/AGENTS.md** — Added `Role Boundary` section: technical advisor on backend concerns; submits findings to Sparky; does not accept or reject implementation.
-
-### Evidence
-
-- PASS: `TEAM_ROSTER.md` — Role Boundaries table and Deterministic Handoff Chain present; no employee is listed as having accept/reject authority except Sparky.
-- PASS: Sparky `AGENTS.md` — `Mandatory Post-Edit Review Gate` section present; ACCEPT/REFACTOR/REJECT vocabulary defined; "no other employee may issue these decisions" is explicit.
-- PASS: Sparky `WORKFLOWS.md` — Handoff chain diagram present; pre-release checklist present; post-edit review procedure present with "gate does not move forward on incomplete evidence" rule.
-- PASS: Delivery Director `AGENTS.md` — "does not accept or reject implementation" explicit; "routes Sparky's decisions, does not issue them" explicit.
-- PASS: Product Manager `AGENTS.md` — "does not make implementation decisions, architecture decisions, or final quality judgments" explicit.
-- PASS: Code Reviewer `AGENTS.md` — "does not have final accept/reject authority" explicit; advisor framing.
-- PASS: QA Evidence Collector `AGENTS.md` — "does not make final quality decisions" explicit; evidence provider framing.
-- PASS: Reality Checker `AGENTS.md` — "go/no-go recommender" framing; "does not route release decisions to delivery-director directly" explicit; "does not issue an independent final go/no-go decision" explicit.
-- PASS: Software Architect `AGENTS.md` — "does not accept or reject implementation independently" explicit.
-- PASS: Backend Architect `AGENTS.md` — "does not accept or reject backend implementation independently" explicit.
-- PASS: `FINAL_OUTPUT_PRODUCT.md` not modified.
-- PASS: Role language is non-overlapping — only one entity (Sparky) holds final accept/reject/refactor authority; all other roles are producers, advisors, or evidence providers feeding into that gate.
-
-### Verdict
-PASS — Sparky enforcement gate installed. Delegation chain is deterministic and non-overlapping. All 10 target files updated. Charter alignment confirmed.
-
-### Blockers
-None.
-
-### Fallbacks Used
-None.
-
-### Cross-Repo Impact
-AI-Project-Manager `docs/ai/STATE.md` and `AGENT_EXECUTION_LEDGER.md` updated with this block as required by AGENT contract.
-
-### Decisions Captured
-- Sparky is the exclusive ACCEPT/REFACTOR/REJECT authority for all file changes and release decisions.
-- The handoff chain is: brief → routing → implement → evidence collection (parallel) → Sparky gate → release → post-release verification.
-- Reality Checker is a go/no-go recommender, not a parallel decision-maker.
-- Delivery Director sequences and routes only; it does not make quality decisions.
-- Product Manager produces briefs and acceptance criteria only; it does not make quality decisions.
-
-### Pending Actions
-Commit and push open--claw changes to origin.
-
-### What Remains Unverified
-CrewClaw deployed worker packets are still the older versions; the updated `AI_employees/` standard applies to the curated knowledgebase only until the deployed workers are re-synced.
-
-### What's Next
-Commit open--claw changes. Update AI-Project-Manager STATE.md and AGENT_EXECUTION_LEDGER.md. Optionally: carry the same role-boundary language into BOOTSTRAP.md and SOUL.md/IDENTITY.md files if Sparky determines that is needed.
-
----
-
-## 2026-03-31 — Employee KB: charter-first hierarchy in house standards and all curated packets
-### Goal
-Align `AI_Employee_knowledgebase` docs and every curated packet under `AI_employees/` so all employees read `FINAL_OUTPUT_PRODUCT.md` first and treat `AUTHORITATIVE_STANDARD.md`, `TEAM_ROSTER.md`, and `AI-EMPLOYEE-STANDARD.md` as subordinate interpreters—never overriding the charter.
-### Scope
-- Modified: `open-claw/AI_Employee_knowledgebase/README.md`, `AUTHORITATIVE_STANDARD.md`, `AI-EMPLOYEE-STANDARD.md`, `TEAM_ROSTER.md`
-- Modified: `.cursor/rules/25-ai-employee-standard.mdc`
-- Modified: 15× `AGENTS.md`, `BOOTSTRAP.md`, `README.md`, `PROVENANCE.md` under `open-claw/AI_Employee_knowledgebase/AI_employees/*`
-- Not modified: `FINAL_OUTPUT_PRODUCT.md` (explicitly excluded)
-### Validation
-- PASS — pattern `Charter (read first` in `open-claw/AI_Employee_knowledgebase/AI_employees/**/AGENTS.md` → 15 files (PowerShell `Select-String`)
-- PASS — `FINAL_OUTPUT_PRODUCT` in every curated `BOOTSTRAP.md` → 15 files
-- PASS — `Product charter (supreme)` in every curated `PROVENANCE.md` → 15 files
-- PASS — no remaining `## House Standard` section in packet `PROVENANCE.md` files (deduped into charter + interpreters block)
-### Verdict
-PASS — docs-only; charter supremacy explicit across house standard and curated packets.
-
----
-
-## 2026-03-31 17:00 — Charter Enforcement Kernel Installed (Reconciliation Pass)
-### Goal
-Install enforcement kernel in open--claw repo so charter violations are blocked by rules, not merely described.
-### Scope
-open--claw repo (part of tri-workspace pass).
-### Commands / Tool Calls
-- Created `.cursor/rules/01-charter-enforcement.md` — PASS
-- Updated `AGENTS.md` — PASS
-- Updated `.cursor/rules/00-global-core.md` — PASS
-- Updated `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md` (all five tabs) — PASS
-### Changes
-- New: `.cursor/rules/01-charter-enforcement.md`
-- Modified: `AGENTS.md` (enforcement kernel added to authoritative rules)
-- Modified: `.cursor/rules/00-global-core.md` (Enforcement Kernel section added at top)
-- Modified: `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md` (all five tabs: added `01-charter-enforcement.md` second in read order)
-### Evidence
-PASS — all files written and verified. `FINAL_OUTPUT_PRODUCT.md` not modified.
-### Verdict
-PASS — Enforcement kernel active.
-### Blockers
-None.
-### Fallbacks Used
-None.
-### Cross-Repo Impact
-Tri-workspace pass: same changes applied in AI-Project-Manager and droidrun.
-### Decisions Captured
-Forbidden platforms for tri-workspace: macOS, iOS, Swift, Xcode, CocoaPods. Violations stop execution and route to Sparky.
-### Pending Actions
-None.
-### What Remains Unverified
-Runtime tab-load order requires live session confirmation.
-### What's Next
-Normal operations resume. Enforcement kernel is live.
-
----
-
 ## Current State Summary
 
-> Last updated: 2026-03-29
-> Last verified runtime: 2026-03-29
-> Mirror source: AI-Project-Manager/docs/ai/STATE.md
+> Last updated: 2026-04-09
+> Archive pass: 2026-04-01 — 1,170 → 175 lines (archive/compaction pass, this session)
+> Previous archive: `docs/ai/archive/state-log-full-history-2026-02-18-to-2026-03-21.md`
 
-### Phase Status (Open Claw)
+### Authority Reality
 
-| Phase                                     | Status       | Closed     |
-| ----------------------------------------- | ------------ | ---------- |
-| Phase 1 — Gateway Boot + First Agent Chat | COMPLETE     | 2026-03-08 |
-| **Phase 2 — First Live Integration**      | **COMPLETE** | 2026-03-14 |
-| Phase 1A — CrewClaw Worker Stabilization  | IN PROGRESS  | —          |
+- **Supreme charter**: `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — immutable without Tony's permission
+- **Enforcement kernel**: `.cursor/rules/01-charter-enforcement.md` — active, hard-stop on charter violations
+- **Forbidden platforms**: macOS, iOS, Swift, Xcode, CocoaPods — violations stop execution immediately and route to Sparky
+- **Sparky** (`sparky-chief-product-quality-officer`) is the exclusive ACCEPT/REFACTOR/REJECT authority for all file changes and release decisions
+- **Quarantine system**: installed at 5 enforcement layers; `candidate_employees/**` (163 files) is permanently non-routable until promoted via `NON_ROUTABLE_QUARANTINE.md`
 
-### Runtime Snapshot (as of 2026-03-29)
+### Active Prompt Sequence Status
 
-- Gateway: 0.0.0.0:18789, bind=lan, systemd managed, OpenClaw v2026.3.13
-- Runtime: Node v22.22.0 (WSL), pnpm 10.23.0
-- Channels: Telegram (healthy/running), WhatsApp (linked/stopped — 401 auth, QR re-scan needed)
-- Windows nodes: 1 connected (Windows Desktop)
-- CrewClaw workers: 5 deployed (api-integration-specialist, code-reviewer, financial-analyst, frontend-developer, overnight-coder)
-- Sandbox: mode=off by design
+| Prompt | Description | Status |
+|---|---|---|
+| Prompt 7 | Tri-Workspace Governance Normalization | COMPLETE |
+| Prompt 8 | Non-Routable Quarantine System | COMPLETE |
+| Archive pass | STATE.md compaction (this task) | COMPLETE |
+| Prompt 6 (next) | TBD — see PLAN | READY TO PROCEED |
+
+### Phase Status
+
+| Phase | Status | Closed |
+|---|---|---|
+| Phase 1 — Gateway Boot + First Agent Chat | COMPLETE | 2026-03-08 |
+| Phase 2 — First Live Integration | COMPLETE | 2026-03-14 |
+| Phase 1A — CrewClaw Worker Stabilization | COMPLETE (runtime fixes applied) | 2026-03-29 |
+| Phase 1B — Employee Readiness Audit + Standard | COMPLETE | 2026-03-30 |
+| Phase 1C — Curated Runtime Sync + Validation | COMPLETE | 2026-03-30 |
+| Phase 1D — Docs Cross-Reference Alignment | COMPLETE | 2026-03-30 |
+| Phase 1E — FINAL_OUTPUT_PRODUCT Charter | COMPLETE | 2026-03-30 |
+| Phase 1F — Telegram Bot Assignment Mapping | COMPLETE | 2026-03-30 |
+| Phase 1G — Employee Status Board | COMPLETE | 2026-03-30 |
+| Autonomy Model Rewrite | COMPLETE | 2026-03-31 |
+| Sparky Enforcement Gate + Delegation Chain | COMPLETE | 2026-03-31 |
+| Charter Enforcement Kernel Install | COMPLETE | 2026-03-31 |
+| Governance Normalization (Prompt 7) | COMPLETE | 2026-03-31 |
+| Non-Routable Quarantine (Prompt 8) | COMPLETE | 2026-04-01 |
+| **Memory Bridge (OpenClaw ↔ OpenMemory)** | **NOT STARTED** | — |
+
+### Runtime Snapshot (as of 2026-03-29; last verified)
+
+- OpenClaw runtime: v2026.3.13 via `~/openclaw-build` (CLI `pnpm openclaw` + systemd)
+- Gateway: `0.0.0.0:18789` (bind=lan), API health `127.0.0.1:18792`
+- Telegram: healthy, running, `@Sparky4bot`, polling mode
+- WhatsApp: linked/stopped — **401 Unauthorized** — needs QR re-scan
+- Windows node: Windows Desktop — connected (verified 2026-03-29)
+- Curated runtime: generated and structurally validated at `open-claw/employees/deployed-curated/`; NOT yet live-started with real tokens
 
 ### Active Blockers
 
 | Blocker | Severity | Status |
 |---|---|---|
-| WhatsApp 401 Unauthorized — needs QR re-scan | MEDIUM | PENDING USER ACTION |
-| CrewClaw workers: first run needs device pairing approval (`openclaw devices approve <id>`) | MEDIUM | DESIGN RESOLVED — pairing on first start |
-| Memory bridge (OpenClaw ↔ OpenMemory): not implemented | HIGH | DEFERRED (Phase 1B) |
+| WhatsApp 401 — session expired | MEDIUM | PENDING USER ACTION: `pnpm openclaw channels login --channel whatsapp` + QR scan |
+| 3 curated worker Bitwarden UUIDs unresolved | MEDIUM | `delivery-director`, `product-manager`, `sparky-chief-product-quality-officer` — need explicit `*_TOKEN` env vars or new Bitwarden secret IDs |
+| 2 curated worker Telegram usernames still unrecorded | LOW | `accessibility-auditor`, `backend-architect` — tokens exist; final usernames still need to be recorded cleanly in docs |
+| Curated runtime not live-proven | HIGH | Run `open-claw/employees/deployed-curated/start-employees.ps1`, approve device pairings, run smoke tests |
+| Memory bridge not built | HIGH | Phase 1B design (deferred) — OpenClaw ↔ OpenMemory bridge not yet built |
+| `docs/ai/context/AGENT_EXECUTION_LEDGER.md` does not exist | LOW | Create when first open--claw AGENT block appends a ledger entry |
+
+### Cross-Repo Dependencies Still Active
+
+- `AI-Project-Manager/docs/ai/context/AGENT_EXECUTION_LEDGER.md` — ledger updated with archive pass entry (this task)
+- `droidrun`: `02-non-routable-exclusions.md` mirrors the open--claw quarantine rule; iOS files bannered as non-routable
+- `AI-Project-Manager`: `02-non-routable-exclusions.md` mirrors; `openmemory.mdc` updated; `TRI_WORKSPACE_CONTEXT_BRIEF.md` updated
+
+### What Remains Unverified
+
+- PowerShell bulk banner count (2,608) not independently spot-checked post-run
+- `openmemory.mdc` exclusions require a live memory search test to confirm `candidate_employees/**` paths are excluded
+- TAB_BOOTSTRAP_PROMPTS.md quarantine blocks not tested in a live Cursor session
+- Sparky routing plumbing requires live multi-agent session validation
+- Governance overlay (Phase 6B) still blocked on ANTHROPIC_API_KEY
 
 ### Archived Entries
 
-Full historical log (2026-02-18 through 2026-03-21) archived to:
+Historical log (2026-02-18 through 2026-03-21):
 `docs/ai/archive/state-log-full-history-2026-02-18-to-2026-03-21.md`
+
+Phase 1A through Governance Normalization (2026-03-21 through 2026-03-31):
+`docs/ai/archive/state-log-phase1a-governance-normalization-2026-03-21-to-2026-03-31.md`
 
 ---
 
@@ -204,770 +101,878 @@ Full historical log (2026-02-18 through 2026-03-21) archived to:
 
 ---
 
-## 2026-03-21 18:00 — Mirror: Post-Restart Hardening (WhatsApp + Rate Limit + Node Hygiene)
+## 2026-04-01 — STATE.md Archive/Compaction Pass (Archive Prompt)
 
 ### Goal
-Mirror of AI-Project-Manager STATE entry. Post-restart OpenClaw hardening: rate limiting, WhatsApp session recovery (pending QR scan), stale node removal, orphan transcript archive, Windows Desktop node reconnected.
 
-### Verdict
-PARTIAL — All automated fixes PASS. WhatsApp: PENDING USER ACTION (QR scan).
-
-### Key Changes
-- gateway.auth.rateLimit added to openclaw.json
-- Stale node 847202f0 removed
-- 7 orphan transcripts archived
-- Windows Desktop: Connected:1
-
-### Blockers
-WhatsApp NOT LINKED — user must run `pnpm openclaw channels login --channel whatsapp` and scan QR.
-
-### What's Next
-User scans WhatsApp QR; verify channel probe. See full entry in AI-Project-Manager/docs/ai/STATE.md.
-
----
-
-## 2026-03-21 19:00 — Mirror: STATE.md Rolling Archive (842 -> 280 lines)
-
-### Goal
-Mirror of AI-Project-Manager STATE entry. STATE.md brought into compliance: 842 -> 280 lines. 8 entries archived verbatim to 2 new archive files. No operational truth lost.
-
-### Verdict
-PASS — 280 lines, 2 active entries kept, DECISIONS.md/PATTERNS.md continuity confirmed.
-
-### Changes
-- state-log-windows-node-crewclaw-2026-03-17-18.md created (5 entries)
-- state-log-ops-governance-2026-03-19.md created (5 entries)
-- `docs/ai/archive/README.md` updated (14 entries indexed)
-
-### What's Next
-Continue normal operations. See full entry in AI-Project-Manager/docs/ai/STATE.md.
-
-## 2026-03-27 12:00 — GitHub sync: rebase local master onto origin
-
-### Goal
-Resolve divergence (local 2 commits vs origin 36) and push a single linear history to `origin/master`.
+Perform a dedicated archive/compaction pass for `open--claw/docs/ai/STATE.md` to bring it back into policy compliance, preserve all operationally relevant context, and promote decisions/patterns that existed only in STATE entries to the durable docs before archiving.
 
 ### Scope
-`docs/ai/PLAN.md`, `docs/ai/STATE.md`, `.cursor/rules/05-global-mcp-usage.md`, `.cursor/rules/10-project-workflow.md`, `docs/ai/HANDOFF.md`, `open-claw/docs/CODING_AGENT_MAPPING.md`
+
+- `open--claw/docs/ai/STATE.md` (this file) — primary target
+- `open--claw/docs/ai/archive/state-log-phase1a-governance-normalization-2026-03-21-to-2026-03-31.md` — new archive file created
+- `open--claw/docs/ai/memory/DECISIONS.md` — populated (was empty)
+- `open--claw/docs/ai/memory/PATTERNS.md` — populated (was empty)
+- `open--claw/docs/ai/HANDOFF.md` — updated to reflect Prompt 8 completion and archive pass
+- `AI-Project-Manager/docs/ai/context/AGENT_EXECUTION_LEDGER.md` — archive pass entry appended
 
 ### Commands / Tool Calls
-`git fetch origin`; `git pull --rebase origin master`; conflict resolution; `git rebase --continue`; `git push origin master`
+
+- Read: `open--claw/docs/ai/STATE.md` (1,170 lines) — PASS
+- Read: `open--claw/docs/ai/HANDOFF.md` — PASS
+- Read: `open--claw/docs/ai/memory/DECISIONS.md` (empty) — PASS
+- Read: `open--claw/docs/ai/memory/PATTERNS.md` (empty) — PASS
+- Read: `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — PASS
+- Read: `open--claw/AGENTS.md`, all `.cursor/rules/*.md`, `AI-Project-Manager/AGENTS.md`, `AI-Project-Manager/.cursor/rules/10-project-workflow.md` — PASS
+- Read: `AI-Project-Manager/docs/ai/context/AGENT_EXECUTION_LEDGER.md` — PASS
+- Write: `docs/ai/memory/DECISIONS.md` — promoted 10 key decisions — PASS
+- Write: `docs/ai/memory/PATTERNS.md` — promoted 4 key patterns — PASS
+- Write: `docs/ai/archive/state-log-phase1a-governance-normalization-2026-03-21-to-2026-03-31.md` — verbatim move of 16 historical STATE entries — PASS
+- Write: `docs/ai/STATE.md` — compacted from 1,170 → ~175 lines — PASS
+- Write: `docs/ai/HANDOFF.md` — updated phase status and added archive pass note — PASS
+- Write: `AI-Project-Manager/docs/ai/context/AGENT_EXECUTION_LEDGER.md` — archive pass entry appended — PASS
 
 ### Changes
-Rebase applied local commits onto latest GitHub mirror. Conflicts resolved by keeping upstream operational docs where they are the governance mirror; `CODING_AGENT_MAPPING.md` updated so orchestrator row uses Clear Thought 1.5 and `openmemory` (aligned with `05-global-mcp-usage.md`). Minor PLAN typo corrected (`MODULES.md`). Rolling-archive STATE line uses `` `docs/ai/archive/README.md` `` path.
+
+- **DECISIONS.md**: Populated from empty — 10 decisions promoted (worker agent identity, Docker volume pattern, OpenClaw install recipe, Sparky authority, handoff chain, reality checker role, forbidden platforms, KB archive policy, quarantine model, quarantine source of truth)
+- **PATTERNS.md**: Populated from empty — 4 patterns promoted (OpenClaw Docker worker install, named Docker volume for device identity, curated employee packet structure, quarantine banner)
+- **Archive file created**: `docs/ai/archive/state-log-phase1a-governance-normalization-2026-03-21-to-2026-03-31.md` — 16 historical STATE entries moved verbatim (2026-03-21 through 2026-03-31)
+- **STATE.md**: Compacted from 1,170 lines → ~175 lines. New Current State Summary written at top. Prompt 8 entry (2026-04-01 quarantine) kept active. Old 2026-03-29 Current State Summary archived (outdated). Archive pass entry (this entry) appended.
+- **HANDOFF.md**: Updated date to 2026-04-01, updated phase status table, added Prompt 8 quarantine and archive pass as completed items, blockers unchanged.
 
 ### Evidence
-- **git fetch origin**: **PASS** — `master` advanced to `55dac3f`
-- **git pull --rebase origin master**: **PARTIAL then PASS** — conflicts in PLAN/STATE/rules/HANDOFF/CODING_AGENT_MAPPING; resolved manually
-- **rebase --continue (2 commits)**: **PASS** — both commits replayed after resolution
-- **git push origin master**: **PASS** — `55dac3f..ee78312  master -> master`
+
+- PASS: `DECISIONS.md` populated — 10 durable decisions from archived STATE entries captured before archiving
+- PASS: `PATTERNS.md` populated — 4 reusable patterns captured before archiving
+- PASS: Archive file created with all 16 historical entries verbatim (no summarization)
+- PASS: Active STATE.md reduced from 1,170 lines to ~175 lines — well below 800-line soft warning
+- PASS: `FINAL_OUTPUT_PRODUCT.md` not modified
+- PASS: No decisions/patterns lost — cross-checked DECISIONS.md, PATTERNS.md, HANDOFF.md before archiving
+- PASS: Current State Summary is sufficient for PLAN to regain situational awareness
+- PASS: Archive policy followed exactly (verbatim move, no summarization, archive file in `docs/ai/archive/`)
 
 ### Verdict
-READY — local `master` rebased onto `origin/master`, conflicts resolved, push succeeded.
+
+READY — STATE.md is now policy-compliant at ~175 lines (well below the 800-line soft warning zone and 1,000-line hard ceiling). Archive file created verbatim. DECISIONS.md and PATTERNS.md populated. Current State Summary captures authority reality, phase status, active blockers, unverified items, and cross-repo dependencies. Repo is clean to proceed to Prompt 6.
 
 ### Blockers
-None.
+
+None for the archive pass itself. Active project blockers are captured in the Current State Summary above.
 
 ### Fallbacks Used
+
 None.
 
 ### Cross-Repo Impact
-None.
+
+- `AI-Project-Manager/docs/ai/context/AGENT_EXECUTION_LEDGER.md` — archive pass entry appended (required by AGENT contract)
+- `open--claw/docs/ai/HANDOFF.md` — updated to reflect post-Prompt 8 and archive pass state
 
 ### Decisions Captured
-Prefer upstream (`HEAD` during rebase) for mirrored governance files; merge only mapping table naming to match current MCP policy.
+
+None new. All promoted decisions were extracted from existing STATE entries and moved to `DECISIONS.md`.
 
 ### Pending Actions
-None.
+
+- HANDOFF.md: updated in this pass — reflects current truth.
+- DECISIONS.md: populated — no further action needed.
+- PATTERNS.md: populated — no further action needed.
+- `docs/ai/context/AGENT_EXECUTION_LEDGER.md` for open--claw still does not exist — create when first open--claw AGENT block runs a real execution task.
 
 ### What Remains Unverified
-None for this sync.
+
+Same as Current State Summary above — the unverified items that were in STATE before the archive pass remain unverified (live quarantine exclusion test, live tab bootstrap test, Sparky routing, ANTHROPIC_API_KEY for governance overlay).
 
 ### What's Next
-Resume normal PLAN/AGENT work; optional: verify GitHub `master` at `ee78312`.
+
+Proceed to Prompt 6. All governance and compaction prerequisites are now satisfied.
 
 ---
 
-## 2026-03-29 — Phase 1A Stabilization: CrewClaw Worker Identity Fix + STATE Archive
+## 2026-04-01 — Non-Routable Quarantine System Installed (Prompt 8)
 
 ### Goal
-Phase 1A stabilization: fix CrewClaw worker correctness (Blocker A), restore STATE policy compliance (Blocker C), remove stale runtime truth drift.
 
-### Commands / Tool Calls
-- `docker ps --format ...` → 5 containers running (Up 9h)
-- `openclaw channels status --probe` → Telegram OK, WhatsApp 401 stopped
-- `openclaw nodes status` → Windows Desktop connected
-- `docker exec crewclaw-api-integration-specialist openclaw --version` → `executable not found`
-- `docker exec ... cat /usr/local/lib/node_modules/openclaw/package.json` → `version: 0.0.1` (stub)
-- `npm view openclaw dist-tags` → `{ latest: '2026.3.28', beta: '...' }`
-- Container rebuild tests: node:20-slim fails (node version + SSH dep); node:22-slim + `--ignore-scripts` + git HTTPS rewrite PASS
-- `openclaw --version` in container → `OpenClaw 2026.3.13 (61d171a)` ✓
-- `openclaw devices list/approve` → pairing mechanism identified
-- `docker compose up -d` with named volumes → containers start, crash on empty TELEGRAM_BOT_TOKEN (expected without BWS)
-
-### Changes
-
-**Dockerfiles (all 5 workers):**
-- Changed `FROM node:20-slim` → `FROM node:22-slim` (openclaw requires Node 22+)
-- Changed `npm install -g openclaw` → `apt-get install git ca-certificates && git config --global url.'https://...'.insteadOf 'ssh://...' && npm install -g openclaw@2026.3.13 --ignore-scripts`
-- Added `entrypoint.sh` as CMD; copies gateway config on startup
-
-**entrypoint.sh (all 5 workers):**
-- New file: writes `~/.openclaw/openclaw.json` with `gateway.mode=remote`, `gateway.remote.url`, `gateway.remote.token` from env vars before starting bot
-
-**bot-telegram.js (all 5 workers):**
-- Changed `--agent <worker-name>` → `--agent main` (only `main` is registered on gateway)
-- Added `--session-id telegram-worker-<persona>-<userId>` for conversation continuity per user
-
-**docker-compose.yml:**
-- Added `OPENCLAW_GATEWAY_URL`, `OPENCLAW_GATEWAY_TOKEN`, `OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1` env vars
-- Added `extra_hosts: host.docker.internal:host-gateway`
-- Added named volumes `crewclaw-openclaw-<name>:/root/.openclaw` (persistent device identity across restarts)
-
-**start-employees.ps1:**
-- Added OPENCLAW_GATEWAY_TOKEN fetch from Bitwarden (stub — secret ID placeholder, needs setting)
-- Added `OPENCLAW_GATEWAY_URL=ws://host.docker.internal:18789`
-
-**STATE.md archive:**
-- 2864 lines → archived 2776 lines to `docs/ai/archive/state-log-full-history-2026-02-18-to-2026-03-21.md`
-- Active file: ~100 lines
-
-### Evidence
-
-| Check | Result | Detail |
-|---|---|---|
-| `openclaw` cmd in old containers | **FAIL (BEFORE)** | stub `0.0.1` package, no binary |
-| `npm view openclaw dist-tags` | **PASS** | `latest: 2026.3.28` — real package exists |
-| Build: node:22-slim + git + ca-certs + `--ignore-scripts` | **PASS** | `OpenClaw 2026.3.13 (61d171a)` in container |
-| Gateway config schema | **CORRECTED** | `gateway.remote.url` not `gateway.url` |
-| Pairing mechanism | **IDENTIFIED** | `openclaw devices list/approve` — required on first run, then persistent via named volume |
-| Container restart w/ named volume | **PASS** | Device identity persists; only Telegram token env needed for restart |
-| STATE.md compliance | **PASS** | 2864 → ~100 lines (target: ≤500) |
-
-### Blockers (Remaining)
-
-- **BLOCKER: OPENCLAW_GATEWAY_TOKEN_SECRET_ID not set in start-employees.ps1** — placeholder must be replaced with real Bitwarden secret ID containing the gateway token value (from `openclaw.json` `gateway.auth.token`).
-- **FIRST-RUN PAIRING** — after running `start-employees.ps1` with real tokens, each worker will submit 1 pairing request; run `openclaw devices list` and `openclaw devices approve <id>` for each. Subsequent restarts use named volume device identity (no re-pairing needed).
-- **WhatsApp** — still 401; user must re-scan QR via `pnpm openclaw channels login --channel whatsapp`.
-- **Memory bridge** — deferred to Phase 1B (OpenClaw ↔ OpenMemory bridge not yet built).
-
-### Fallbacks Used
-- None required.
-
-### Cross-Repo Impact
-- AI-Project-Manager STATE.md: mirror entry to be added.
-- open--claw HANDOFF.md: to be updated with current channel/node truth.
-
-### Decisions Captured
-- Worker bot-telegram.js calls `--agent main` not `--agent <worker-name>` — the gateway only has `main` registered. Per-worker persona differentiation deferred.
-- Named Docker volumes for `/root/.openclaw` is the canonical mechanism to preserve device identity across container restarts.
-- `openclaw@2026.3.13 --ignore-scripts` on node:22-slim is the proven install recipe; `--ignore-scripts` skips Baileys/libsignal native build (not needed for Telegram bots).
-
-### What's Next
-1. Store gateway token in Bitwarden; update `OPENCLAW_GATEWAY_TOKEN_SECRET_ID` in `start-employees.ps1`.
-2. Run `start-employees.ps1` (requires BWS_ACCESS_TOKEN); approve pairing requests for all 5 workers.
-3. WhatsApp: QR re-scan when ready.
-4. Phase 1B: design OpenClaw ↔ OpenMemory memory bridge.
-
----
-
-## 2026-03-30 02:10 — Phase 1A: Employee readiness audit and curated packet gap mapping
-
-### Goal
-Move beyond the first-pass roster buildout and verify what is already true about the OpenClaw employee library: which skills are in place, which packets are thin or duplicate, and what is still missing before the curated team can be treated as a high-level working website squad.
+Implement a path-based quarantine system that prevents out-of-scope material from entering routing, search, memory, or embeddings flows across the entire tri-workspace. This entry records the full open--claw-specific and cross-repo changes.
 
 ### Scope
-- `open-claw/scripts/generate_ai_employee_knowledgebase.py`
-- `open-claw/AI_Employee_knowledgebase/README.md`
-- `open-claw/AI_Employee_knowledgebase/EMPLOYEE_READINESS_AUDIT.md`
-- `open-claw/AI_Employee_knowledgebase/manifest.json`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/*/AUDIT.md`
-- `open-claw/AI_Employee_knowledgebase/employee_audits/**`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/_zips/*.zip`
-- `docs/ai/STATE.md`
+
+- `open-claw/AI_Employee_knowledgebase/NON_ROUTABLE_QUARANTINE.md` — canonical registry (new)
+- `open--claw/.cursor/rules/02-non-routable-exclusions.md` — enforcement rule (new)
+- `AI-Project-Manager/.cursor/rules/02-non-routable-exclusions.md` — mirror enforcement rule (new)
+- `droidrun/.cursor/rules/02-non-routable-exclusions.md` — mirror enforcement rule (new)
+- `open-claw/AI_Employee_knowledgebase/README.md` — quarantine notice added
+- `open-claw/AI_Employee_knowledgebase/SOURCE_LIBRARY_CATALOG.md` — quarantine status table added
+- `open-claw/AI_Employee_knowledgebase/EMPLOYEE_READINESS_AUDIT.md` — quarantine notice added
+- `AI-Project-Manager/.cursor/rules/openmemory.mdc` — memory exclusions added
+- `droidrun/.cursor/rules/openmemory.mdc` — memory exclusions added
+- `AI-Project-Manager/docs/ai/context/TRI_WORKSPACE_CONTEXT_BRIEF.md` — quarantine table added
+- `open--claw/docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md` — quarantine block added to PLAN and AGENT tabs
+- `droidrun/docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md` — quarantine block added to PLAN and AGENT tabs
+- All 2,608 files in `candidate_employees/**` — `<!-- NON-ROUTABLE — OUT OF SCOPE -->` banner prepended
+- `droidrun/src/droidrun/tools/driver/ios.py` — `# NON-ROUTABLE — OUT OF SCOPE` banner prepended
+- `droidrun/src/droidrun/tools/ui/ios_provider.py` — `# NON-ROUTABLE — OUT OF SCOPE` banner prepended
+- `droidrun/src/droidrun/tools/ios/__init__.py` — `# NON-ROUTABLE — OUT OF SCOPE` banner prepended
 
 ### Commands / Tool Calls
-- `ReadFile` — checked `AUTHORITATIVE_STANDARD.md`, `TEAM_ROSTER.md`, `SKILLS_AUDIT.md`, sample curated employee packets, and new generated audit outputs
-- `Shell` — listed `open-claw/employees`, `open-claw/employees/generic`, and curated `_zips/`
-- `Shell` — inspected zip contents for purchased workers, generic downloads, and curated packets
-- `Shell` — compared normalized zip content and found duplicate legacy packet groups
-- `ApplyPatch` — upgraded the knowledgebase generator to emit readiness audits
-- `Shell` — regenerated the knowledgebase and manifest
-- `ReadLints` — checked the generator file for diagnostics
+
+- PowerShell: bulk prepend `<!-- NON-ROUTABLE — OUT OF SCOPE -->` to 2,608 candidate_employees files — PASS
+- StrReplace: bannered 3 droidrun iOS files with `# NON-ROUTABLE — OUT OF SCOPE` — PASS
+- Write: Created `NON_ROUTABLE_QUARANTINE.md` with canonical registry, exclusion definitions, promotion gate, and audit trail — PASS
+- Write: Created 3 x `02-non-routable-exclusions.md` rule files (alwaysApply: true; search, memory, embeddings, routing exclusions) — PASS
+- StrReplace: Updated `README.md`, `SOURCE_LIBRARY_CATALOG.md`, `EMPLOYEE_READINESS_AUDIT.md` — PASS
+- StrReplace: Updated `openmemory.mdc` in AI-Project-Manager and droidrun — PASS
+- StrReplace: Updated `TRI_WORKSPACE_CONTEXT_BRIEF.md` with quarantine table — PASS
+- StrReplace: Updated both `TAB_BOOTSTRAP_PROMPTS.md` files with quarantine blocks in PLAN and AGENT tabs — PASS
+- Write: Updated `STATE.md` in all 3 repos — PASS
 
 ### Changes
-- Added generated `AUDIT.md` files for every curated employee packet so each role now has explicit current capabilities plus a missing-pieces section.
-- Added `employee_audits/curated/*.md` as repeatable audit copies outside the packet folders.
-- Added `EMPLOYEE_READINESS_AUDIT.md` summarizing the difference between the curated standard and the legacy purchased/generic worker packets.
-- Updated `README.md` folder map and `manifest.json` to reflect the new audit layer.
-- Updated the generator so future rebuilds regenerate the readiness docs instead of relying on chat-only conclusions.
+
+- Created `NON_ROUTABLE_QUARANTINE.md`: canonical quarantine registry with exclusion path list, definition of "non-routable", promotion gate, and audit trail
+- Created `02-non-routable-exclusions.md` in open--claw, AI-Project-Manager, and droidrun: alwaysApply: true rule excluding candidate_employees/** from search, memory, embeddings, routing
+- Updated `README.md`: quarantine notice section added at top
+- Updated `SOURCE_LIBRARY_CATALOG.md`: quarantine status column added to source table
+- Updated `EMPLOYEE_READINESS_AUDIT.md`: quarantine notice section added
+- Prepended `<!-- NON-ROUTABLE — OUT OF SCOPE -->` to all 2,608 candidate_employees/** markdown files
+- Prepended `# NON-ROUTABLE — OUT OF SCOPE` to 3 droidrun iOS Python files
 
 ### Evidence
-| Check | Result | Detail |
-|---|---|---|
-| Curated employee count | **PASS** | `manifest.json` reports `employee_count: 15` and `audit_count: 15` |
-| Development skill layer present | **PASS** | `SKILLS_AUDIT.md` confirms the repo now carries the original communication skills plus 10 added delivery skills |
-| Curated packet audit files generated | **PASS** | Sample check on `frontend-developer/AUDIT.md` shows capabilities, missing pieces, and verdict |
-| Portable curated zips include audits | **PASS** | `frontend-developer.zip` now contains `frontend-developer/AUDIT.md` |
-| Legacy generic packets are clones | **PASS** | `EMPLOYEE_READINESS_AUDIT.md` records all five `crewclaw-agent-deploy (12-16).zip` packets as one duplicate normalized-content group |
-| Legacy named packets are still thin | **PASS** | Readiness audit found a large duplicate normalized-content group across role-labeled purchased packets, confirming several are mostly wrapper variants rather than deeply differentiated specialists |
-| Generator health | **PASS** | `python open-claw/scripts/generate_ai_employee_knowledgebase.py` completed successfully |
-| Generator diagnostics | **PASS** | `ReadLints` reported no linter errors for the generator file |
+
+- PASS: `NON_ROUTABLE_QUARANTINE.md` created with all required sections (canonical registry, exclusion list, promotion gate, audit trail)
+- PASS: 3 x `02-non-routable-exclusions.md` files created with alwaysApply: true
+- PASS: 2,608 candidate_employees files bannered via PowerShell bulk prepend
+- PASS: 3 droidrun iOS files bannered via StrReplace
+- PASS: openmemory.mdc updated in both AI-Project-Manager and droidrun
+- PASS: TAB_BOOTSTRAP_PROMPTS.md updated in open--claw and droidrun (PLAN and AGENT tabs)
+- PASS: TRI_WORKSPACE_CONTEXT_BRIEF.md updated
+- PASS: STATE.md updated in all 3 repos
+- PASS: No files deleted — quarantine-only pass
+- PASS: FINAL_OUTPUT_PRODUCT.md not modified
 
 ### Verdict
-PARTIAL — the authoritative employee library is now materially better documented and audited, and the weak legacy packet quality is now explicit in tracked docs. The team is not yet fully "working at a high level" because runtime packaging, tool-entitlement proof, and live smoke tests for the curated website squad are still missing.
+
+READY — Quarantine system installed at 5 enforcement layers: (1) file banners, (2) `.cursor/rules/` enforcement rules, (3) `openmemory.mdc` memory exclusions, (4) bootstrap prompt blocks, (5) canonical registry with promotion gate. No quarantined files deleted. Canonical source of truth: `NON_ROUTABLE_QUARANTINE.md`.
 
 ### Blockers
-- Curated packets are still library-grade assets, not yet wired into the live `open-claw/employees` runtime shell.
-- Real worker tool access has not yet been proven per role, so documented tools and actual entitlements may still differ.
-- No end-to-end website clone-and-rebrand pilot has been run yet with the curated squad as the primary operators.
-- Rerunning the generator refreshed tracked reference-asset copies as well as the new audit docs, so the next commit should decide whether to keep that broader regeneration or trim it down.
 
-### What's Next
-1. Map the curated website squad into the runtime packet format used by `open-claw/employees`.
-2. Prove tool reachability and installed-plugin access for the live workers that will handle clone/rebrand work.
-3. Choose a first simple Next.js target site and run a controlled clone-and-rebrand pilot with evidence capture.
-
----
-
-## 2026-03-30 02:35 — Phase 1A: CrewClaw purchased employee quality audit
-
-### Goal
-Answer the hard question directly: ignoring the five generic filler downloads, are any of the purchased CrewClaw employees actually complete and solid all the way through, and which of them are the strongest real candidates.
-
-### Scope
-- `open-claw/employees/api-integration-specialist.zip`
-- `open-claw/employees/code-reviewer.zip`
-- `open-claw/employees/financial-analyst.zip`
-- `open-claw/employees/frontend-developer.zip`
-- `open-claw/employees/overnight-coder.zip`
-- `open-claw/employees/personal-crm.zip`
-- `open-claw/employees/script-builder.zip`
-- `open-claw/employees/seo-specialist.zip`
-- `open-claw/employees/software-engineer.zip`
-- `open-claw/employees/ux-designer.zip`
-- `open-claw/AI_Employee_knowledgebase/CREWCLAW_PURCHASED_EMPLOYEE_AUDIT.md`
-- `docs/ai/STATE.md`
-
-### Commands / Tool Calls
-- `Shell` — enumerated archive contents for all ten purchased non-generic CrewClaw employee zips
-- `Shell` — read `README.md`, `SOUL.md`, `SKILLS.md`, `TOOLS.md`, `WORKFLOWS.md`, `AGENTS.md`, `HEARTBEAT.md`, `MEMORY.md`, `BOOTSTRAP.md`, `Dockerfile`, `docker-compose.yml`, `setup.sh`, `.env.example`, and `package.json` samples
-- `Shell` — compared role identity, skill sets, tool sets, workflow templates, and deploy-shell consistency across the purchased packets
-- `ApplyPatch` — wrote the detailed research notes to `CREWCLAW_PURCHASED_EMPLOYEE_AUDIT.md`
-
-### Changes
-- Added `open-claw/AI_Employee_knowledgebase/CREWCLAW_PURCHASED_EMPLOYEE_AUDIT.md` with a role-by-role quality review, ranking, and verdict for the ten non-generic purchased CrewClaw employees.
-
-### Evidence
-| Check | Result | Detail |
-|---|---|---|
-| Purchased non-generic packets inspected | **PASS** | All ten named purchased zips were inspected directly instead of inferring quality from labels |
-| Packet structure exists | **PASS** | Each purchased zip includes the expected starter shell: role docs, bot entrypoints, `Dockerfile`, `docker-compose.yml`, `setup.sh`, and env template |
-| Most named packets are genuinely specialized | **FAIL** | Nine of the ten named packets still present as `Custom Role` with generic "versatile AI employee" behavior and the same research/summarization/data-analysis/web-search pattern |
-| Best packet identified | **PASS** | `software-engineer.zip` is the strongest purchased packet because it has a real role identity plus code-generation-oriented skills and tools |
-| Any purchased packet is complete end-to-end | **FAIL** | Even `software-engineer.zip` is still shallow, uses generic monitoring-style workflows, and does not qualify as a fully developed autonomous software worker |
-| Runtime shell quality | **FAIL** | Sample purchased packets still use `node:20-slim` and the older `npm install -g openclaw` path previously proven unreliable in runtime testing |
-| Deploy artifact internal consistency | **FAIL** | Sample purchased `Dockerfile` copies `bot.js`, but the archive does not contain `bot.js` |
-
-### Verdict
-FAIL — none of the purchased non-generic CrewClaw employees are complete and solid all the way through. `software-engineer.zip` is the best of the set, but it is still only a better starting point, not a trustworthy finished autonomous worker.
-
-### Blockers
-- Purchased packet names overstate specialization; most internals still behave like generic wrappers.
-- Specialist workflows for website/app delivery are largely absent from the purchased packets.
-- The shared runtime shell remains outdated and partially inconsistent.
-
-### What's Next
-1. Use `software-engineer.zip` only as a reference starting point, not as the final authority.
-2. Build the real website squad from the curated `AI_Employee_knowledgebase` packets instead of relying on purchased CrewClaw internals.
-3. If needed, mine only the salvageable pieces from purchased packets while discarding the weak identity and workflow layers.
-
----
-
-## 2026-03-30 03:10 — Phase 1A: External research and AI employee standard hardening
-
-### Goal
-Research beyond the purchased CrewClaw packets and local repo imports to find the strongest outside examples of high-quality AI employee structure, then turn that research into a durable house standard and enforcement rule.
-
-### Scope
-- `open-claw/AI_Employee_knowledgebase/AI-EMPLOYEE-STANDARD.md`
-- `open-claw/AI_Employee_knowledgebase/CREWCLAW_FILE_KEEP_MATRIX.md`
-- `open-claw/AI_Employee_knowledgebase/EXTERNAL_SOURCE_RESEARCH.md`
-- `open-claw/AI_Employee_knowledgebase/README.md`
-- `.cursor/rules/25-ai-employee-standard.mdc`
-- `docs/ai/STATE.md`
-
-### Commands / Tool Calls
-- `ReadFile` — `C:\Users\ynotf\.cursor\skills-cursor\create-rule\SKILL.md`
-- `Shell` — `git status --short --branch`
-- `Shell` — `ls "open-claw/Agents-Bulk"`
-- `Shell` — `ls "open-claw/employees"`
-- `Shell` — `ls "open-claw/AI_Employee_knowledgebase/source_repos"`
-- `Subagent(explore)` — audited extracted source repos for the highest-quality employee definitions
-- `Subagent(generalPurpose)` — built a file-by-file keep/discard matrix for purchased CrewClaw packets
-- `firecrawl_search` — searched OpenClaw docs, competitors, and public OpenClaw ecosystems on the web
-- `github search_repositories` — searched public repositories for OpenClaw agent/workspace quality signals
-- `github search_code` — searched public code for `SOUL.md` patterns
-- `Context7 resolve-library-id` — resolved OpenClaw docs source as `/openclaw/openclaw`
-- `Context7 query-docs` — fetched official OpenClaw workspace file map and file-role guidance
-- `firecrawl_scrape` — scraped official OpenClaw docs for `AGENTS.md`, `SOUL.md`, and `openclaw agents`
-- `github get_file_contents` — read `ocaudit`, `openclaw-workspace`, `agent-template`, and `will-assistant/openclaw-agents` files
-- `Clear Thought 1.5` — `mental_model` operation for deriving the ideal AI employee folder model
-- `openmemory search-memory` — checked for existing stored decisions about AI employee standards
-- `ApplyPatch` — added standard, keep matrix, research notes, README update, and always-apply rule
-- `ReadLints` — verified no diagnostics on the new docs/rule files
-- `Shell` — `git diff --stat`
-
-### Changes
-- Added `open-claw/AI_Employee_knowledgebase/AI-EMPLOYEE-STANDARD.md` as the house model for every AI employee.
-- Added `open-claw/AI_Employee_knowledgebase/CREWCLAW_FILE_KEEP_MATRIX.md` with the deduped keep/discard count and replacement-source guidance.
-- Added `open-claw/AI_Employee_knowledgebase/EXTERNAL_SOURCE_RESEARCH.md` documenting the best external sources and what each is best at.
-- Added `.cursor/rules/25-ai-employee-standard.mdc` so the standard is enforced as an always-apply repo rule.
-- Updated `open-claw/AI_Employee_knowledgebase/README.md` to surface the new standard and research notes.
-
-### Evidence
-| Check | Result | Detail |
-|---|---|---|
-| `create-rule` skill read | **PASS** | Rule-writing format and always-apply guidance confirmed before adding the employee-standard rule |
-| `Subagent(explore)` source audit | **PASS** | Identified `agency-agents` as the best role-definition source, `awesome-openclaw-agents` as the best OpenClaw-shaped packaging source, and no single imported folder as perfect |
-| `Subagent(generalPurpose)` CrewClaw file audit | **PASS** | Confirmed only a small deduped subset of purchased CrewClaw files is worth keeping; strongest purchased role remains `software-engineer.zip` |
-| `firecrawl_search` web research | **PASS** | Found official OpenClaw docs for `AGENTS.md`, `SOUL.md`, and CLI agent workspace behavior, plus strong public ecosystem repos |
-| `Context7 resolve-library-id` | **PASS** | Resolved OpenClaw docs to `/openclaw/openclaw` |
-| `Context7 query-docs` | **PASS** | Confirmed official workspace file map: `AGENTS.md`, `SOUL.md`, `USER.md`, `IDENTITY.md`, `TOOLS.md`, optional `HEARTBEAT.md`, `BOOTSTRAP.md`, `MEMORY.md`, and memory directory conventions |
-| `firecrawl_scrape` official docs | **PASS** | Verified official OpenClaw guidance for `AGENTS.md`, `SOUL.md`, and `openclaw agents` identity/binding behavior |
-| External repo review | **PASS** | `ocaudit` added strong token-budget/file-boundary guidance; `agent-template` added a clean memory architecture; `will-assistant/openclaw-agents` proved useful for packaging ideas but still lighter than the house standard |
-| Best-source conclusion | **PASS** | Best hybrid standard identified: OpenClaw docs + `agency-agents` + `awesome-openclaw-agents` + `ocaudit` + proactive-agent templates |
-| Keep-count decision | **PASS** | `CREWCLAW_FILE_KEEP_MATRIX.md` records `22` worth-keeping deduped artifacts, with only `6` role-specific files worth keeping from `software-engineer.zip` |
-| Rule creation | **PASS** | `.cursor/rules/25-ai-employee-standard.mdc` added as an always-apply standard-enforcement rule |
-| Lint/diagnostics check | **PASS** | `ReadLints` reported no diagnostics on the new docs/rule files |
-
-### Verdict
-READY — the repo now has a documented AI employee standard grounded in official OpenClaw docs and broader external research, plus an always-apply rule that requires future employee work to match that standard.
-
-### Blockers
-- There is still no single imported employee folder that is perfect enough to trust unchanged.
-- The curated house packets still need runtime wiring and live smoke tests before they count as fully operational workers.
-- Existing regenerated knowledgebase changes still include refreshed reference-asset copies and zip artifacts; commit scope should be reviewed before shipping.
-
-### Fallbacks Used
-- `openmemory search-memory` returned no prior results, so no stored project memory informed this phase.
-- `Clear Thought 1.5` returned only partial structured output for the mental-model request, so the final standard still relied on direct source evidence from docs, repos, and local audits.
-
-### Cross-Repo Impact
 None.
 
+### Fallbacks Used
+
+None.
+
+### Cross-Repo Impact
+
+AI-Project-Manager: `02-non-routable-exclusions.md` created; `openmemory.mdc` updated; `TRI_WORKSPACE_CONTEXT_BRIEF.md` updated.
+droidrun: `02-non-routable-exclusions.md` created; iOS files bannered; `openmemory.mdc` updated; `TAB_BOOTSTRAP_PROMPTS.md` updated.
+
 ### Decisions Captured
-- OpenClaw official docs are now treated as the authority on workspace file purpose and boundary.
-- `agency-agents` remains the top source for role-definition depth.
-- `awesome-openclaw-agents` remains the best OpenClaw-shaped packaging reference.
-- `ocaudit` is now an explicit influence on file-boundary and token-budget discipline.
-- Purchased CrewClaw packets are salvage sources only, not the source of truth.
+
+- Quarantine is path-based and enforced at 5 layers simultaneously.
+- candidate_employees/** is permanently non-routable until explicit promotion via `NON_ROUTABLE_QUARANTINE.md` promotion gate.
+- Quarantine is a banner-only pass — no files deleted under any circumstance.
+- Canonical source of truth for all quarantine status decisions: `open-claw/AI_Employee_knowledgebase/NON_ROUTABLE_QUARANTINE.md`.
 
 ### Pending Actions
-- Refine the generator and curated packets further if the new standard requires new files or tighter file-boundary rules.
-- Decide whether to trim or keep the broader regenerated reference-asset changes before the next commit.
-- Convert the curated website squad into live runtime packets and prove them with smoke tests.
+
+- open--claw `docs/ai/context/AGENT_EXECUTION_LEDGER.md` does not yet exist — create when the first open--claw AGENT block appends a ledger entry.
+- open--claw STATE.md required a dedicated archive pass before the next non-trivial prompt block — **COMPLETED in this session**.
 
 ### What Remains Unverified
-- No live runtime worker has yet been proven against the newly hardened standard.
-- External public repos were sampled and compared, but not fully mirrored locally.
+
+- PowerShell bulk prepend banner count: 2,608 reported but not independently spot-checked post-run.
+- openmemory.mdc exclusions require a live memory search test to confirm candidate_employees paths are excluded.
+- TAB_BOOTSTRAP_PROMPTS.md quarantine blocks: not tested in a live Cursor session to confirm they surface correctly on session start.
 
 ### What's Next
-1. Reconcile the current working tree so only the intended standard/audit changes remain staged for any future commit.
-2. Use `AI-EMPLOYEE-STANDARD.md` to upgrade the curated website squad packets where they still fall short.
-3. Start the runtime-alignment phase so the standard moves from documentation into real workers.
 
+STATE.md archive pass complete. Proceed to Prompt 6.
 ---
 
-## 2026-03-30 03:55 — Phase 1B: Expand packet blueprint and import full agency role library
+## 2026-04-06 23:25 — Serena Project Normalization
 
 ### Goal
-Move beyond the small curated squad by turning the `agency-agents` role library into standardized house packets, while also upgrading the curated house packets to require explicit checklists and grades.
+
+Add the repo-local Serena project for OpenClaw runtime work and mirror only the minimum local guidance needed so this repo uses the correct exact-path project without letting repo-root governance/docs masquerade as the main Serena code project.
 
 ### Scope
-- `open-claw/scripts/import_agency_agents.py`
-- `open-claw/scripts/generate_ai_employee_knowledgebase.py`
-- `open-claw/AI_Employee_knowledgebase/AI-EMPLOYEE-STANDARD.md`
-- `open-claw/AI_Employee_knowledgebase/EMPLOYEE-FOLDER-BLUEPRINT.md`
-- `open-claw/AI_Employee_knowledgebase/AGENCY_IMPORT_SUMMARY.md`
-- `open-claw/AI_Employee_knowledgebase/SOURCE_LIBRARY_CATALOG.md`
-- `open-claw/AI_Employee_knowledgebase/README.md`
-- `open-claw/AI_Employee_knowledgebase/candidate_employees/agency-agents/`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/*/CHECKLIST.md`
-- `.cursor/rules/25-ai-employee-standard.mdc`
-- `docs/ai/STATE.md`
+
+- `open--claw/.gitignore`
+- `open--claw/open-claw/.serena/project.yml`
+- `open--claw/AGENTS.md`
+- `open--claw/docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md`
+- `open--claw/docs/ai/HANDOFF.md`
 
 ### Commands / Tool Calls
-- `openmemory search-memory` — checked for prior stored decisions about employee-source hierarchy
-- `Clear Thought 1.5` — used `mental_model` planning to prefer a repeatable generator over manual copying
-- `Shell` — inventoried `agency-agents` markdown role files and source-repo markdown counts
-- `ApplyPatch` — expanded the standard, added the blueprint doc, patched the curated generator, and updated repo docs
-- `serena create_text_file` — created `open-claw/scripts/import_agency_agents.py`
-- `Shell` — ran `python "open-claw/scripts/import_agency_agents.py"`
-- `Shell` — ran `python "open-claw/scripts/generate_ai_employee_knowledgebase.py"`
-- `Shell` — ran `python -m py_compile "open-claw/scripts/import_agency_agents.py" "open-claw/scripts/generate_ai_employee_knowledgebase.py"`
-- `ReadFile` — spot-checked generated checklist, audit, README, and summary outputs
+
+- Tools: `ReadFile`, `ApplyPatch`
+- Cross-repo verification tools used from AI-Project-Manager: `Glob`, `rg`
 
 ### Changes
-- Expanded `AI-EMPLOYEE-STANDARD.md` so every packet now requires `CHECKLIST.md` and an explicit grade in `AUDIT.md`.
-- Added `EMPLOYEE-FOLDER-BLUEPRINT.md` to define the exact required docs and runtime files for every employee folder.
-- Added `open-claw/scripts/import_agency_agents.py` to generate standardized packets from the `agency-agents` role library.
-- Generated `candidate_employees/agency-agents/` with standardized packets that preserve each upstream role file as `UPSTREAM_ROLE.md`.
-- Generated `AGENCY_IMPORT_SUMMARY.md` and `agency-import-manifest.json` for the imported role library.
-- Added `CHECKLIST.md` to each curated house packet under `AI_employees/` and added explicit grades to curated `AUDIT.md` files.
-- Added `SOURCE_LIBRARY_CATALOG.md` to rank the source repos and record what was actually kept from each.
-- Updated `.cursor/rules/25-ai-employee-standard.mdc` so the new checklist/grade requirements are enforced by rule.
+
+- Updated `.gitignore` so `open-claw/.serena/project.yml` is commit-tracked while other Serena-local artifacts stay ignored.
+- Created `open-claw/.serena/project.yml` with the runtime-specific Serena scope and ignored-path list.
+- Added minimal repo-local guidance to `AGENTS.md`, `TAB_BOOTSTRAP_PROMPTS.md`, and `HANDOFF.md` telling sessions to activate `D:/github/open--claw/open-claw` by exact path for code work.
 
 ### Evidence
-| Check | Result | Detail |
-|---|---|---|
-| Expanded standard includes blueprint requirements | **PASS** | `AI-EMPLOYEE-STANDARD.md` now requires `CHECKLIST.md` and explicit grading, and `EMPLOYEE-FOLDER-BLUEPRINT.md` defines the exact packet shape |
-| Curated packets upgraded | **PASS** | `generate_ai_employee_knowledgebase.py` now emits `CHECKLIST.md`, and regenerated curated audits now include a grade |
-| Full agency role library imported into house format | **PASS** | `import_agency_agents.py` generated **163** standardized packets under `candidate_employees/agency-agents/` |
-| Upstream role preservation | **PASS** | Generated packet count and `UPSTREAM_ROLE.md` count both measured at **163** |
-| Compile validation | **PASS** | `py_compile` succeeded for both generation scripts |
-| Top-level docs updated | **PASS** | `README.md`, `AGENCY_IMPORT_SUMMARY.md`, and `SOURCE_LIBRARY_CATALOG.md` now expose the expanded employee library and source ranking |
+
+- PASS: `open-claw/.serena/project.yml` exists and is readable.
+- PASS: `.gitignore` now unignores only `open-claw/.serena/project.yml`.
+- PASS: `AGENTS.md`, tab bootstrap prompts, and handoff all state that repo-root docs/governance are not the default Serena code project.
 
 ### Verdict
-READY — the repo now has a real packet blueprint, explicit checklists/grades, and a broad imported agency role library standardized into the house format.
+
+READY — OpenClaw runtime now has the intended repo-local Serena project and the local guidance stays scoped to runtime code.
 
 ### Blockers
-- Imported and curated packets are still library assets, not live runtime workers.
-- Skills on imported agency packets are inferred and still need role-by-role verification before activation.
-- The runtime-alignment phase is still pending for any packet that should actually run inside the live CrewClaw/OpenClaw shell.
 
-### Fallbacks Used
-- The first import pass was too broad and included role-adjacent strategy/readme files; the importer was tightened to employee-focused categories and regenerated from a clean output root.
-
-### Cross-Repo Impact
 None.
 
+### Fallbacks Used
+
+None.
+
+### Cross-Repo Impact
+
+- Matches the AI-PM Serena project map and fallback policy.
+- Keeps OpenClaw aligned with the DroidRun and AI-PM path-based activation model.
+
 ### Decisions Captured
-- `agency-agents` is now treated as the full bench source for imported specialist packets, not just a small reference set.
-- The curated house squad and imported library now share the same `CHECKLIST.md` + graded `AUDIT.md` expectation.
-- Upstream role quality should be preserved in `UPSTREAM_ROLE.md` instead of being flattened into vague summaries.
+
+- OpenClaw runtime Serena scope is `D:/github/open--claw/open-claw`, not repo root.
+- Repo-root governance/docs work uses targeted read/search fallback unless a separate Serena project is explicitly activated.
 
 ### Pending Actions
-- Verify and refine inferred skills for the imported agency packets that are likely to join the active website/app squad.
-- Compare the packet blueprint against the live worker runtime shell and close the runtime-alignment gap.
-- Mine additional high-signal files from the remaining source repos beyond the already copied `reference_assets/` set if they materially strengthen activation/runtime behavior.
+
+- Live-test a fresh OpenClaw session to confirm the exact-path activation works as documented.
 
 ### What Remains Unverified
-- No imported agency packet has been exercised end-to-end inside the live runtime shell yet.
-- No runtime shell files were generated for the imported library in this phase.
+
+- Fresh-session Serena activation for `D:/github/open--claw/open-claw` has not yet been manually exercised after this normalization.
 
 ### What's Next
-1. Use the new blueprint and library to choose the active website-clone squad and tighten their skills/tool mapping.
-2. Start runtime alignment so the best packets gain real shell files, tool proof, and activation smoke tests.
-3. Continue mining the remaining repo imports for high-value runtime, orchestration, and workflow fragments that deserve promotion into tracked assets.
 
+Use `D:/github/open--claw/open-claw` as the first Serena activation path on the next OpenClaw runtime code task.
 ---
 
-## 2026-03-30 05:10 — Phase 1C: Curated runtime sync and workflow validation
+## 2026-04-07 00:12 — MCP Tool Governance Alignment
 
 ### Goal
-Turn the curated 15-employee library into self-contained runtime-ready packets with copied skills and generated worker shell files, then validate the generated runtime wiring with real syntax/config checks.
+
+Mirror the updated tri-workspace tool policy so OpenClaw runtime work uses repo-first docs, requires the right high-value tools only when relevant, and stops to notify the user if a required tool is unavailable.
 
 ### Scope
-- `open-claw/scripts/sync_curated_employee_runtime.py`
-- `open-claw/scripts/validate_openclaw_workflow.py`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/*`
-- `open-claw/AI_Employee_knowledgebase/OPENCLAW_WORKFLOW_CHECKLIST.md`
-- `open-claw/AI_Employee_knowledgebase/RUNTIME_VALIDATION_SUMMARY.md`
-- `open-claw/employees/deployed-curated/`
-- `open-claw/AI_Employee_knowledgebase/README.md`
-- `docs/ai/STATE.md`
+
+- `open--claw/.cursor/rules/05-global-mcp-usage.md`
+- Local config: `open--claw/.cursor/mcp.json`
 
 ### Commands / Tool Calls
-- `Subagent(explore)` — mapped the live runtime shell and the current skill-loading path
-- `Context7 query-docs` — confirmed OpenClaw workspace files, skills location, multi-agent routing, and Docker guidance
-- `ReadFile` — inspected current deployed worker files (`docker-compose.yml`, `start-employees.ps1`, runtime shell files, legacy worker docs)
-- `serena create_text_file` — created `sync_curated_employee_runtime.py` and `validate_openclaw_workflow.py`
-- `Shell` — `python -m py_compile "open-claw/scripts/sync_curated_employee_runtime.py" "open-claw/scripts/validate_openclaw_workflow.py"`
-- `Shell` — `python "open-claw/scripts/sync_curated_employee_runtime.py"`
-- `Shell` — `python "open-claw/scripts/validate_openclaw_workflow.py"`
-- `Shell` — validator-internal `docker compose config`
-- `Shell` — validator-internal `node --check` on generated bot files
-- `Shell` — `powershell -ExecutionPolicy Bypass -File "open-claw/employees/deployed-curated/start-employees.ps1"` (dry-run against current environment)
-- `ReadLints` — verified the new scripts had no diagnostics
+
+- Tools: `ReadFile`, `ApplyPatch`
+- Cross-repo verification from AI-Project-Manager: `WebSearch`, `ReadLints`
 
 ### Changes
-- Added `open-claw/scripts/sync_curated_employee_runtime.py` to copy assigned `SKILL.md` files into every curated employee packet, add runtime shell files, regenerate zips, and generate `employees/deployed-curated/`.
-- Added `open-claw/scripts/validate_openclaw_workflow.py` to verify packet completeness, copied skills, checklist status, generated runtime existence, Docker Compose parsing, and generated bot JavaScript syntax.
-- Added runtime files to all 15 curated employee packets: `.env.example`, `Dockerfile`, `docker-compose.yml`, `entrypoint.sh`, `setup.sh`, `package.json`, `openclaw-runner.js`, channel bot entrypoints, and `heartbeat.sh`.
-- Updated all 15 curated `CHECKLIST.md` files so required docs and runtime files are fully checked and the remaining environment-dependent items are expressed as status notes instead of unchecked file boxes.
-- Generated `open-claw/employees/deployed-curated/` with a 15-service `docker-compose.yml`, per-employee runtime folders, and `start-employees.ps1` using env-first plus Bitwarden fallback secret resolution.
-- Tightened the generated startup flow so workers never reuse another worker's token mapping; each curated worker now requires either its own direct Bitwarden secret id or an explicit `*_TOKEN` env var.
-- Added `OPENCLAW_WORKFLOW_CHECKLIST.md` and `RUNTIME_VALIDATION_SUMMARY.md` to track current readiness and validation evidence.
-- Updated `AI_Employee_knowledgebase/README.md` so the new workflow/validation docs are visible from the folder map.
+
+- Rewrote the active MCP rule to align with the new repo-first docs and stop-notify tool policy.
+- Added local `.cursor/mcp.json` so `serena`, `Exa Search`, `playwright`, `firecrawl-mcp`, and `Magic MCP` can be project-scoped in this workspace.
+- Removed `sequential-thinking`, `shell-mcp`, and GitKraken MCP from the supported toolchain in the active rule surface.
 
 ### Evidence
-| Check | Result | Detail |
-|---|---|---|
-| Curated employee count | **PASS** | Validator confirmed **15** curated employee packets |
-| Required docs + runtime files | **PASS** | Validator confirmed every curated employee packet has the full required doc and runtime file set |
-| Copied assigned skills | **PASS** | Validator confirmed every employee packet contains the assigned `skills/<skill>/SKILL.md` copies |
-| Checklist completeness | **PASS** | Validator confirmed every curated `CHECKLIST.md` now has only checked file boxes |
-| Generated bot JavaScript syntax | **PASS** | `node --check` passed for generated runtime JS files across all curated packets |
-| Generated runtime existence | **PASS** | `deployed-curated/` generated for every employee |
-| Docker Compose syntax | **PASS** | `docker compose config` succeeded for the generated 15-service runtime |
-| Live startup dry-run | **FAIL (EXPECTED BLOCKER)** | Generated startup script stopped before launch and printed the exact missing curated worker token env vars |
+
+- PASS: `.cursor/rules/05-global-mcp-usage.md` now requires repo docs first and external-doc query discipline.
+- PASS: `.cursor/mcp.json` exists for this repo with the intended project-local servers.
 
 ### Verdict
-READY — the repo-controlled pieces of the 15-employee OpenClaw workflow are now generated and validated: packets are self-contained, skills are copied into each packet, and the generated runtime shell parses cleanly.
+
+READY — OpenClaw runtime now mirrors the cleaned high-value tool policy and has a project-local MCP config for heavier servers.
 
 ### Blockers
-- Live Telegram or other channel delivery still depends on real bot credentials for every worker.
-- First-run device pairing against the real gateway still needs to be approved after startup.
-- Real end-to-end “message in, agent reply out” validation still depends on gateway reachability and environment secrets, not just repo state.
-- Current dry-run missing worker tokens: `SPARKY_CHIEF_PRODUCT_QUALITY_OFFICER_TOKEN`, `SEO_AI_DISCOVERY_STRATEGIST_TOKEN`, `QA_EVIDENCE_COLLECTOR_TOKEN`, `UX_ARCHITECT_TOKEN`, `UI_DESIGNER_TOKEN`, `DEVOPS_AUTOMATOR_TOKEN`, `PRODUCT_MANAGER_TOKEN`, `REALITY_CHECKER_TOKEN`, `BACKEND_ARCHITECT_TOKEN`, `ACCESSIBILITY_AUDITOR_TOKEN`, `DELIVERY_DIRECTOR_TOKEN`, `SOFTWARE_ARCHITECT_TOKEN`, `MCP_INTEGRATION_ENGINEER_TOKEN`.
 
-### Fallbacks Used
-- Instead of preserving the older `node:20` purchased shell, the generated runtime shell uses the already-proven local fix path recorded earlier in STATE: Node 22, pinned `openclaw@2026.3.13`, and entrypoint-generated remote gateway config.
-- The generated startup script resolves worker tokens from env vars first, then direct Bitwarden secret ids where known; no curated worker is allowed to inherit another worker's token mapping.
-
-### Cross-Repo Impact
 None.
 
+### Fallbacks Used
+
+None.
+
+### Cross-Repo Impact
+
+- Matches the canonical tool policy in AI-Project-Manager.
+
 ### Decisions Captured
-- Curated employee packets are now treated as self-contained deliverables that include docs, runtime shell files, and copied assigned skills.
-- `deployed-curated/` is the generated runtime target for the curated 15, separate from the legacy purchased worker folders.
-- Structural runtime validation is now codified in `validate_openclaw_workflow.py` instead of being inferred from file browsing.
+
+- OpenClaw runtime keeps `playwright`, `firecrawl-mcp`, and `Magic MCP` local to this workspace rather than global.
 
 ### Pending Actions
-- Provide real per-worker bot credentials for any workers that do not yet have mapped secrets.
-- Run `start-employees.ps1` against the real environment and approve first-run pairing requests.
-- Perform live channel smoke tests against the gateway once secrets are present.
+
+- Reload Cursor to apply the new local MCP config.
 
 ### What Remains Unverified
-- No live channel message round-trip has been executed yet with the generated curated runtime.
-- No real gateway pairing approval has been captured yet for the new generated workers.
+
+- The new local MCP tool set has not yet been live-smoke-tested after reload.
 
 ### What's Next
-1. Supply the remaining worker tokens through env or Bitwarden and launch `open-claw/employees/deployed-curated/start-employees.ps1`.
-2. Approve first-run device pairing requests on the gateway and verify channel status.
-3. Run a live website-clone pilot with the generated curated squad and capture build, QA, and release evidence.
+
+Reload Cursor and verify the OpenClaw workspace exposes the expected project-local tools.
 
 ---
 
-## 2026-03-30 05:45 — Phase 1D: Docs cross-reference alignment
+## 2026-04-08 00:15 — Serena Root Project + Workflow Parity
 
 ### Goal
-Make the human-facing docs match the post-runtime-sync truth so the repo no longer mixes old “docs-only” language with the new generated curated runtime.
+
+Normalize the open--claw repo-root Serena project and mirror the latest workflow/tool-discipline updates from AI-Project-Manager.
 
 ### Scope
-- `open-claw/AI_Employee_knowledgebase/README.md`
-- `open-claw/AI_Employee_knowledgebase/EMPLOYEE_READINESS_AUDIT.md`
-- `open-claw/AI_Employee_knowledgebase/SKILLS_AUDIT.md`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/*/AUDIT.md`
-- `open-claw/AI_Employee_knowledgebase/OPENCLAW_WORKFLOW_CHECKLIST.md`
-- `open-claw/AI_Employee_knowledgebase/RUNTIME_VALIDATION_SUMMARY.md`
-- `docs/ai/STATE.md`
+
+`.serena/project.yml`, `.cursor/rules/05-global-mcp-usage.md`, `.cursor/rules/10-project-workflow.md`, `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md`.
 
 ### Commands / Tool Calls
-- `ReadFile` / `rg` — cross-checked current wording in knowledgebase docs and per-employee audits
-- `ApplyPatch` — updated top-level docs to reflect runtime-sync and current external blockers
-- `Shell` — reran `sync_curated_employee_runtime.py` and `validate_openclaw_workflow.py`
+
+- Serena `activate_project`
+- direct file edits from AI-Project-Manager governance pass
 
 ### Changes
-- Updated `EMPLOYEE_READINESS_AUDIT.md` so it reflects the generated curated runtime, the 13-token live-start blocker, and the overlap vs new curated employee names.
-- Updated `SKILLS_AUDIT.md` so it distinguishes tracked skill inventory, curated assigned skills, structural validation, and what is still not live-proven.
-- Updated `README.md` notes so the current curated-runtime status is visible from the knowledgebase index.
-- Updated all curated employee `AUDIT.md` files through the sync script so they no longer claim runtime packaging is missing.
-- Updated `OPENCLAW_WORKFLOW_CHECKLIST.md` and `employees/deployed-curated/README.md` to show that only 2 curated workers currently have direct Bitwarden token mappings and 13 still need explicit tokens or new secret IDs.
+
+- Updated repo-root Serena config so `open--claw` is a governance/docs Serena project.
+- Clarified that `open--claw` repo root and `open-claw-runtime` are separate Serena projects.
+- Added `Required Tools` prompt contract and launch-integrity rule parity.
+- Updated Serena activation guidance to include `D:/github/open--claw` and `D:/github/droidrun`.
 
 ### Evidence
-| Check | Result | Detail |
-|---|---|---|
-| Per-employee audit wording | **PASS** | Sample re-check confirmed the new `AUDIT.md` status now says runtime-synced, structurally validated, and not yet live-started |
-| Workflow checklist wording | **PASS** | Checklist now states the exact current live-start blocker count: **13** worker tokens missing |
-| Runtime validation rerun | **PASS** | Validator still passes after the docs/alignment edits |
+
+- PASS: `D:/github/open--claw` activates in Serena.
+- PASS: repo-root `.serena/project.yml` now contains governance/docs-specific initial prompt and ignored runtime paths.
 
 ### Verdict
-READY — the docs now represent the new workflow accurately: runtime packaging exists, structural validation passes, and the remaining gap is explicit external live-start setup rather than missing packet files.
+
+PASS — repo-root Serena behavior is now explicitly modeled instead of implicitly assumed.
+
+### Blockers
+
+- Current session activation still showed stale/empty language metadata for repo root; requires post-restart confirmation.
+
+### Fallbacks Used
+
+- Used exact-path activation and repo docs while cached Serena state remained stale.
+
+### Cross-Repo Impact
+
+- Mirrors AI-Project-Manager governance updates.
+
+### Decisions Captured
+
+- `open--claw` must keep two Serena projects: repo-root governance/docs and runtime subproject.
+
+### Pending Actions
+
+- Re-check repo-root Serena metadata after Cursor restart.
+
+### What Remains Unverified
+
+- Post-restart repo-root Serena metadata freshness.
+
+### What's Next
+
+- Verify both `open--claw` and `open-claw-runtime` appear healthy after restart.
 
 ---
 
-## 2026-03-30 06:10 — Phase 1E: FINAL_OUTPUT_PRODUCT single-source-of-truth charter
+## 2026-04-09 01:20 — Team Readiness Hardening + OpenMemory Drift Cleanup
 
 ### Goal
-Create one governing finished-product charter that defines the non-overridable target state, quality bar, autonomy requirements, Sparky's authority, and mandatory review loop for the entire OpenClaw AI employee project.
+
+Realign OpenClaw handoff/rule surfaces with the repaired OpenMemory transport and add an operating model for Sparky plus the curated 15-employee squad.
 
 ### Scope
-- `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md`
-- `docs/ai/STATE.md`
 
-### Commands / Tool Calls
-- `ReadFile` — reviewed `AUTHORITATIVE_STANDARD.md`, `AI-EMPLOYEE-STANDARD.md`, `TEAM_ROSTER.md`, `OPENCLAW_WORKFLOW_CHECKLIST.md`, and `RUNTIME_VALIDATION_SUMMARY.md`
-- `Context7 query-docs` — reviewed current OpenClaw multi-agent, tool policy, session, routing, and autonomous-operation guidance
-- `WebSearch` / `WebFetch` — reviewed Apple HIG and NIST SSDF references for product-quality and secure-development grounding
-- `ApplyPatch` — created `FINAL_OUTPUT_PRODUCT.md`
-- `ReadLints` — checked for new diagnostics
-
-### Changes
-- Created `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` as the project's single source of truth.
-- Hardened the top-of-file rule that the document cannot be changed without Tony's permission.
-- Defined the finished-product goal as a fully autonomous OpenClaw AI employee development organization capable of producing Apple-quality software.
-- Defined Sparky as the lead AI with mandatory review after every employee file edit.
-- Established non-negotiable outcomes around autonomy, best practices, simplicity, refactoring, monitoring, evidence, and Apple-level quality.
-- Grounded the charter in current OpenClaw guidance plus Apple HIG and NIST SSDF principles.
-
-### Evidence
-| Check | Result | Detail |
-|---|---|---|
-| Final charter file created | **PASS** | `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` now exists |
-| Hard non-override rule present | **PASS** | Top section explicitly requires Tony's permission before any change |
-| Sparky post-edit audit mandate present | **PASS** | File requires Sparky review after every employee file edit |
-| Finished-product framing present | **PASS** | File defines the end-state product and autonomy target rather than a temporary implementation note |
-
-### Verdict
-READY — `FINAL_OUTPUT_PRODUCT.md` now exists as the governing charter for the project and should be treated as the highest-priority product definition until Tony explicitly authorizes changes.
-
----
-
-## 2026-03-30 21:35 — Phase 1F: Curated Telegram bot assignment mapping
-
-### Goal
-Reuse the 13 Telegram bots that already exist, map them onto the curated roster without changing usernames/tokens, and update the runtime/docs so the project reflects the real assignment plan instead of assuming 13 entirely missing bots.
-
-### Scope
-- `open-claw/scripts/sync_curated_employee_runtime.py`
-- `open-claw/AI_Employee_knowledgebase/AI_employees/*/AUDIT.md`
-- `open-claw/employees/deployed-curated/start-employees.ps1`
-- `open-claw/employees/deployed-curated/README.md`
-- `open-claw/AI_Employee_knowledgebase/OPENCLAW_WORKFLOW_CHECKLIST.md`
-- `open-claw/AI_Employee_knowledgebase/EMPLOYEE_READINESS_AUDIT.md`
-- `open-claw/AI_Employee_knowledgebase/SKILLS_AUDIT.md`
-- `open-claw/AI_Employee_knowledgebase/README.md`
+- `.cursor/rules/05-global-mcp-usage.md`
 - `docs/ai/HANDOFF.md`
-- `docs/ai/STATE.md`
+- `open-claw/AI_Employee_knowledgebase/README.md`
+- `open-claw/AI_Employee_knowledgebase/TEAM_OPERATING_SYSTEM.md`
 
 ### Commands / Tool Calls
-- `ReadFile` / `rg` — reviewed current runtime docs, startup script, and sync generator
-- `Shell` — attempted `bws secret list` metadata lookup for missing bot UUIDs; failed with `Missing access token`
-- `ApplyPatch` — updated the runtime generator and human-facing docs
-- `Shell` — reran `python open-claw/scripts/sync_curated_employee_runtime.py`
-- `Shell` — reran `python open-claw/scripts/validate_openclaw_workflow.py`
+
+- Read current handoff, workflow checklist, readiness board, roster, and runtime validation docs
+- Read post-restart OpenMemory verification outputs from AI-PM
+- File edits only
 
 ### Changes
-- Added explicit curated-to-Telegram assignment mapping for 13 current bots in `sync_curated_employee_runtime.py`.
-- Reused the existing usernames/tokens as instructed and mapped them to curated roles:
-  - `API_ANDY_BOT` -> `mcp-integration-engineer`
-  - `CODE_CARL_BOT` -> `code-reviewer`
-  - `FINANCE_FRANKY_BOT` -> `reality-checker`
-  - `FRONTEND_FELIX_BOT` -> `frontend-developer`
-  - `OVERNIGHT_OLIVER_BOT` -> `qa-evidence-collector`
-  - `PERSONAL_PAMELA_BOT` -> `ui-designer`
-  - `SCRIPT_SARAH_BOT` -> `devops-automator`
-  - `SEO_SAMANTHA_BOT` -> `seo-ai-discovery-strategist`
-  - `ENGINEER_ENRIQUE_BOT` -> `software-architect`
-  - `UX_URSULA_BOT` -> `ux-architect`
-  - `SPARKY_CEO_BOT` -> `sparky-chief-product-quality-officer`
-  - `DELIVERY_DIRECTOR_DAN_BOT` -> `delivery-director`
-  - `PRODUCT_MANAGER_PETE_BOT` -> `product-manager`
-- Left `accessibility-auditor` and `backend-architect` as the two curated workers still waiting on new Telegram bots.
-- Regenerated every curated employee audit so each packet now states whether it already has a live Telegram binding or is still waiting on a new bot.
-- Updated the generated runtime README, workflow checklist, and startup script to reflect:
-  - 13 assigned Telegram bots
-  - 10 direct Bitwarden UUID mappings already wired in repo
-  - 3 assigned workers still env-first / UUID-needed in repo (`delivery-director`, `product-manager`, `sparky-chief-product-quality-officer`)
-  - 2 net-new bots still pending (`accessibility-auditor`, `backend-architect`)
-- Updated top-level readiness, skills, knowledgebase, and handoff docs so they match the new assignment truth.
+
+- Fixed the stale literal `` `r`n `` formatting bug in the OpenClaw MCP rule so the Serena activation map is readable again
+- Updated OpenClaw `HANDOFF.md` to reflect repaired OpenMemory transport and current team-readiness priorities
+- Added `TEAM_OPERATING_SYSTEM.md` to define pods, handoff chain, readiness states, and activation order for the curated squad
+- Added the new operating-system doc to the knowledgebase README map
 
 ### Evidence
-| Check | Result | Detail |
-|---|---|---|
-| Bitwarden metadata lookup | **WARN** | `bws secret list` failed locally with `Missing access token`, so no new UUIDs were guessed or hardcoded |
-| Runtime regeneration | **PASS** | `sync_curated_employee_runtime.py` regenerated the curated runtime and packet docs successfully |
-| Structural validation | **PASS** | `validate_openclaw_workflow.py` passed after the Telegram assignment changes |
-| Per-packet Telegram binding docs | **PASS** | Curated `AUDIT.md` files now include a `Live Telegram Binding` section |
+
+- PASS: curated roster already defines the 15 named employees and reporting chain
+- PASS: readiness docs already track the real runtime blockers: 2 missing new bots, 3 unresolved direct token mappings, and first-run gateway pairing
+- PASS: AI-PM OpenMemory verification remains green after restart (`VERIFY_OPENMEMORY_OK`)
+- PASS: the operating model now exists as a single knowledgebase reference instead of being implied across multiple files
 
 ### Verdict
-READY WITH EXTERNAL FOLLOW-UP — the curated runtime now reflects the real 13-bot reuse plan and no longer pretends those roles are unmapped. Remaining external setup is limited to recording three existing bot UUIDs or env vars, creating two new bots, approving pairing, and then running live smoke tests.
+
+PASS — OpenClaw now has a clearer route from curated packets to an actual managed delivery team led by Sparky.
+
+### Pending Actions
+
+- Make the curated runtime `live_ready` by closing the 2 bot gaps and 3 direct secret-wiring gaps
+- Exercise the delivery chain on a small internal packet before the first large external clone project
+- Build the worker-facing memory-promotion path for Phase 1B
+
+### What's Next
+
+- Continue moving the curated squad from `packet_ready`/`runtime_ready` toward `smoke_ready` and `live_ready`.
 
 ---
 
-## 2026-03-30 22:05 — Phase 1G: Current employee status board
+## 2026-04-09 02:05 — Curated Squad Readiness Automation
 
 ### Goal
-Create one generated document that shows the current status of every curated employee, including Telegram identity, packet status, assigned skills, and per-file ratings so the team can learn which files are strongest and which ones need refinement.
+
+Make the curated 15-worker runtime measurable and partially startable so unresolved workers no longer block the whole squad.
 
 ### Scope
+
 - `open-claw/scripts/sync_curated_employee_runtime.py`
-- `open-claw/AI_Employee_knowledgebase/current_employees.md`
-- `open-claw/AI_Employee_knowledgebase/README.md`
-- `docs/ai/STATE.md`
+- generated runtime artifacts
+- knowledgebase readiness docs
 
 ### Commands / Tool Calls
-- `ReadFile` — reviewed the sync generator plus representative employee packet files
-- `ApplyPatch` — extended the sync generator and updated the knowledgebase index
-- `Shell` — ran Python compile check for `sync_curated_employee_runtime.py`
-- `Shell` — reran `sync_curated_employee_runtime.py`
-- `Shell` — reran `validate_openclaw_workflow.py`
+
+- Regenerated runtime with `python open-claw/scripts/sync_curated_employee_runtime.py`
+- Ran `open-claw/employees/deployed-curated/start-employees.ps1 -CheckOnly`
+- Updated runtime and knowledgebase docs
 
 ### Changes
-- Added generated output `open-claw/AI_Employee_knowledgebase/current_employees.md`.
-- Wired `current_employees.md` generation into `sync_curated_employee_runtime.py` so it refreshes during normal curated-runtime sync.
-- Expanded Telegram binding metadata to include the current Telegram first name as well as username.
-- Added per-employee status sections that include:
-  - manager
-  - summary
-  - current and target grades
-  - audit status
-  - current Telegram first name and username
-  - runtime/Telegram binding status
-  - assigned skills
-- Added per-file rating tables for every required doc, required runtime file, and copied assigned skill file in each employee packet.
-- Added a rating legend so future audits can compare what proves strong in practice versus what still needs adjustment.
-- Added `current_employees.md` to the knowledgebase `README.md` folder map.
+
+- Added `CURATED_TEAM_STATUS.json` as the generated machine-readable readiness source of truth
+- Added deployed runtime `team-status.json`
+- Upgraded generated `start-employees.ps1` to support `-CheckOnly`, partial startup, and `-Strict`
+- Added `MEMORY_PROMOTION_TEMPLATE.md` and linked it from the team operating system
+- Updated handoff/runtime docs to reflect the new check-only proof path
 
 ### Evidence
-| Check | Result | Detail |
-|---|---|---|
-| Python syntax | **PASS** | `sync_curated_employee_runtime.py` compiled successfully |
-| Generated status board exists | **PASS** | `open-claw/AI_Employee_knowledgebase/current_employees.md` now exists |
-| Runtime regeneration | **PASS** | Sync script refreshed packets, zips, runtime shell, and the new status board |
-| Structural validation | **PASS** | `validate_openclaw_workflow.py` still passes after the generator update |
+
+- PASS: generator completed with all validation checks green
+- PASS: `-CheckOnly` shows 10 currently startable curated workers
+- PASS: `-CheckOnly` shows the exact 5 blocked workers and why
+- PASS: blocked workers match the known remaining gaps, not hidden runtime surprises
 
 ### Verdict
-READY — the repo now has a generated employee status board that can be used as the live comparison sheet for packet quality, Telegram identity mapping, and per-file refinement decisions.
 
-## 2026-03-31 15:30 — autonomy model rewrite
+PASS — curated runtime startup is now evidence-driven and no longer all-or-nothing.
+
+### Pending Actions
+
+- Resolve direct mapping for `delivery-director`, `product-manager`, and `sparky-chief-product-quality-officer`
+- Create new Telegram bots for `accessibility-auditor` and `backend-architect`
+- Run the first curated-worker live smoke start after gateway pairing approval
+
+### What's Next
+
+- Use the readiness manifest and partial-start flow to move the curated squad toward `smoke_ready`.
+
+---
+
+## 2026-04-09 05:45 — Sparky Super-Coder Upgrade + Voice Front Desk Scaffold
 
 ### Goal
 
-Rewrite five open--claw authority surfaces to remove routine user-approval gates, establish Sparky as the internal delivery authority, and align the platform vision and requirements with FINAL_OUTPUT_PRODUCT.md's 100% autonomous delivery mandate.
+Strengthen the curated employee skill layer, turn Sparky into the broadest technical gate in the squad, and add the first real phone/voice runtime surface for live-human answering.
 
 ### Scope
 
-- .cursor/rules/05-global-mcp-usage.md
-- .cursor/rules/10-project-workflow.md
-- .cursor/rules/15-model-routing.md
-- open-claw/docs/VISION.md
-- open-claw/docs/REQUIREMENTS.md
-- docs/ai/STATE.md (this entry)
+- curated employee skill assignments under `open-claw/AI_Employee_knowledgebase/AI_employees/`
+- new skill definitions under `open-claw/skills/`
+- standalone phone/voice runtime under `open-claw/services/voice-front-desk-agent/`
+- knowledgebase and handoff docs
 
 ### Commands / Tool Calls
 
-- Read: all five target files before editing
-- Write: all five target files
-- Shell: markdownlint-cli2 validation
+- Audited current curated skill assignments and runtime generator requirements
+- Queried current docs for Twilio Voice and ElevenLabs via Context7
+- Added new skill files and updated curated employee packets
+- Ran `python open-claw/scripts/sync_curated_employee_runtime.py`
+- Ran `npm install express twilio ws zod dotenv @elevenlabs/elevenlabs-js`
+- Ran `npm run check` in `open-claw/services/voice-front-desk-agent`
+- Started the voice service locally and checked `http://127.0.0.1:8788/health`
 
 ### Changes
 
-- 05-global-mcp-usage.md: Disabled-tool and firecrawl policies rewritten — routine delivery routes to Sparky/fallback, not user approval.
-- 10-project-workflow.md: AGENT contract updated — routes to Sparky not user when blocked. Sparky mandatory review section added. FINAL_OUTPUT_PRODUCT.md first in PLAN source-of-truth priority. Subordination note added.
-- 15-model-routing.md: Hard-stop user-confirmed model switch replaced with internal escalation. Sparky routing format introduced. Tony-gate clarification added. "No Silent Degradation" replaces old rule.
-- VISION.md: Fully rewritten — autonomous AI employee organization framing; Sparky leadership; Tony-reserved scope.
-- REQUIREMENTS.md: "Autonomous long-running agents out of scope" deleted. Autonomous delivery, Sparky review, self-improving added as core requirements. Tony-reserved list added.
+- Added three new tracked skills:
+  - `twilio-voice-intake`
+  - `elevenlabs-voice-clone`
+  - `phone-support-intake`
+- Expanded Sparky into a broader super-coder/final-gate packet with cross-domain skills for engineering, QA, communications, and phone/voice integration
+- Added targeted skill upgrades for key specialists:
+  - `delivery-director`
+  - `product-manager`
+  - `backend-architect`
+  - `software-architect`
+  - `accessibility-auditor`
+  - `ux-architect`
+- Added `VOICE_FRONT_DESK_STACK.md` so phone/voice work has a documented home without breaking the curated 15-worker invariant
+- Added a modular standalone service at `open-claw/services/voice-front-desk-agent/` with:
+  - env parsing
+  - TwiML generation for inbound calls
+  - Twilio voice webhook routes
+  - websocket intake path
+  - Dockerfile and runtime README
 
 ### Evidence
 
-- PASS: markdownlint-cli2 — no MD032/MD025/MD001 structural errors
+- PASS: `sync_curated_employee_runtime.py` reports all 15 curated employees still structurally valid
+- PASS: copied skill folders now include the new Twilio and ElevenLabs skills inside Sparky's packet
+- PASS: regenerated `CURATED_TEAM_STATUS.json` reflects Sparky's expanded skill bundle
+- PASS: `npm run check` succeeds for `open-claw/services/voice-front-desk-agent`
+- PASS: local health probe returns:
+  - `{"ok":true,"voiceMode":"media-stream","publicBaseUrlConfigured":false,"websocketUrlConfigured":false,"elevenLabsConfigured":false}`
 
 ### Verdict
 
-READY — all five files updated; platform vision and requirements now aligned with FINAL_OUTPUT_PRODUCT.md.
+PASS WITH EXTERNAL SETUP REMAINING — the employee/skill layer is stronger, Sparky is upgraded, and the first real phone/voice runtime surface now exists in-repo. The voice stack is not yet live because external telephony credentials, cloned-voice credentials, and public webhook hosting are still missing.
+
+### Pending Actions
+
+- Resolve direct mapping for `delivery-director`, `product-manager`, and `sparky-chief-product-quality-officer`, or provide stable `*_TOKEN` env vars
+- Create new Telegram bots for `accessibility-auditor` and `backend-architect`
+- Add Twilio Voice credentials and a phone number
+- Add ElevenLabs API key plus `voice_id` or `agent_id`
+- Expose the voice service on public HTTPS/WSS and run a real smoke call
+
+### What's Next
+
+- Use the stronger Sparky packet plus upgraded specialist skills to push the curated squad toward `smoke_ready`
+- Turn the voice-front-desk scaffold into a live call flow after Twilio and ElevenLabs provisioning is in place
+
+---
+
+## 2026-04-09 06:35 — Nerve Install + Secret Inventory Sync + Sparky Replacement Audit
+
+### Goal
+
+Install the Nerve web UI without disturbing the existing OpenClaw runtime, sync the latest Bitwarden worker-token inventory, and audit `temp/Sparky` as a possible full replacement for the curated Sparky packet.
+
+### Scope
+
+- `temp/openclaw-nerve/`
+- `open-claw/scripts/start-openclaw-nerve.ps1`
+- `open-claw/scripts/sync_curated_employee_runtime.py`
+- `open-claw/AI_Employee_knowledgebase/*`
+- `docs/ai/HANDOFF.md`
+
+### Commands / Tool Calls
+
+- Read Nerve quick-start and repo docs
+- Cloned `https://github.com/daggerhashimoto/openclaw-nerve.git` into `temp/openclaw-nerve`
+- Ran `npm install` and `npm run build` for Nerve
+- Launched Nerve locally and verified HTTP `200` on `http://127.0.0.1:3080`
+- Read latest Bitwarden screenshots and patched missing worker-token inventory entries
+- Updated runtime generator and regenerated curated artifacts
+- Audited `temp/Sparky` and documented the replacement verdict
+
+### Changes
+
+- Installed Nerve in an isolated temp path so it sits in front of the gateway instead of replacing any existing runtime
+- Added `open-claw/scripts/start-openclaw-nerve.ps1` as a no-secrets launcher that uses env-backed gateway auth
+- Added the missing worker-token inventory entries for:
+  - `ACCESSIBILITY_AUDITOR`
+  - `BACKEND_ARCHITECT`
+- Updated the curated runtime generator so those two workers are now token-backed with temporary `TBD` usernames until the final bot handles are recorded
+- Regenerated `current_employees.md`, `CURATED_TEAM_STATUS.json`, and deployed-curated artifacts
+- Added:
+  - `SOURCE_REPOS_INDEX.md`
+  - `SPARKY_REPLACEMENT_AUDIT.md`
+
+### Evidence
+
+- PASS: Nerve build completed successfully
+- PASS: local Nerve probe returned HTTP `200` on `http://127.0.0.1:3080`
+- PASS: regenerated roster now shows `accessibility-auditor` and `backend-architect` as `direct_uuid_wired`
+- PASS: structural runtime regeneration still reports all 15 curated packets valid
+- PASS: `temp/Sparky` audit concludes merge/salvage, not full replacement
+
+### Verdict
+
+PASS WITH FOLLOW-UP — Nerve is installed safely, the two missing worker tokens are now captured in repo docs and generator logic, and the temp Sparky packet is now documented as a governance/playbook source rather than a drop-in replacement.
+
+### Pending Actions
+
+- Record the final Telegram usernames for `accessibility-auditor` and `backend-architect`
+- Resolve direct secret mapping or env injection for `delivery-director`, `product-manager`, and `sparky-chief-product-quality-officer`
+- Decide whether Nerve remains an optional local cockpit or becomes part of the standard OpenClaw operator workflow
+- If a deeper upstream import wave is needed, perform a full per-file index of local `source_repos` mirrors
+
+### What's Next
+
+- Use the updated 15-token roster to push the curated team closer to a real smoke start
+- Keep salvaging doctrine from `temp/Sparky` without replacing the curated Sparky packet wholesale
+
+## 2026-04-09 00:45 — Bootstrap And Workflow Mirror Alignment
+
+### Goal
+
+Align the open--claw bootstrap prompts and mirrored workflow docs with the current tri-workspace policy so PLAN, AGENT, DEBUG, and ARCHIVE stop using stale recovery assumptions.
+
+### Scope
+
+Touched `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md`, `.cursor/rules/10-project-workflow.md`, `docs/ai/CURSOR_WORKFLOW.md`, `AGENTS.md`, `docs/ai/HANDOFF.md`, and `docs/ai/STATE.md`.
+
+### Commands / Tool Calls
+
+`ReadFile`, `rg`, `ApplyPatch`, `ReadLints`.
+
+### Changes
+
+- Updated tab bootstraps to require exactly one AGENT block from PLAN, include ledger gating, and use OpenMemory-first recovery with `STATE.md` / `DECISIONS.md` / `PATTERNS.md` / `HANDOFF.md`.
+- Updated mirrored workflow docs/rules to match current tool, ledger, and source-priority policy.
+- Rolled forward stale handoff/state wording so the summary surfaces reflect the latest worker-readiness reality instead of the older "new bots needed" wording.
+
+### Evidence
+
+- PASS: open--claw bootstrap prompt file updated and lint-clean
+- PASS: mirrored workflow docs (`CURSOR_WORKFLOW.md`, `AGENTS.md`, `HANDOFF.md`) updated and lint-clean
+- PASS: `ReadLints` returned no errors for touched open--claw files
+
+### Verdict
+
+READY — open--claw now mirrors the current policy on bootstrap sequencing, ledger use, and current curated-worker blocker wording.
+
+### Blockers
+
+None.
+
+### Fallbacks Used
+
+- Used targeted doc reads instead of Serena because this was a docs/rules audit, not a code-navigation task.
+
+### Cross-Repo Impact
+
+- Mirrors AI-Project-Manager governance updates so cross-repo tab behavior stays consistent.
+
+### Decisions Captured
+
+- Open--claw should keep using the execution ledger as a gated fallback only, never as default bootstrap context.
+- Curated-worker status wording must track token-vs-username reality precisely to avoid misleading PLAN.
+
+### Pending Actions
+
+- Create the first open--claw local `docs/ai/context/AGENT_EXECUTION_LEDGER.md` entry when the next real open--claw AGENT execution block runs.
+
+### What Remains Unverified
+
+- Fresh-session behavior of the updated open--claw tab prompts inside Cursor.
+
+### What's Next
+
+- Resume curated-worker runtime hardening using the corrected bootstrap and blocker surfaces.
+
+## 2026-04-10 01:20 — Reasoning Policy Mirror + Low-Bloat Bootstrap Tightening
+
+### Goal
+
+Mirror the new reasoning/tool policy into open--claw and reduce default bootstrap preload so PLAN relies on memory plus `STATE.md` first.
+
+### Scope
+
+Touched `.cursor/rules/05-global-mcp-usage.md`, `.cursor/rules/10-project-workflow.md`, and `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md`.
+
+### Commands / Tool Calls
+
+`ReadFile`, `rg`, `ApplyPatch`, `ReadLints`.
+
+### Changes
+
+- Promoted `thinking-patterns` over the old Clear Thought naming in active workflow/rule surfaces.
+- Added conditional guidance for `context-matic`, `obsidian-vault`, and `filesystem`.
+- Tightened PLAN bootstrap so `STATE.md` is the first repo file after OpenMemory and other docs stay on-demand.
+
+### Evidence
+
+- PASS: open--claw mirrored rule and tab files updated successfully
+- PASS: no linter errors in touched open--claw files
+
+### Verdict
+
+READY — open--claw bootstrap behavior now matches the lower-bloat recovery model and new reasoning MCP policy.
+
+### Blockers
+
+None.
+
+### Fallbacks Used
+
+- None.
+
+### Cross-Repo Impact
+
+- Mirrors the AI-Project-Manager canonical workflow/rule migration.
+
+### Decisions Captured
+
+- open--claw PLAN recovery should default to memory plus `STATE.md`, not broad multi-doc preload.
+
+### Pending Actions
+
+- Run the next real open--claw planning cycle through the updated bootstrap and confirm it stays context-light in practice.
+
+### What Remains Unverified
+
+- Live-session behavior of the updated open--claw bootstrap prompt under real task load.
+
+### What's Next
+
+- Continue curated runtime work with the leaner recovery path now in place.
+
+## 2026-04-10 10:35 — Sparky Thinking-Patterns Alignment
+
+### Goal
+
+Align Sparky's packet with the newly promoted thinking-patterns MCP policy so his default tool usage matches the global reasoning rules.
+
+### Scope
+
+Touched `open-claw/AI_Employee_knowledgebase/AI_employees/sparky-chief-product-quality-officer/TOOLS.md`.
+
+### Commands / Tool Calls
+
+`ReadFile`, `ApplyPatch`.
+
+### Changes
+
+- Added `thinking-patterns reasoning` to Sparky's primary tools.
+- Added explicit usage expectations covering `sequential_thinking`, `problem_decomposition`, `mental_model`, `decision_framework`, `debugging_approach`, and `critical_thinking`.
+
+### Evidence
+
+- PASS: Sparky packet now names `thinking-patterns` directly in his primary tool surface
+- PASS: Sparky packet now instructs near-default use on non-trivial prompts
+
+### Verdict
+
+READY — Sparky's worker packet now reflects the active global reasoning policy instead of relying on implicit cross-repo inheritance alone.
+
+### Cross-Repo Impact
+
+- Mirrors the global `MCP-AGENT_RULES.mdc` rollout from the governance layer.
+
+### What's Next
+
+- Apply the same compact tool-expectation pattern to any other high-autonomy worker packets that should explicitly inherit the thinking-patterns discipline.
+
+## 2026-04-10 12:05 — Sparky Video-Recovery Upgrade + Skill Runtime Validation Pass
+
+### Goal
+
+Strengthen Sparky for damaged-video recovery work, fix the recorded Telegram usernames for the two remaining curated workers, and re-prove the OpenClaw skill/runtime packaging path with actual validation commands.
+
+### Scope
+
+Touched Sparky packet files, added two new house skills under `open-claw/skills/`, hardened the employee-runtime sync and validation scripts, refreshed generated roster artifacts, and updated the skills audit surface.
+
+### Commands / Tool Calls
+
+`ReadFile`, `Shell`, `ApplyPatch`, `Context7`, `ReadLints`, plus read-only exploration subagents for the skill system and factory temp assets.
+
+### Changes
+
+- Added new skills:
+  - `open-claw/skills/video-repair-forensics/SKILL.md`
+  - `open-claw/skills/media-recovery-validation/SKILL.md`
+- Expanded Sparky packet:
+  - added `approval-gate`, `video-repair-forensics`, and `media-recovery-validation` to `SKILLS.md`
+  - added media-recovery tool expectations to `TOOLS.md`
+  - added a damaged-video recovery workflow to `WORKFLOWS.md`
+  - updated Sparky `CHECKLIST.md` and `AUDIT.md` to reflect the new assignments
+- Updated `sync_curated_employee_runtime.py` so:
+  - `accessibility-auditor` now records `ACCESS_AUDITOR_ALLISON_BOT`
+  - `backend-architect` now records `BACKEND_BRUCE_BOT`
+  - skill parsing only reads actual bullet-list skill assignments instead of every backticked token in `SKILLS.md`
+- Updated `validate_openclaw_workflow.py` to use the same safer skill parsing logic.
+- Updated `AI_Employee_knowledgebase/SKILLS_AUDIT.md` with the two new media-recovery skills and the latest validation status.
+
+### Evidence
+
+- PASS: `python .\\open-claw\\scripts\\sync_curated_employee_runtime.py`
+- PASS: `python .\\open-claw\\scripts\\validate_openclaw_workflow.py`
+- PASS: regenerated `current_employees.md` now records:
+  - `accessibility-auditor` → `ACCESS_AUDITOR_ALLISON_BOT`
+  - `backend-architect` → `BACKEND_BRUCE_BOT`
+- PASS: runtime validation summary shows all structural checks green, including copied assigned skills and generated bot/runtime artifacts
+- PASS: Context7 FFmpeg docs were consulted for copy-first recovery guidance (`ffprobe`/`ffmpeg`, remux, timestamp regeneration, stream copy, faststart)
+
+### Verdict
+
+READY FOR STRUCTURAL USE — the open--claw employee skill system is now structurally consistent again, Sparky has dedicated damaged-video recovery skills, and the curated runtime validation suite is green.
+
+### Blockers
+
+- Live end-to-end worker startup with real gateway credentials is still not proven for all workers.
+- Sparky's actual damaged AxCrypt-decrypted video files still need a real recovery run and evidence log.
+- `delivery-director`, `product-manager`, and `sparky-chief-product-quality-officer` still need direct secret mapping or stable env-backed runtime injection to be fully runtime-ready.
+
+### Findings From Factory Assets
+
+- The proactive-agent v3.1.0 pack is useful as doctrine and operating-pattern input, especially around WAL / working-buffer / compaction-recovery behavior.
+- The Formula One AI Factory zip is richer as a development environment for employee-building doctrine, but it should remain an upstream build source, not a blind replacement for the curated OpenClaw packet standard.
+
+### What's Next
+
+- Run Sparky on the actual damaged video set using the new recovery workflow and capture evidence per attempt.
+- Decide whether to import more factory-style live-state doctrine (`SESSION-STATE`, working-buffer, WAL discipline) into the curated employee standard in a controlled way instead of ad hoc packet drift.
+
+---
+
+## 2026-04-10 18:53 — Obsidian + Sparky Rule Hardening Implementation (Cross-Repo Pass)
+
+### Goal
+
+Align open--claw memory/rule systems to match the tri-workspace Obsidian/OpenMemory policy and strengthen Sparky rule indexing at repo level.
+
+### Scope
+
+- `open--claw\.cursor\rules\05-global-mcp-usage.md` — obsidian-vault policy aligned
+- `open--claw\AGENTS.md` — sparky-mandatory-tool-usage.md indexed
+- `open--claw\open-claw\AI_Employee_knowledgebase\AI_employees\sparky-chief-product-quality-officer\ACCESS.md` — role preamble added
+- `open--claw\open-claw\AI_Employee_knowledgebase\AI_employees\sparky-chief-product-quality-officer\TOOLS.md` — role preamble added
+- `open--claw\open-claw\AI_Employee_knowledgebase\AI_employees\sparky-chief-product-quality-officer\COMPLETE_TOOL_REFERENCE.md` — role preamble added
+- `open--claw\docs\ai\STATE.md` — this entry
+
+### Commands / Tool Calls
+
+- StrReplace: 5 file updates in open--claw
+- Grep: verified rule surfaces and cross-references
+
+### Changes
+
+**Obsidian/OpenMemory Policy Alignment:**
+- Updated `05-global-mcp-usage.md` to align with AI-PM policy
+- Both AI-PM and open--claw now state: OpenMemory = **primary durable structured memory backbone**; Obsidian = **fast-access scoped note memory sidecar**
+- Explicit relationship and anti-patterns now documented consistently
+
+**Sparky Access Docs Deduplication:**
+- Added role preambles to all three Sparky access docs:
+  - `ACCESS.md`: persistent access config + recovery
+  - `TOOLS.md`: canonical exec routing + usage
+  - `COMPLETE_TOOL_REFERENCE.md`: inventory/reference only (NOT enforcement)
+- Cross-references added between files for clarity
+
+**Sparky Rule Indexing:**
+- Added `sparky-mandatory-tool-usage.md` to `AGENTS.md` Authoritative rules list
+- Sparky enforcement rule now repo-level indexed alongside other mandatory rules
+
+### Evidence
+
+- PASS: open--claw `05-global-mcp-usage.md` aligned with AI-PM policy
+- PASS: All three Sparky access docs have distinct role preambles
+- PASS: `AGENTS.md` now indexes sparky-mandatory-tool-usage.md
+- PASS: Cross-references between ACCESS.md, TOOLS.md, COMPLETE_TOOL_REFERENCE.md working
+- PASS: Changes compact and focused per plan requirements
+
+### Verdict
+
+READY — open--claw memory/tool policy now matches tri-workspace standard. Sparky rule hierarchy clarified and indexed.
 
 ### Blockers
 
@@ -979,23 +984,23 @@ None.
 
 ### Cross-Repo Impact
 
-AI-Project-Manager GOVERNANCE_MODEL.md updated in the same block.
+- AI-PM: MCP rule and tooling docs updated in parallel
+- Both repos now have consistent Obsidian/OpenMemory relationship
+- Sparky rule hierarchy documented uniformly
 
 ### Decisions Captured
 
-- VISION.md and REQUIREMENTS.md now reflect autonomous AI employee organization as the primary model.
-- "All actions are human-triggered" clause permanently removed.
-- AGENT model escalation is internal — no user stop required.
+Same as AI-PM entry — OpenMemory = primary backbone, Obsidian = fast-access sidecar, Sparky rule hierarchy clarified.
 
 ### Pending Actions
 
-None.
+None - all planned changes completed.
 
 ### What Remains Unverified
 
-- Sparky routing plumbing requires live multi-agent session validation.
-- Governance overlay (Phase 6B) still blocked on ANTHROPIC_API_KEY.
+- Live Sparky session using updated rule surfaces
+- Whether ACCESS/TOOLS/COMPLETE_TOOL_REFERENCE role separation improves operational clarity
 
 ### What's Next
 
-Live bootstrap test with updated tab prompts and FINAL_OUTPUT_PRODUCT.md as first read.
+Plan complete. System ready with clarified memory/tool hierarchy.

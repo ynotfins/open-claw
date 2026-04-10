@@ -1,18 +1,35 @@
 # Tools
 
+**Document Role:** This file provides **canonical exec routing patterns and primary tool usage expectations**. For access configuration and recovery, see `ACCESS.md`. For complete tool inventory, see `COMPLETE_TOOL_REFERENCE.md`.
+
 ## Primary Tools
 - repo search
 - git review
 - web research
+- thinking-patterns reasoning
 - Context7 docs
 - artifact review
+- ffprobe / ffmpeg media recovery
+- MediaInfo / container inspection
+- checksum and binary inspection
 - exec (shell — Linux gateway and Windows node)
+- browser verification
+- Twilio Voice webhooks/runtime
+- ElevenLabs voice configuration
 
 ## Tooling Expectations
+- Use `thinking-patterns` on nearly every non-trivial Sparky prompt before finalizing a plan, diagnosis, or high-risk decision.
+- Default mapping: `sequential_thinking` for multi-step work, `problem_decomposition` for execution breakdown, `mental_model` for architecture, `decision_framework` for trade-offs, `debugging_approach` for failures, `critical_thinking` for self-critique.
 - Use Context7 when framework or library behavior matters.
+- For damaged video files, prefer `ffprobe` + `mediainfo` triage first, then copy-based `ffmpeg` recovery before any re-encode fallback.
+- Keep `mpv` or `VLC` available for seek/playback validation after every recovery attempt.
+- Use `Get-FileHash` or equivalent checksums before and after every repair attempt.
+- When MP4/MOV indexing looks damaged, use `untrunc`, `MP4Box`, `mkvmerge`, or Bento4 tools if a compatible reference file exists.
 - Use browser and screenshot tooling when UX claims need proof.
 - Use git and diff review for every meaningful code change.
 - Use tests and build outputs as evidence, not decoration.
+- Use Twilio and ElevenLabs only through env-backed configuration and documented webhook/runtime boundaries.
+- Treat live phone workflows as production integrations: verify latency, fallback greeting, escalation, and summary capture.
 
 ## Exec Routing
 
