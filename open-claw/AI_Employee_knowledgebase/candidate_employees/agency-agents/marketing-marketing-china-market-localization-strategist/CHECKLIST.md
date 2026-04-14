@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # China Market Localization Strategist Checklist
 
 ## Grade Target

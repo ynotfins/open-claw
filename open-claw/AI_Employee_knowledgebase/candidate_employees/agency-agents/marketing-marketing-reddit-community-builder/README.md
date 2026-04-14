@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Reddit Community Builder
 
 ## Role

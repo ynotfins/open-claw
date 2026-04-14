@@ -7,7 +7,7 @@ const app = new App({
   socketMode: true,
   appToken: process.env.SLACK_APP_TOKEN,
 });
-const slug = "ui-designer";
+const slug = "PERSONAL_PAMELA_BOT";
 
 app.event("app_mention", async ({ event, say }) => {
   const text = event.text.replace(/<@[^>]+>/g, "").trim();

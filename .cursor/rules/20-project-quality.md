@@ -1,3 +1,9 @@
+---
+description: "Modular architecture, diff/testing/secrets hygiene"
+globs: ["**/*"]
+alwaysApply: true
+---
+
 # 20 — Project Quality Standards (Open Claw)
 
 > Extends: `00-global-core.md`, `05-global-mcp-usage.md`

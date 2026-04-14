@@ -3,6 +3,8 @@
 - `architecture-adr`
 - `mcp-integration`
 - `release-readiness`
+- `code-review-gate`
+- `handoff-state`
 
 ## Expectations
 - Use the listed skills as the default operating playbook.

@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Analytics Reporter Checklist
 
 ## Grade Target

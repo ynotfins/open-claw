@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Data Consolidation Agent Checklist
 
 ## Grade Target

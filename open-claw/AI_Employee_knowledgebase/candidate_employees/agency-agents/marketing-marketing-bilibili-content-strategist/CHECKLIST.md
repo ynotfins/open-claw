@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Bilibili Content Strategist Checklist
 
 ## Grade Target

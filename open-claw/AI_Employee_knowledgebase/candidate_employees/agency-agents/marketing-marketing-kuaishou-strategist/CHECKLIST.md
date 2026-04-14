@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Kuaishou Strategist Checklist
 
 ## Grade Target

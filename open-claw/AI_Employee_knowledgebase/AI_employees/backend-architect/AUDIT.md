@@ -10,9 +10,11 @@
 - **Status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 
 ## Live Telegram Binding
-- No Telegram bot is assigned to `backend-architect` yet.
-- This worker remains documentation-complete but still needs a dedicated Telegram bot before it can join the live curated runtime.
-- Until a new bot is created, start this worker through non-Telegram/local invocation only.
+- Current Telegram first name: `BACKEND_ARCHITECT`
+- Assigned Telegram username: `BACKEND_BRUCE_BOT`
+- Current Bitwarden secret name: `BACKEND_BRUCE_BOT`.
+- Preferred Telegram first name for this curated role: `Backend Architect`
+- Startup resolution status: direct Bitwarden secret id wired from `BACKEND_BRUCE_BOT`.
 
 ## What This Employee Can Do Now
 - Create clean API and data contracts with explicit validation.

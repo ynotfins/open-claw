@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `API_INTEGRATION_SPECIALIST`
 - Assigned Telegram username: `API_ANDY_BOT`
-- Reuses the existing bot token currently labeled as `api-integration-specialist`.
+- Current Bitwarden secret name: `API_ANDY_BOT`.
 - Preferred Telegram first name for this curated role: `MCP Integration Engineer`
-- Startup resolution status: direct Bitwarden secret id wired from `api-integration-specialist`.
+- Startup resolution status: direct Bitwarden secret id wired from `API_ANDY_BOT`.
 
 ## What This Employee Can Do Now
 - Define descriptive tool names, typed parameters, and structured outputs.

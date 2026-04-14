@@ -64,7 +64,10 @@ def parse_employees() -> list[EmployeePacket]:
     employees: list[EmployeePacket] = []
     for employee_dir in sorted(path for path in EMPLOYEE_ROOT.iterdir() if path.is_dir() and path.name != "_zips"):
         skills_doc = (employee_dir / "SKILLS.md").read_text(encoding="utf-8")
-        skills = re.findall(r"`([^`]+)`", skills_doc)
+        skills = [
+            match.group(1).strip()
+            for match in re.finditer(r"^\s*-\s*`([^`]+)`\s*$", skills_doc, re.MULTILINE)
+        ]
         employees.append(EmployeePacket(slug=employee_dir.name, skills=skills))
     return employees
 

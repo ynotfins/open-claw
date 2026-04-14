@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Godot Shader Developer Checklist
 
 ## Grade Target

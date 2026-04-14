@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `SOFTWARE_ENGINEER`
 - Assigned Telegram username: `ENGINEER_ENRIQUE_BOT`
-- Reuses the existing bot token currently labeled as `software-engineer`.
+- Current Bitwarden secret name: `ENGINEER_ENRIQUE_BOT`.
 - Preferred Telegram first name for this curated role: `Software Architect`
-- Startup resolution status: direct Bitwarden secret id wired from `software-engineer`.
+- Startup resolution status: direct Bitwarden secret id wired from `ENGINEER_ENRIQUE_BOT`.
 
 ## What This Employee Can Do Now
 - Prefer reversible, low-complexity designs over architecture theater.

@@ -1,7 +1,10 @@
 # Authoritative Standard
 
+## Subordination to the charter
+Read `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` first in every session. It is the supreme product charter. This file interprets how employees apply that charter in daily work; it must not contradict, weaken, or override it. `TEAM_ROSTER.md` is likewise subordinate: it records org hierarchy and assignments under the same charter.
+
 ## Decision
-The authoritative source of truth for this project's AI employees is the curated house standard in `open-claw/AI_Employee_knowledgebase`, not any one upstream repo.
+The authoritative **house** standard for how AI employees operate lives in the curated library under `open-claw/AI_Employee_knowledgebase`, not any one upstream repo. That house standard is always downstream of `FINAL_OUTPUT_PRODUCT.md`.
 
 ## Why
 No single upstream source solved the full problem:

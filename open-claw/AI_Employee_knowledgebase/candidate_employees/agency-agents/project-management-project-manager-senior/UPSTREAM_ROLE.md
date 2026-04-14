@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 ---
 name: Senior Project Manager
 description: Converts specs to tasks and remembers previous projects. Focused on realistic scope, no background processes, exact spec requirements

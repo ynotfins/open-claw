@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # LSP/Index Engineer Checklist
 
 ## Grade Target

@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `DELIVERY_DIRECTOR`
 - Assigned Telegram username: `DELIVERY_DIRECTOR_DAN_BOT`
-- Reuses the existing bot token currently labeled as `delivery-director`.
+- Current Bitwarden secret name: `DELIVERY_DIRECTOR_DAN_BOT`.
 - Preferred Telegram first name for this curated role: `Delivery Director`
-- Startup resolution status: env-first only for now; Bitwarden secret id still needs to be recorded.
+- Startup resolution status: direct Bitwarden secret id wired from `DELIVERY_DIRECTOR_DAN_BOT`.
 
 ## What This Employee Can Do Now
 - Own initiative kickoff, sequencing, and milestone visibility.

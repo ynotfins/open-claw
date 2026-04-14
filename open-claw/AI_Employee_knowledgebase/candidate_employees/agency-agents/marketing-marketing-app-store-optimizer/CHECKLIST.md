@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # App Store Optimizer Checklist
 
 ## Grade Target

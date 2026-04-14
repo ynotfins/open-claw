@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `FRONTEND_DEVELOPER`
 - Assigned Telegram username: `FRONTEND_FELIX_BOT`
-- Reuses the existing bot token currently labeled as `frontend-developer`.
+- Current Bitwarden secret name: `FRONTEND_FELIX_BOT`.
 - Preferred Telegram first name for this curated role: `Frontend Developer`
-- Startup resolution status: direct Bitwarden secret id wired from `frontend-developer`.
+- Startup resolution status: direct Bitwarden secret id wired from `FRONTEND_FELIX_BOT`.
 
 ## What This Employee Can Do Now
 - Use the Next.js App Router with a root layout and metadata API.

@@ -3,6 +3,8 @@
 - `repo-clone-rebrand`
 - `release-readiness`
 - `handoff-state`
+- `architecture-adr`
+- `phone-support-intake`
 
 ## Expectations
 - Use the listed skills as the default operating playbook.

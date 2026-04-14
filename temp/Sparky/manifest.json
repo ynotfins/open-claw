@@ -1,0 +1,113 @@
+{
+  "name": "Sparky",
+  "title": "Chief Governing Overseer — AI Employee Factory",
+  "version": "3.1.0",
+  "type": "complete_ai_employee_packet",
+  "status": "development_ready_not_yet_deployment_ready",
+  "last_upgraded": "2026-04-02",
+  "upgrade_summary": "v3.1.0 retrofit: added persona/operations separation (AGENTS.md), session continuity system (SESSION-STATE.md, working-buffer.md, HEARTBEAT.md), deployment architecture (INSTALLATION_TARGETS.json, LAUNCH_CONTRACT.json, live/), concrete communication style examples in IDENTITY.md, specific benchmarks in SUCCESS_METRICS.md, 3 new handoff templates, updated KNOWLEDGE_MAP.json.",
+  "primary_authority": [
+    "project oversight",
+    "specialist routing",
+    "pr review and governance",
+    "merge gate enforcement",
+    "release gating",
+    "anti-drift governance",
+    "incident coordination",
+    "evidence validation",
+    "escalation management",
+    "quality enforcement"
+  ],
+  "session_entry_point": "AGENTS.md",
+  "install_targets": "INSTALLATION_TARGETS.json",
+  "launch_contract": "LAUNCH_CONTRACT.json",
+  "persona_files": [
+    "AGENTS.md",
+    "SOUL.md",
+    "IDENTITY.md",
+    "MISSION.md",
+    "LIMITS.md",
+    "ANTI_PATTERNS.md"
+  ],
+  "operations_files": [
+    "OPERATING_RULES.md",
+    "WORKFLOWS.md",
+    "RUNBOOK.md",
+    "SKILLS.md",
+    "APPROVAL_GATES.md",
+    "PR_RULES.md",
+    "MERGE_POLICY.md",
+    "ESCALATION_RULES.md",
+    "SECURITY.md"
+  ],
+  "knowledge_files": [
+    "KNOWLEDGE_SOURCES.md",
+    "SOURCE_PRIORITY.md",
+    "RETRIEVAL_RULES.md",
+    "KNOWLEDGE_MAP.json",
+    "TOOLS.md"
+  ],
+  "continuity_files": [
+    "MEMORY.md",
+    "PROVENANCE.md",
+    "DECISION_LOG.md",
+    "live/SESSION-STATE.md",
+    "live/working-buffer.md"
+  ],
+  "context_files": [
+    "USER.md",
+    "ONBOARDING.md",
+    "HEARTBEAT.md"
+  ],
+  "measurement_files": [
+    "SUCCESS_METRICS.md",
+    "TEST_CASES.md",
+    "FILE_RATINGS_INDEX.md",
+    "POST_RUN_NOTES.md",
+    "SPARKY_EVALUATION_SUMMARY.md"
+  ],
+  "runtime_files": [
+    "agent.ts",
+    "tools.ts",
+    "schema.ts",
+    "live/index.ts",
+    "live/src/index.ts",
+    "live/test/smoke.test.ts"
+  ],
+  "operational_files": [
+    "README.md",
+    "LAUNCH_CONTRACT.md",
+    "LAUNCH_CONTRACT.json",
+    "INSTALLATION_TARGETS.json",
+    "EMPLOYEE_PACKET_STANDARD.md"
+  ],
+  "required_directories": [
+    "CHECKLISTS",
+    "HANDOFF_TEMPLATES",
+    "evals",
+    "live",
+    "live/src",
+    "live/test"
+  ],
+  "overall_score": "8.7",
+  "doctrine_average": "9.0",
+  "architecture_average": "8.3",
+  "runtime_average": "7.9",
+  "deployment_blockers": [
+    "OpenClaw integration not validated",
+    "Live build not validated (npm run build not run)",
+    "TEST_CASES.md not executed against agent.ts",
+    "Field testing not performed (min 5 real governance cycles required)",
+    "agent.ts not audited against expanded schema.ts",
+    "Resolver registry not defined",
+    "Specialist registry not defined"
+  ],
+  "notes": [
+    "AGENTS.md is the canonical session entry point — read this first every session.",
+    "Context7 connector instability observed; apply degraded-mode evidence quality when unavailable.",
+    "OpenClaw integration paths are defined in INSTALLATION_TARGETS.json but are not yet integration-tested.",
+    "schema.ts was significantly expanded in v3.0.0; agent.ts alignment audit is pending.",
+    "WORKFLOWS.md and TOOLS.md are strong pre-existing files that need a cross-reference audit against upgraded doctrine.",
+    "live/src/index.ts is the new typed entrypoint; live/index.ts is the legacy entrypoint — both remain for compatibility."
+  ]
+}

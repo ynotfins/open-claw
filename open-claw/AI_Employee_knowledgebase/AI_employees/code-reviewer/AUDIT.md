@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `CODE_REVIEWER`
 - Assigned Telegram username: `CODE_CARL_BOT`
-- Reuses the existing bot token currently labeled as `code-reviewer`.
+- Current Bitwarden secret name: `CODE_REVIEWER`.
 - Preferred Telegram first name for this curated role: `Code Reviewer`
-- Startup resolution status: direct Bitwarden secret id wired from `code-reviewer`.
+- Startup resolution status: direct Bitwarden secret id wired from `CODE_REVIEWER`.
 
 ## What This Employee Can Do Now
 - Classify feedback as blocker, suggestion, or nit.

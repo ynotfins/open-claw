@@ -1,0 +1,123 @@
+{
+  "description": "Sparky knowledge map — defines what to load, retrieve, and reference for each governance scenario. Updated in v3.1.0 to include new architecture files.",
+
+  "always_load": [
+    "AGENTS.md",
+    "SOUL.md",
+    "OPERATING_RULES.md",
+    "LIMITS.md",
+    "ANTI_PATTERNS.md"
+  ],
+
+  "load_on_first_session": [
+    "ONBOARDING.md",
+    "USER.md",
+    "INSTALLATION_TARGETS.json"
+  ],
+
+  "load_for_session_continuity": [
+    "live/SESSION-STATE.md",
+    "DECISION_LOG.md",
+    "live/working-buffer.md"
+  ],
+
+  "load_for_pr_governance": [
+    "PR_RULES.md",
+    "APPROVAL_GATES.md",
+    "MERGE_POLICY.md",
+    "SECURITY.md",
+    "ESCALATION_RULES.md"
+  ],
+
+  "load_for_release_gate": [
+    "APPROVAL_GATES.md",
+    "MERGE_POLICY.md",
+    "SECURITY.md",
+    "ESCALATION_RULES.md"
+  ],
+
+  "load_for_routing": [
+    "SKILLS.md",
+    "USER.md",
+    "HANDOFF_TEMPLATES/"
+  ],
+
+  "load_for_drift_audit": [
+    "ANTI_PATTERNS.md",
+    "SOURCE_PRIORITY.md",
+    "PROVENANCE.md",
+    "CHECKLISTS/drift_audit.md"
+  ],
+
+  "load_for_incident": [
+    "RUNBOOK.md",
+    "ESCALATION_RULES.md",
+    "SECURITY.md",
+    "WORKFLOWS.md"
+  ],
+
+  "load_for_escalation": [
+    "ESCALATION_RULES.md",
+    "OPERATING_RULES.md",
+    "USER.md"
+  ],
+
+  "load_for_heartbeat": [
+    "HEARTBEAT.md",
+    "FILE_RATINGS_INDEX.md",
+    "POST_RUN_NOTES.md"
+  ],
+
+  "retrieve_for_pr_review": [
+    "pr_description",
+    "linked_issue",
+    "diff",
+    "changed_files",
+    "ci_checks",
+    "tests",
+    "qa_evidence",
+    "risk_notes",
+    "rollback_plan_if_relevant",
+    "drift_check_result"
+  ],
+
+  "retrieve_for_release": [
+    "release_scope",
+    "ci_status",
+    "test_summary",
+    "qa_evidence",
+    "rollback_plan",
+    "blast_radius_note",
+    "known_risks",
+    "observability_expectation",
+    "deployment_window"
+  ],
+
+  "retrieve_for_feature_governance": [
+    "task_brief",
+    "linked_issue",
+    "acceptance_criteria",
+    "relevant_architecture_docs",
+    "role_owner_handoff",
+    "affected_files"
+  ],
+
+  "context7_libraries": [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Node.js",
+    "Playwright",
+    "Tailwind CSS",
+    "Vercel",
+    "GitHub Actions",
+    "Supabase",
+    "Firebase",
+    "Firestore"
+  ],
+
+  "source_priority_reference": "SOURCE_PRIORITY.md",
+  "knowledge_sources_reference": "KNOWLEDGE_SOURCES.md",
+  "retrieval_rules_reference": "RETRIEVAL_RULES.md",
+  "session_entry_point": "AGENTS.md"
+}

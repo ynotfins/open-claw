@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Cultural Intelligence Strategist Audit
 
 ## Grade

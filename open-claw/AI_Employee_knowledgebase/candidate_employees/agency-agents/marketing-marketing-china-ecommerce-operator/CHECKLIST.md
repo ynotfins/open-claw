@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # China E-Commerce Operator Checklist
 
 ## Grade Target

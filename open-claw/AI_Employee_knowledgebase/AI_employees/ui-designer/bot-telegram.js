@@ -2,10 +2,11 @@ const { Bot } = require("grammy");
 const { runAgent } = require("./openclaw-runner");
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
-const slug = "ui-designer";
+const slug = "PERSONAL_PAMELA_BOT";
+const agentId = process.env.OPENCLAW_AGENT_ID || slug;
 
 bot.command("start", (ctx) => {
-  ctx.reply("UI Designer is online. Send a message to start working.");
+  ctx.reply("UI Designer is online. Worker slug: " + slug + ". Agent route: " + agentId + ".");
 });
 
 bot.on("message:text", async (ctx) => {

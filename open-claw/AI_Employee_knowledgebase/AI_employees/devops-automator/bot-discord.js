@@ -4,7 +4,7 @@ const { runAgent } = require("./openclaw-runner");
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
 });
-const slug = "devops-automator";
+const slug = "SCRIPT_SARAH_BOT";
 
 client.on("ready", () => {
   console.log(`Discord bot logged in for DevOps Automator as ${client.user.tag}`);

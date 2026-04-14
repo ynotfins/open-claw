@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Bootstrap
 
 1. Read `SOUL.md` and `UPSTREAM_ROLE.md`.

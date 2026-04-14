@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `SEO_SPECIALIST`
 - Assigned Telegram username: `SEO_SAMANTHA_BOT`
-- Reuses the existing bot token currently labeled as `seo-specialist`.
+- Current Bitwarden secret name: `SEO_SAMANTHA_BOT`.
 - Preferred Telegram first name for this curated role: `SEO and AI Discovery Strategist`
-- Startup resolution status: direct Bitwarden secret id wired from `seo-specialist`.
+- Startup resolution status: direct Bitwarden secret id wired from `SEO_SAMANTHA_BOT`.
 
 ## What This Employee Can Do Now
 - Own metadata, crawlability, and structured data expectations.

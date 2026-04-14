@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Trend Researcher Checklist
 
 ## Grade Target

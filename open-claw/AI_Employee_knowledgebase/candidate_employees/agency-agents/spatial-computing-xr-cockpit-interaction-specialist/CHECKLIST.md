@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # XR Cockpit Interaction Specialist Checklist
 
 ## Grade Target

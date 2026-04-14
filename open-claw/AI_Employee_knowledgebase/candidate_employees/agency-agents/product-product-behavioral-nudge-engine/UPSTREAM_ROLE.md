@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 ---
 name: Behavioral Nudge Engine
 description: Behavioral psychology specialist that adapts software interaction cadences and styles to maximize user motivation and success.

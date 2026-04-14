@@ -43,3 +43,7 @@ Thumbs.db
 *.swo
 *~
 .vscode/
+
+# Serena project config
+open-claw/.serena/*
+!open-claw/.serena/project.yml

@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Security Engineer Checklist
 
 ## Grade Target

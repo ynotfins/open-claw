@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # XR Interface Architect Audit
 
 ## Grade

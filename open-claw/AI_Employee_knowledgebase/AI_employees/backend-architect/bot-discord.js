@@ -4,7 +4,7 @@ const { runAgent } = require("./openclaw-runner");
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
 });
-const slug = "backend-architect";
+const slug = "BACKEND_BRUCE_BOT";
 
 client.on("ready", () => {
   console.log(`Discord bot logged in for Backend Architect as ${client.user.tag}`);

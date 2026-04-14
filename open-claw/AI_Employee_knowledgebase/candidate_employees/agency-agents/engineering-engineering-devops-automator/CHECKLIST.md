@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # DevOps Automator Checklist
 
 ## Grade Target

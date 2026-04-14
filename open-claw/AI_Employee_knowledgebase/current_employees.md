@@ -15,45 +15,49 @@ It is the current status board for the curated employee roster, including Telegr
 
 ## Roster Snapshot
 
-- Generated on: `2026-03-30`
+- Generated on: `2026-04-13`
 - Curated employees: **15**
-- Telegram bots already assigned: **13**
-- Direct Bitwarden UUIDs already wired: **10**
-- Assigned bots still waiting on env vars or UUID recording: `delivery-director`, `product-manager`, `sparky-chief-product-quality-officer`
-- Employees still waiting on brand-new Telegram bots: `accessibility-auditor`, `backend-architect`
+- Telegram bots already assigned: **15**
+- Direct Bitwarden UUIDs already wired: **15**
+- Canonical BotFather bots: **16**
+- Assigned bots still waiting on env vars or UUID recording: none
+- Employees still waiting on brand-new Telegram bots: none
 
 ## Assignment Table
 
-| Employee | Title | Current Telegram first name | Telegram username | Runtime status | Current grade |
-| --- | --- | --- | --- | --- | --- |
-| `accessibility-auditor` | Accessibility Auditor | `TBD` | `TBD` | `pending_new_bot` | `A-` |
-| `backend-architect` | Backend Architect | `TBD` | `TBD` | `pending_new_bot` | `A-` |
-| `code-reviewer` | Code Reviewer | `CODE_REVIEWER` | `CODE_CARL_BOT` | `direct_uuid_wired` | `A-` |
-| `delivery-director` | Delivery Director | `DELIVERY_DIRECTOR` | `DELIVERY_DIRECTOR_DAN_BOT` | `env_only_assigned` | `A-` |
-| `devops-automator` | DevOps Automator | `SCRIPT_BUILDER` | `SCRIPT_SARAH_BOT` | `direct_uuid_wired` | `A-` |
-| `frontend-developer` | Frontend Developer | `FRONTEND_DEVELOPER` | `FRONTEND_FELIX_BOT` | `direct_uuid_wired` | `A-` |
-| `mcp-integration-engineer` | MCP Integration Engineer | `API_INTEGRATION_SPECIALIST` | `API_ANDY_BOT` | `direct_uuid_wired` | `A-` |
-| `product-manager` | Product Manager | `PRODUCT_MANAGER` | `PRODUCT_MANAGER_PETE_BOT` | `env_only_assigned` | `A-` |
-| `qa-evidence-collector` | QA Evidence Collector | `OVERNIGHT_CODER` | `OVERNIGHT_OLIVER_BOT` | `direct_uuid_wired` | `A-` |
-| `reality-checker` | Reality Checker | `FINANCIAL_ANALYST` | `FINANCE_FRANKY_BOT` | `direct_uuid_wired` | `A-` |
-| `seo-ai-discovery-strategist` | SEO and AI Discovery Strategist | `SEO_SPECIALIST` | `SEO_SAMANTHA_BOT` | `direct_uuid_wired` | `A-` |
-| `software-architect` | Software Architect | `SOFTWARE_ENGINEER` | `ENGINEER_ENRIQUE_BOT` | `direct_uuid_wired` | `A-` |
-| `sparky-chief-product-quality-officer` | Chief Product and Quality Officer | `sparky-chief-product-quality-officer` | `SPARKY_CEO_BOT` | `env_only_assigned` | `A-` |
-| `ui-designer` | UI Designer | `PERSONAL_CRM` | `PERSONAL_PAMELA_BOT` | `direct_uuid_wired` | `A-` |
-| `ux-architect` | UX Architect | `UX_DESIGNER` | `UX_URSULA_BOT` | `direct_uuid_wired` | `A-` |
+| Employee Slug | Packet Directory | Title | Current Telegram first name | Telegram username | Bitwarden secret name | Deployment mode | Runtime status | Current grade |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `ACCESS_AUDITOR_ALLISON_BOT` | `accessibility-auditor` | Accessibility Auditor | `ACCESSIBILITY_AUDITOR` | `ACCESS_AUDITOR_ALLISON_BOT` | `ACCESS_AUDITOR_ALLISON_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `BACKEND_BRUCE_BOT` | `backend-architect` | Backend Architect | `BACKEND_ARCHITECT` | `BACKEND_BRUCE_BOT` | `BACKEND_BRUCE_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `CODE_CARL_BOT` | `code-reviewer` | Code Reviewer | `CODE_REVIEWER` | `CODE_CARL_BOT` | `CODE_REVIEWER` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `DELIVERY_DIRECTOR_DAN_BOT` | `delivery-director` | Delivery Director | `DELIVERY_DIRECTOR` | `DELIVERY_DIRECTOR_DAN_BOT` | `DELIVERY_DIRECTOR_DAN_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `SCRIPT_SARAH_BOT` | `devops-automator` | DevOps Automator | `SCRIPT_BUILDER` | `SCRIPT_SARAH_BOT` | `SCRIPT_SARAH_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `FRONTEND_FELIX_BOT` | `frontend-developer` | Frontend Developer | `FRONTEND_DEVELOPER` | `FRONTEND_FELIX_BOT` | `FRONTEND_FELIX_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `API_ANDY_BOT` | `mcp-integration-engineer` | MCP Integration Engineer | `API_INTEGRATION_SPECIALIST` | `API_ANDY_BOT` | `API_ANDY_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `PRODUCT_MANAGER_PETE_BOT` | `product-manager` | Product Manager | `PRODUCT_MANAGER` | `PRODUCT_MANAGER_PETE_BOT` | `PRODUCT_MANAGER_PETE_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `OVERNIGHT_OLIVER_BOT` | `qa-evidence-collector` | QA Evidence Collector | `OVERNIGHT_CODER` | `OVERNIGHT_OLIVER_BOT` | `OVERNIGHT_OLIVER_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `FINANCE_FRANKY_BOT` | `reality-checker` | Reality Checker | `FINANCIAL_ANALYST` | `FINANCE_FRANKY_BOT` | `FINANCIAL_ANALYST` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `SEO_SAMANTHA_BOT` | `seo-ai-discovery-strategist` | SEO and AI Discovery Strategist | `SEO_SPECIALIST` | `SEO_SAMANTHA_BOT` | `SEO_SAMANTHA_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `ENGINEER_ENRIQUE_BOT` | `software-architect` | Software Architect | `SOFTWARE_ENGINEER` | `ENGINEER_ENRIQUE_BOT` | `ENGINEER_ENRIQUE_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `SPARKY_CEO_BOT` | `sparky-chief-product-quality-officer` | Chief Product and Quality Officer | `SPARKY_CEO_BOT` | `SPARKY_CEO_BOT` | `SPARKY_CEO_BOT` | `host_native_primary` | `direct_uuid_wired` | `A-` |
+| `PERSONAL_PAMELA_BOT` | `ui-designer` | UI Designer | `PERSONAL_CRM` | `PERSONAL_PAMELA_BOT` | `PERSONAL_PAMELA_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
+| `UX_URSELA_BOT` | `ux-architect` | UX Architect | `UX_DESIGNER` | `UX_URSELA_BOT` | `UX_URSULA_BOT` | `deployed_curated_docker` | `direct_uuid_wired` | `A-` |
 
 ## Accessibility Auditor
 
-- **Slug:** `accessibility-auditor`
-- **Manager:** `sparky-chief-product-quality-officer`
+- **Slug:** `ACCESS_AUDITOR_ALLISON_BOT`
+- **Packet Directory:** `accessibility-auditor`
+- **Manager:** `SPARKY_CEO_BOT`
 - **Summary:** Inclusive design and accessibility quality owner grounded in real assistive-tech testing.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
-- **Current Telegram first name:** `TBD`
-- **Telegram username:** `TBD`
-- **Telegram/runtime status:** No Telegram bot assigned yet
-- **Assigned skills:** `playwright-e2e`, `visual-qa-evidence`, `design-token-theming`
+- **Current Telegram first name:** `ACCESSIBILITY_AUDITOR`
+- **Telegram username:** `ACCESS_AUDITOR_ALLISON_BOT`
+- **Bitwarden secret name:** `ACCESS_AUDITOR_ALLISON_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
+- **Telegram/runtime status:** Direct Bitwarden UUID wired
+- **Assigned skills:** `playwright-e2e`, `visual-qa-evidence`, `design-token-theming`, `handoff-state`
 
 ### File Ratings
 
@@ -81,7 +85,7 @@ It is the current status board for the curated employee roster, including Telegr
 | `setup.sh` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `package.json` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `openclaw-runner.js` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
-| `bot-telegram.js` | runtime | yes | `C` | Telegram runtime scaffold exists, but this employee still needs a brand-new Telegram bot. | No Telegram identity assigned yet. |
+| `bot-telegram.js` | runtime | yes | `B+` | Telegram runtime is assigned to a live bot and a direct Bitwarden UUID is already wired. | Bound to `ACCESSIBILITY_AUDITOR` / `ACCESS_AUDITOR_ALLISON_BOT`. |
 | `bot-discord.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-slack.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-whatsapp.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
@@ -89,19 +93,23 @@ It is the current status board for the curated employee roster, including Telegr
 | `skills/playwright-e2e/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/visual-qa-evidence/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/design-token-theming/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/handoff-state/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 
 ## Backend Architect
 
-- **Slug:** `backend-architect`
-- **Manager:** `software-architect`
+- **Slug:** `BACKEND_BRUCE_BOT`
+- **Packet Directory:** `backend-architect`
+- **Manager:** `ENGINEER_ENRIQUE_BOT`
 - **Summary:** Server-side architecture owner for APIs, schemas, reliability, and security.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
-- **Current Telegram first name:** `TBD`
-- **Telegram username:** `TBD`
-- **Telegram/runtime status:** No Telegram bot assigned yet
-- **Assigned skills:** `architecture-adr`, `mcp-integration`, `release-readiness`
+- **Current Telegram first name:** `BACKEND_ARCHITECT`
+- **Telegram username:** `BACKEND_BRUCE_BOT`
+- **Bitwarden secret name:** `BACKEND_BRUCE_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
+- **Telegram/runtime status:** Direct Bitwarden UUID wired
+- **Assigned skills:** `architecture-adr`, `mcp-integration`, `release-readiness`, `handoff-state`, `twilio-voice-intake`, `elevenlabs-voice-clone`
 
 ### File Ratings
 
@@ -129,7 +137,7 @@ It is the current status board for the curated employee roster, including Telegr
 | `setup.sh` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `package.json` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `openclaw-runner.js` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
-| `bot-telegram.js` | runtime | yes | `C` | Telegram runtime scaffold exists, but this employee still needs a brand-new Telegram bot. | No Telegram identity assigned yet. |
+| `bot-telegram.js` | runtime | yes | `B+` | Telegram runtime is assigned to a live bot and a direct Bitwarden UUID is already wired. | Bound to `BACKEND_ARCHITECT` / `BACKEND_BRUCE_BOT`. |
 | `bot-discord.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-slack.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-whatsapp.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
@@ -137,17 +145,23 @@ It is the current status board for the curated employee roster, including Telegr
 | `skills/architecture-adr/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/mcp-integration/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/release-readiness/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/handoff-state/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/twilio-voice-intake/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/elevenlabs-voice-clone/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 
 ## Code Reviewer
 
-- **Slug:** `code-reviewer`
-- **Manager:** `sparky-chief-product-quality-officer`
+- **Slug:** `CODE_CARL_BOT`
+- **Packet Directory:** `code-reviewer`
+- **Manager:** `SPARKY_CEO_BOT`
 - **Summary:** Quality-focused reviewer who keeps correctness and maintainability ahead of churn.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `CODE_REVIEWER`
 - **Telegram username:** `CODE_CARL_BOT`
+- **Bitwarden secret name:** `CODE_REVIEWER`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
 - **Assigned skills:** `code-review-gate`, `architecture-adr`, `handoff-state`
 
@@ -188,16 +202,19 @@ It is the current status board for the curated employee roster, including Telegr
 
 ## Delivery Director
 
-- **Slug:** `delivery-director`
-- **Manager:** `sparky-chief-product-quality-officer`
+- **Slug:** `DELIVERY_DIRECTOR_DAN_BOT`
+- **Packet Directory:** `delivery-director`
+- **Manager:** `SPARKY_CEO_BOT`
 - **Summary:** Program-level execution owner who keeps the team aligned and moving.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `DELIVERY_DIRECTOR`
 - **Telegram username:** `DELIVERY_DIRECTOR_DAN_BOT`
-- **Telegram/runtime status:** Assigned bot, but env var / UUID still pending
-- **Assigned skills:** `repo-clone-rebrand`, `release-readiness`, `handoff-state`
+- **Bitwarden secret name:** `DELIVERY_DIRECTOR_DAN_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
+- **Telegram/runtime status:** Direct Bitwarden UUID wired
+- **Assigned skills:** `repo-clone-rebrand`, `release-readiness`, `handoff-state`, `architecture-adr`, `phone-support-intake`
 
 ### File Ratings
 
@@ -225,7 +242,7 @@ It is the current status board for the curated employee roster, including Telegr
 | `setup.sh` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `package.json` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `openclaw-runner.js` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
-| `bot-telegram.js` | runtime | yes | `B` | Telegram runtime is assigned to a live bot, but startup still depends on env vars or a future UUID mapping. | Bound to `DELIVERY_DIRECTOR` / `DELIVERY_DIRECTOR_DAN_BOT`. |
+| `bot-telegram.js` | runtime | yes | `B+` | Telegram runtime is assigned to a live bot and a direct Bitwarden UUID is already wired. | Bound to `DELIVERY_DIRECTOR` / `DELIVERY_DIRECTOR_DAN_BOT`. |
 | `bot-discord.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-slack.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-whatsapp.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
@@ -233,17 +250,22 @@ It is the current status board for the curated employee roster, including Telegr
 | `skills/repo-clone-rebrand/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/release-readiness/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/handoff-state/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/architecture-adr/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/phone-support-intake/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 
 ## DevOps Automator
 
-- **Slug:** `devops-automator`
-- **Manager:** `delivery-director`
+- **Slug:** `SCRIPT_SARAH_BOT`
+- **Packet Directory:** `devops-automator`
+- **Manager:** `DELIVERY_DIRECTOR_DAN_BOT`
 - **Summary:** CI/CD and release automation owner for reliable, low-drama shipping.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `SCRIPT_BUILDER`
 - **Telegram username:** `SCRIPT_SARAH_BOT`
+- **Bitwarden secret name:** `SCRIPT_SARAH_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
 - **Assigned skills:** `release-readiness`, `playwright-e2e`, `handoff-state`
 
@@ -284,14 +306,17 @@ It is the current status board for the curated employee roster, including Telegr
 
 ## Frontend Developer
 
-- **Slug:** `frontend-developer`
-- **Manager:** `software-architect`
+- **Slug:** `FRONTEND_FELIX_BOT`
+- **Packet Directory:** `frontend-developer`
+- **Manager:** `ENGINEER_ENRIQUE_BOT`
 - **Summary:** App Router and UI implementation specialist for polished, fast, accessible web apps.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `FRONTEND_DEVELOPER`
 - **Telegram username:** `FRONTEND_FELIX_BOT`
+- **Bitwarden secret name:** `FRONTEND_FELIX_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
 - **Assigned skills:** `nextjs-app-router`, `design-token-theming`, `playwright-e2e`, `visual-qa-evidence`
 
@@ -333,14 +358,17 @@ It is the current status board for the curated employee roster, including Telegr
 
 ## MCP Integration Engineer
 
-- **Slug:** `mcp-integration-engineer`
-- **Manager:** `software-architect`
+- **Slug:** `API_ANDY_BOT`
+- **Packet Directory:** `mcp-integration-engineer`
+- **Manager:** `ENGINEER_ENRIQUE_BOT`
 - **Summary:** Tooling and integration specialist for MCP servers and agent-usable capabilities.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `API_INTEGRATION_SPECIALIST`
 - **Telegram username:** `API_ANDY_BOT`
+- **Bitwarden secret name:** `API_ANDY_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
 - **Assigned skills:** `mcp-integration`, `architecture-adr`, `handoff-state`
 
@@ -381,16 +409,19 @@ It is the current status board for the curated employee roster, including Telegr
 
 ## Product Manager
 
-- **Slug:** `product-manager`
-- **Manager:** `delivery-director`
+- **Slug:** `PRODUCT_MANAGER_PETE_BOT`
+- **Packet Directory:** `product-manager`
+- **Manager:** `DELIVERY_DIRECTOR_DAN_BOT`
 - **Summary:** Outcome-focused PM who turns ambiguity into scoped, testable work.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `PRODUCT_MANAGER`
 - **Telegram username:** `PRODUCT_MANAGER_PETE_BOT`
-- **Telegram/runtime status:** Assigned bot, but env var / UUID still pending
-- **Assigned skills:** `repo-clone-rebrand`, `handoff-state`, `architecture-adr`
+- **Bitwarden secret name:** `PRODUCT_MANAGER_PETE_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
+- **Telegram/runtime status:** Direct Bitwarden UUID wired
+- **Assigned skills:** `repo-clone-rebrand`, `handoff-state`, `architecture-adr`, `release-readiness`, `phone-support-intake`, `twilio-voice-intake`
 
 ### File Ratings
 
@@ -418,7 +449,7 @@ It is the current status board for the curated employee roster, including Telegr
 | `setup.sh` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `package.json` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `openclaw-runner.js` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
-| `bot-telegram.js` | runtime | yes | `B` | Telegram runtime is assigned to a live bot, but startup still depends on env vars or a future UUID mapping. | Bound to `PRODUCT_MANAGER` / `PRODUCT_MANAGER_PETE_BOT`. |
+| `bot-telegram.js` | runtime | yes | `B+` | Telegram runtime is assigned to a live bot and a direct Bitwarden UUID is already wired. | Bound to `PRODUCT_MANAGER` / `PRODUCT_MANAGER_PETE_BOT`. |
 | `bot-discord.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-slack.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-whatsapp.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
@@ -426,17 +457,23 @@ It is the current status board for the curated employee roster, including Telegr
 | `skills/repo-clone-rebrand/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/handoff-state/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/architecture-adr/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/release-readiness/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/phone-support-intake/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/twilio-voice-intake/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 
 ## QA Evidence Collector
 
-- **Slug:** `qa-evidence-collector`
-- **Manager:** `delivery-director`
+- **Slug:** `OVERNIGHT_OLIVER_BOT`
+- **Packet Directory:** `qa-evidence-collector`
+- **Manager:** `DELIVERY_DIRECTOR_DAN_BOT`
 - **Summary:** Evidence-first QA specialist who proves what works and what still fails.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `OVERNIGHT_CODER`
 - **Telegram username:** `OVERNIGHT_OLIVER_BOT`
+- **Bitwarden secret name:** `OVERNIGHT_OLIVER_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
 - **Assigned skills:** `playwright-e2e`, `visual-qa-evidence`, `release-readiness`
 
@@ -477,14 +514,17 @@ It is the current status board for the curated employee roster, including Telegr
 
 ## Reality Checker
 
-- **Slug:** `reality-checker`
-- **Manager:** `sparky-chief-product-quality-officer`
+- **Slug:** `FINANCE_FRANKY_BOT`
+- **Packet Directory:** `reality-checker`
+- **Manager:** `SPARKY_CEO_BOT`
 - **Summary:** Final release skeptic who protects production from wishful thinking.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `FINANCIAL_ANALYST`
 - **Telegram username:** `FINANCE_FRANKY_BOT`
+- **Bitwarden secret name:** `FINANCIAL_ANALYST`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
 - **Assigned skills:** `visual-qa-evidence`, `release-readiness`, `playwright-e2e`
 
@@ -525,14 +565,17 @@ It is the current status board for the curated employee roster, including Telegr
 
 ## SEO and AI Discovery Strategist
 
-- **Slug:** `seo-ai-discovery-strategist`
-- **Manager:** `product-manager`
+- **Slug:** `SEO_SAMANTHA_BOT`
+- **Packet Directory:** `seo-ai-discovery-strategist`
+- **Manager:** `PRODUCT_MANAGER_PETE_BOT`
 - **Summary:** Technical SEO and AI-discovery strategist who aligns visibility with product quality.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `SEO_SPECIALIST`
 - **Telegram username:** `SEO_SAMANTHA_BOT`
+- **Bitwarden secret name:** `SEO_SAMANTHA_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
 - **Assigned skills:** `nextjs-app-router`, `repo-clone-rebrand`, `handoff-state`
 
@@ -573,16 +616,19 @@ It is the current status board for the curated employee roster, including Telegr
 
 ## Software Architect
 
-- **Slug:** `software-architect`
-- **Manager:** `sparky-chief-product-quality-officer`
+- **Slug:** `ENGINEER_ENRIQUE_BOT`
+- **Packet Directory:** `software-architect`
+- **Manager:** `SPARKY_CEO_BOT`
 - **Summary:** Architecture lead focused on explicit trade-offs, simplicity, and maintainability.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `SOFTWARE_ENGINEER`
 - **Telegram username:** `ENGINEER_ENRIQUE_BOT`
+- **Bitwarden secret name:** `ENGINEER_ENRIQUE_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
-- **Assigned skills:** `architecture-adr`, `mcp-integration`, `release-readiness`
+- **Assigned skills:** `architecture-adr`, `mcp-integration`, `release-readiness`, `code-review-gate`, `handoff-state`
 
 ### File Ratings
 
@@ -618,19 +664,24 @@ It is the current status board for the curated employee roster, including Telegr
 | `skills/architecture-adr/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/mcp-integration/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/release-readiness/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/code-review-gate/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/handoff-state/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 
 ## Chief Product and Quality Officer
 
-- **Slug:** `sparky-chief-product-quality-officer`
+- **Slug:** `SPARKY_CEO_BOT`
+- **Packet Directory:** `sparky-chief-product-quality-officer`
 - **Manager:** `Founder`
 - **Summary:** Leadership and final quality authority focused on product outcomes and simplicity.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
-- **Current Telegram first name:** `sparky-chief-product-quality-officer`
+- **Current Telegram first name:** `SPARKY_CEO_BOT`
 - **Telegram username:** `SPARKY_CEO_BOT`
-- **Telegram/runtime status:** Assigned bot, but env var / UUID still pending
-- **Assigned skills:** `architecture-adr`, `code-review-gate`, `release-readiness`, `handoff-state`
+- **Bitwarden secret name:** `SPARKY_CEO_BOT`
+- **Deployment mode:** Host-native primary executive runtime (excluded from deployed-curated Docker worker pool)
+- **Telegram/runtime status:** Direct Bitwarden UUID wired
+- **Assigned skills:** `architecture-adr`, `approval-gate`, `code-review-gate`, `release-readiness`, `handoff-state`, `nextjs-app-router`, `design-token-theming`, `playwright-e2e`, `visual-qa-evidence`, `repo-clone-rebrand`, `mcp-integration`, `mem0-bridge`, `domain-email`, `gmail-inbox`, `google-calendar`, `google-contacts`, `sms-twilio`, `whatsapp-official`, `twilio-voice-intake`, `elevenlabs-voice-clone`, `phone-support-intake`, `video-repair-forensics`, `media-recovery-validation`
 
 ### File Ratings
 
@@ -658,26 +709,48 @@ It is the current status board for the curated employee roster, including Telegr
 | `setup.sh` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `package.json` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `openclaw-runner.js` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
-| `bot-telegram.js` | runtime | yes | `B` | Telegram runtime is assigned to a live bot, but startup still depends on env vars or a future UUID mapping. | Bound to `sparky-chief-product-quality-officer` / `SPARKY_CEO_BOT`. |
+| `bot-telegram.js` | runtime | yes | `B+` | Telegram runtime is assigned to a live bot and a direct Bitwarden UUID is already wired. | Bound to `SPARKY_CEO_BOT` / `SPARKY_CEO_BOT`. |
 | `bot-discord.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-slack.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-whatsapp.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `heartbeat.sh` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `skills/architecture-adr/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/approval-gate/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/code-review-gate/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/release-readiness/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/handoff-state/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/nextjs-app-router/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/design-token-theming/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/playwright-e2e/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/visual-qa-evidence/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/repo-clone-rebrand/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/mcp-integration/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/mem0-bridge/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/domain-email/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/gmail-inbox/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/google-calendar/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/google-contacts/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/sms-twilio/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/whatsapp-official/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/twilio-voice-intake/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/elevenlabs-voice-clone/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/phone-support-intake/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/video-repair-forensics/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/media-recovery-validation/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 
 ## UI Designer
 
-- **Slug:** `ui-designer`
-- **Manager:** `ux-architect`
+- **Slug:** `PERSONAL_PAMELA_BOT`
+- **Packet Directory:** `ui-designer`
+- **Manager:** `UX_URSELA_BOT`
 - **Summary:** Visual systems and component specialist for cohesive, premium UI.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `PERSONAL_CRM`
 - **Telegram username:** `PERSONAL_PAMELA_BOT`
+- **Bitwarden secret name:** `PERSONAL_PAMELA_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
 - **Assigned skills:** `design-token-theming`, `visual-qa-evidence`, `handoff-state`
 
@@ -718,16 +791,19 @@ It is the current status board for the curated employee roster, including Telegr
 
 ## UX Architect
 
-- **Slug:** `ux-architect`
-- **Manager:** `product-manager`
+- **Slug:** `UX_URSELA_BOT`
+- **Packet Directory:** `ux-architect`
+- **Manager:** `PRODUCT_MANAGER_PETE_BOT`
 - **Summary:** Structural UX and design-system architect who reduces UI drift and decision fatigue.
 - **Current packet grade:** `A-`
 - **Target live grade:** `A`
 - **Audit status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 - **Current Telegram first name:** `UX_DESIGNER`
-- **Telegram username:** `UX_URSULA_BOT`
+- **Telegram username:** `UX_URSELA_BOT`
+- **Bitwarden secret name:** `UX_URSULA_BOT`
+- **Deployment mode:** Deployed-curated Docker worker
 - **Telegram/runtime status:** Direct Bitwarden UUID wired
-- **Assigned skills:** `design-token-theming`, `nextjs-app-router`, `handoff-state`
+- **Assigned skills:** `design-token-theming`, `nextjs-app-router`, `handoff-state`, `visual-qa-evidence`, `playwright-e2e`
 
 ### File Ratings
 
@@ -755,7 +831,7 @@ It is the current status board for the curated employee roster, including Telegr
 | `setup.sh` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `package.json` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
 | `openclaw-runner.js` | runtime | yes | `B+` | Runtime file is present and structurally validated; live smoke evidence is still pending. | Present in the curated packet. |
-| `bot-telegram.js` | runtime | yes | `B+` | Telegram runtime is assigned to a live bot and a direct Bitwarden UUID is already wired. | Bound to `UX_DESIGNER` / `UX_URSULA_BOT`. |
+| `bot-telegram.js` | runtime | yes | `B+` | Telegram runtime is assigned to a live bot and a direct Bitwarden UUID is already wired. | Bound to `UX_DESIGNER` / `UX_URSELA_BOT`. |
 | `bot-discord.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-slack.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
 | `bot-whatsapp.js` | runtime | yes | `C+` | Secondary channel scaffold is present, but this path has not been prioritized or smoke-tested yet. | Present in the curated packet. |
@@ -763,3 +839,5 @@ It is the current status board for the curated employee roster, including Telegr
 | `skills/design-token-theming/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/nextjs-app-router/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
 | `skills/handoff-state/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/visual-qa-evidence/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |
+| `skills/playwright-e2e/SKILL.md` | skill | yes | `A-` | Assigned skill file is present in the packet and ready to be refined through real usage. | Copied assigned skill playbook is packaged inside the employee packet. |

@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Godot Multiplayer Engineer Checklist
 
 ## Grade Target

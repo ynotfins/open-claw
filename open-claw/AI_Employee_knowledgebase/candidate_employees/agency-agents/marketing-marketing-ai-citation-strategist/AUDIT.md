@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # AI Citation Strategist Audit
 
 ## Grade

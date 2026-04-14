@@ -3,6 +3,8 @@
 - `design-token-theming`
 - `nextjs-app-router`
 - `handoff-state`
+- `visual-qa-evidence`
+- `playwright-e2e`
 
 ## Expectations
 - Use the listed skills as the default operating playbook.

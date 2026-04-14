@@ -11,10 +11,10 @@
 
 ## Live Telegram Binding
 - Current Telegram first name: `UX_DESIGNER`
-- Assigned Telegram username: `UX_URSULA_BOT`
-- Reuses the existing bot token currently labeled as `ux-designer`.
+- Assigned Telegram username: `UX_URSELA_BOT`
+- Current Bitwarden secret name: `UX_URSULA_BOT`.
 - Preferred Telegram first name for this curated role: `UX Architect`
-- Startup resolution status: direct Bitwarden secret id wired from `ux-designer`.
+- Startup resolution status: direct Bitwarden secret id wired from `UX_URSULA_BOT`.
 
 ## What This Employee Can Do Now
 - Define layout systems, design tokens, spacing scales, and theme behavior.

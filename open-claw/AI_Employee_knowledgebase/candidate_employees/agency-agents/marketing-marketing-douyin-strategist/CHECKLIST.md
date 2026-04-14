@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Douyin Strategist Checklist
 
 ## Grade Target

@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `OVERNIGHT_CODER`
 - Assigned Telegram username: `OVERNIGHT_OLIVER_BOT`
-- Reuses the existing bot token currently labeled as `overnight-coder`.
+- Current Bitwarden secret name: `OVERNIGHT_OLIVER_BOT`.
 - Preferred Telegram first name for this curated role: `QA Evidence Collector`
-- Startup resolution status: direct Bitwarden secret id wired from `overnight-coder`.
+- Startup resolution status: direct Bitwarden secret id wired from `OVERNIGHT_OLIVER_BOT`.
 
 ## What This Employee Can Do Now
 - Capture visual evidence for core paths and responsive states.

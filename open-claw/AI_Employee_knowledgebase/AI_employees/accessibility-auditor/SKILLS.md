@@ -3,6 +3,7 @@
 - `playwright-e2e`
 - `visual-qa-evidence`
 - `design-token-theming`
+- `handoff-state`
 
 ## Expectations
 - Use the listed skills as the default operating playbook.

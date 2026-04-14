@@ -1,0 +1,166 @@
+{
+  "version": "1.0.0",
+  "agent": "Sparky",
+  "agent_version": "3.1.0",
+  "description": "Installation targets for Sparky across environments. Each target defines what transfers unchanged, what must be wired, what must be configured, and what validation is required.",
+
+  "targets": [
+    {
+      "id": "formula-one-factory",
+      "name": "Formula One AI Factory",
+      "description": "The build environment where Sparky is developed, rated, and prepared for deployment.",
+      "type": "development",
+      "status": "active",
+      "repo": "Formula_One_AI_Factory",
+      "branch": "sparky",
+      "entrypoint": "employees/Sparky/agent.ts",
+      "live_entrypoint": "employees/Sparky/live/index.ts",
+      "environment_file": "employees/Sparky/live/.env.example",
+
+      "what_transfers_unchanged": [
+        "All doctrine files (SOUL.md through ANTI_PATTERNS.md)",
+        "schema.ts type definitions",
+        "Governance logic in agent.ts",
+        "CHECKLISTS/, HANDOFF_TEMPLATES/, evals/ directories"
+      ],
+
+      "what_must_be_wired": [
+        "GitHub MCP tool connection",
+        "Context7 MCP tool connection",
+        "Firestore MCP tool connection (optional)",
+        "Environment variables from .env.example"
+      ],
+
+      "environment_variables_required": [
+        "GITHUB_TOKEN — for GitHub MCP tool access",
+        "CONTEXT7_API_KEY — for Context7 documentation retrieval (if authenticated)",
+        "FIRESTORE_PROJECT_ID — for Firestore integration (optional)",
+        "SPARKY_SESSION_STATE_PATH — path to live/SESSION-STATE.md",
+        "SPARKY_DECISION_LOG_PATH — path to DECISION_LOG.md"
+      ],
+
+      "tool_availability": {
+        "github": "available",
+        "context7": "available-with-instability",
+        "firestore": "conditionally-available",
+        "openclaw": "not-connected"
+      },
+
+      "validation_status": "partial",
+      "validation_notes": [
+        "GitHub tool: available and tested",
+        "Context7 tool: available but connector instability observed",
+        "Firestore tool: available conditionally",
+        "Live adapter layer: index.ts exists; full round-trip not validated",
+        "Session state persistence: not validated end-to-end"
+      ],
+
+      "deployment_blockers": [
+        "Live adapter layer not fully validated",
+        "Session state round-trip not confirmed",
+        "Resolver registry not defined",
+        "Specialist registry not defined",
+        "TEST_CASES.md not executed against agent.ts"
+      ]
+    },
+
+    {
+      "id": "openclaw",
+      "name": "open--claw",
+      "description": "The downstream AI orchestration environment where Sparky is deployed for production governance operations.",
+      "type": "production",
+      "status": "planned",
+      "repo": "open--claw",
+      "branch": "TBD — pending deployment planning",
+      "entrypoint": "executeSparky() via employees/Sparky/live/index.ts",
+      "environment_file": "employees/Sparky/live/.env.example",
+
+      "what_transfers_unchanged": [
+        "All doctrine files (portable, environment-agnostic)",
+        "schema.ts (deployment-agnostic type system)",
+        "CHECKLISTS/, HANDOFF_TEMPLATES/, evals/",
+        "AGENTS.md, SOUL.md, OPERATING_RULES.md, WORKFLOWS.md",
+        "All governance logic in agent.ts (aside from environment-specific adapters)"
+      ],
+
+      "what_must_be_wired": [
+        "live/index.ts — OpenClaw-facing entrypoint must be configured for open--claw environment",
+        "Tool adapters in tools.ts — GitHub, Context7, Firestore adapters must target open--claw environment",
+        "Environment variables — must be set in open--claw's environment management",
+        "Session state persistence — must be wired to open--claw's storage layer",
+        "Decision log persistence — must be wired to open--claw's audit storage"
+      ],
+
+      "environment_variables_required": [
+        "GITHUB_TOKEN — for GitHub MCP tool access in open--claw environment",
+        "CONTEXT7_API_KEY — for Context7 documentation retrieval",
+        "OPENCLAW_SESSION_STORE — open--claw's session state storage connection",
+        "OPENCLAW_AUDIT_STORE — open--claw's audit log storage connection",
+        "SPARKY_DEPLOYMENT_ENV — set to 'openclaw' to activate production mode"
+      ],
+
+      "what_cannot_be_assumed": [
+        "Same GitHub token scope as factory environment",
+        "Same file system paths for session state and decision log",
+        "Same tool adapter behavior (adapters must be re-tested in open--claw)",
+        "Same Context7 availability or latency",
+        "Firestore access unless explicitly confirmed",
+        "Specialist agent availability — specialist registry must be re-validated for open--claw"
+      ],
+
+      "install_checklist": [
+        "Clone or deploy Sparky packet to open--claw agent registry",
+        "Configure environment variables",
+        "Wire live/index.ts to open--claw's invocation system",
+        "Configure session state persistence to open--claw storage",
+        "Configure audit log persistence to open--claw storage",
+        "Run TEST_CASES.md against installed agent",
+        "Validate tool adapters in open--claw environment",
+        "Run minimum 5 governance cycles with observability",
+        "Confirm all blockers from factory deployment_blockers are resolved"
+      ],
+
+      "tool_availability": {
+        "github": "planned",
+        "context7": "planned",
+        "firestore": "planned",
+        "openclaw_native": "planned"
+      },
+
+      "validation_status": "not-started",
+      "validation_notes": [
+        "All open--claw integration paths are theoretical until installation is performed",
+        "Do not treat any open--claw path as validated"
+      ],
+
+      "deployment_blockers": [
+        "Factory deployment blockers must be resolved first",
+        "open--claw installation has not been performed",
+        "open--claw environment configuration not defined",
+        "Session state persistence adapter not built",
+        "Audit log persistence adapter not built",
+        "Specialist registry for open--claw environment not defined"
+      ]
+    }
+  ],
+
+  "portability_model": {
+    "environment_agnostic": [
+      "Doctrine files (all .md doctrine files)",
+      "schema.ts type system",
+      "Core governance logic in agent.ts"
+    ],
+    "environment_specific": [
+      "live/index.ts (entrypoint wiring per environment)",
+      "Tool adapter implementations in tools.ts (endpoint and auth per environment)",
+      "Environment variables (.env per environment)",
+      "Session state and audit log persistence paths",
+      "Specialist registry (available specialists differ per environment)"
+    ],
+    "never_portable": [
+      "Credentials, tokens, keys",
+      "Hardcoded file system paths",
+      "Assumptions about external service availability"
+    ]
+  }
+}

@@ -4,7 +4,7 @@ const { runAgent } = require("./openclaw-runner");
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
 });
-const slug = "product-manager";
+const slug = "PRODUCT_MANAGER_PETE_BOT";
 
 client.on("ready", () => {
   console.log(`Discord bot logged in for Product Manager as ${client.user.tag}`);

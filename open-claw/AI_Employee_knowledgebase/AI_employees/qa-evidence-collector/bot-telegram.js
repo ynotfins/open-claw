@@ -2,10 +2,11 @@ const { Bot } = require("grammy");
 const { runAgent } = require("./openclaw-runner");
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
-const slug = "qa-evidence-collector";
+const slug = "OVERNIGHT_OLIVER_BOT";
+const agentId = process.env.OPENCLAW_AGENT_ID || slug;
 
 bot.command("start", (ctx) => {
-  ctx.reply("QA Evidence Collector is online. Send a message to start working.");
+  ctx.reply("QA Evidence Collector is online. Worker slug: " + slug + ". Agent route: " + agentId + ".");
 });
 
 bot.on("message:text", async (ctx) => {

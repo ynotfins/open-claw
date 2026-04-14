@@ -4,7 +4,7 @@ const { runAgent } = require("./openclaw-runner");
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
 });
-const slug = "delivery-director";
+const slug = "DELIVERY_DIRECTOR_DAN_BOT";
 
 client.on("ready", () => {
   console.log(`Discord bot logged in for Delivery Director as ${client.user.tag}`);

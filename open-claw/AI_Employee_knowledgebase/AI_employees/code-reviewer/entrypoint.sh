@@ -4,14 +4,20 @@ set -e
 CONFIG_DIR="/root/.openclaw"
 CONFIG_FILE="$CONFIG_DIR/openclaw.json"
 WORKSPACE_DIR="$CONFIG_DIR/workspace"
-AGENT_DIR="$CONFIG_DIR/agents/main/agent"
+MAIN_AGENT_DIR="$CONFIG_DIR/agents/main/agent"
+ROLE_AGENT_ID="CODE_CARL_BOT"
+ROLE_AGENT_DIR="$CONFIG_DIR/agents/$ROLE_AGENT_ID/agent"
 
 if [ -z "$OPENCLAW_GATEWAY_URL" ] || [ -z "$OPENCLAW_GATEWAY_TOKEN" ]; then
   echo "[entrypoint] ERROR: OPENCLAW_GATEWAY_URL and OPENCLAW_GATEWAY_TOKEN must be set."
   exit 1
 fi
 
-mkdir -p "$CONFIG_DIR" "$WORKSPACE_DIR" "$AGENT_DIR"
+if [ -z "$OPENCLAW_AGENT_ID" ]; then
+  export OPENCLAW_AGENT_ID="$ROLE_AGENT_ID"
+fi
+
+mkdir -p "$CONFIG_DIR" "$WORKSPACE_DIR" "$MAIN_AGENT_DIR" "$ROLE_AGENT_DIR"
 
 cat > "$CONFIG_FILE" <<OCJSON
 {
@@ -23,9 +29,15 @@ cat > "$CONFIG_FILE" <<OCJSON
     "list": [
       {
         "id": "main",
+        "default": false,
+        "workspace": "$WORKSPACE_DIR",
+        "agentDir": "$MAIN_AGENT_DIR"
+      },
+      {
+        "id": "CODE_CARL_BOT",
         "default": true,
         "workspace": "$WORKSPACE_DIR",
-        "agentDir": "$AGENT_DIR"
+        "agentDir": "$ROLE_AGENT_DIR"
       }
     ]
   },
@@ -39,6 +51,7 @@ cat > "$CONFIG_FILE" <<OCJSON
 }
 OCJSON
 
-echo "[entrypoint] workspace ready for code-reviewer"
+echo "[entrypoint] workspace ready for CODE_CARL_BOT"
+echo "[entrypoint] worker agent id: $OPENCLAW_AGENT_ID"
 echo "[entrypoint] remote gateway configured: $OPENCLAW_GATEWAY_URL"
 exec node bot-telegram.js

@@ -4,7 +4,7 @@
 - `AI_Employee_knowledgebase/AI_employees/` now contains 15 curated employee packets with identity, rules, tools, skills, workflows, memory, provenance, and portable zip bundles.
 - Each curated employee now also has an `AUDIT.md` that explains what it can do now and what is still missing before live-runtime readiness.
 - Each curated employee packet now includes generated runtime files plus copied assigned skills, and the generated 15-worker runtime lives in `open-claw/employees/deployed-curated/`.
-- Verdict: the curated roster is now runtime-synced and structurally validated, and 13 curated workers now have a defined Telegram bot assignment plan. It is not yet live-proven because only 10 of those assigned workers currently have direct Bitwarden secret IDs wired in repo, 3 assigned workers still need env vars or recorded secret IDs, 2 curated workers still need brand-new Telegram bots, and no generated worker has completed a recorded live smoke test yet.
+- Verdict: the curated roster is now runtime-synced and structurally validated, all 15 curated workers now have a defined Telegram bot assignment plan, and all 15 currently have direct Bitwarden secret IDs wired in repo. It is not yet live-proven because no generated worker has completed a recorded live smoke test yet.
 
 ## Legacy Packet Findings
 - Named purchased packets detected: 10
@@ -48,12 +48,15 @@
 - `sparky-chief-product-quality-officer` -> `SPARKY_CEO_BOT`
 - `delivery-director` -> `DELIVERY_DIRECTOR_DAN_BOT`
 - `product-manager` -> `PRODUCT_MANAGER_PETE_BOT`
-- Still waiting on new Telegram bots: `accessibility-auditor`, `backend-architect`
+- `accessibility-auditor` -> `ACCESS_AUDITOR_ALLISON_BOT`
+- `backend-architect` -> `BACKEND_BRUCE_BOT`
 
 ## What Still Needs To Happen
-1. Add direct Bitwarden secret IDs or explicit env vars for the three already-assigned workers that are still env-only in repo: `delivery-director`, `product-manager`, `sparky-chief-product-quality-officer`.
-2. Start `open-claw/employees/deployed-curated/start-employees.ps1`, then approve first-run device pairing requests on the real gateway.
-3. Create the two remaining Telegram bots for `accessibility-auditor` and `backend-architect`, then wire their tokens.
-4. Prove real tool access and permissions for each live worker.
-5. Run a first website clone-and-rebrand pilot and capture build, QA, accessibility, and release evidence.
-6. Replace or retire thin generic legacy packets once the curated runtime replacements are proven.
+1. Start `open-claw/employees/deployed-curated/start-employees.ps1`, then approve first-run device pairing requests on the real gateway.
+2. Prove real tool access and permissions for each live worker.
+3. Run a first website clone-and-rebrand pilot and capture build, QA, accessibility, and release evidence.
+4. Replace or retire thin generic legacy packets once the curated runtime replacements are proven.
+
+## Quarantine Notice
+
+**`candidate_employees/**` is quarantined as of 2026-04-01.** All 2,608 files in that directory carry the `<!-- NON-ROUTABLE — OUT OF SCOPE -->` banner. They must not be read, searched, promoted, or used for task design by any agent. The promotion gate is defined in `NON_ROUTABLE_QUARANTINE.md` and requires Tony's explicit approval. Only `AI_employees/` is in scope for live runtime work.

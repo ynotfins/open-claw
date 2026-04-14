@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `FINANCIAL_ANALYST`
 - Assigned Telegram username: `FINANCE_FRANKY_BOT`
-- Reuses the existing bot token currently labeled as `financial-analyst`.
+- Current Bitwarden secret name: `FINANCIAL_ANALYST`.
 - Preferred Telegram first name for this curated role: `Reality Checker`
-- Startup resolution status: direct Bitwarden secret id wired from `financial-analyst`.
+- Startup resolution status: direct Bitwarden secret id wired from `FINANCIAL_ANALYST`.
 
 ## What This Employee Can Do Now
 - Audit complete user journeys, not isolated components.

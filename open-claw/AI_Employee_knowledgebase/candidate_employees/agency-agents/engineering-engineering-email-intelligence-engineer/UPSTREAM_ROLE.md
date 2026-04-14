@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 ---
 name: Email Intelligence Engineer
 description: Expert in extracting structured, reasoning-ready data from raw email threads for AI agents and automation systems

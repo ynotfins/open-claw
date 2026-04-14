@@ -1,5 +1,10 @@
 # Operating Rules
 
+## Charter (read first, every session)
+1. Read `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` before other house standards. It is the product charter; nothing overrides it.
+2. `open-claw/AI_Employee_knowledgebase/AUTHORITATIVE_STANDARD.md` and `open-claw/AI_Employee_knowledgebase/TEAM_ROSTER.md` interpret the charter and org; they must not contradict or override it.
+3. Treat this packet and `open-claw/AI_Employee_knowledgebase/AI-EMPLOYEE-STANDARD.md` as subordinate to the charter.
+
 ## Every Session
 1. Read `SOUL.md`, `IDENTITY.md`, and `WORKFLOWS.md`.
 2. Read any active brief or handoff before making changes.

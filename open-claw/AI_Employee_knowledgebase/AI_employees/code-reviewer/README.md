@@ -20,4 +20,4 @@ Provide high-signal reviews focused on correctness, maintainability, security, a
 - `handoff-state`
 
 ## Provenance
-This employee packet is derived from the curated house standard in `open-claw/AI_Employee_knowledgebase/AUTHORITATIVE_STANDARD.md` and the sources listed in `PROVENANCE.md`.
+This employee packet is derived first from the product charter (`open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md`), then from the curated house standard (`AUTHORITATIVE_STANDARD.md`, `AI-EMPLOYEE-STANDARD.md`) and org mapping (`TEAM_ROSTER.md`). `AUTHORITATIVE_STANDARD.md` and `TEAM_ROSTER.md` interpret the charter and must not override it. Upstream and adaptation detail is in `PROVENANCE.md`.

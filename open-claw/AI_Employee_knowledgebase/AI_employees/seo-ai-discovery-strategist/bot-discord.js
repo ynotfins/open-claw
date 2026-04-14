@@ -4,7 +4,7 @@ const { runAgent } = require("./openclaw-runner");
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
 });
-const slug = "seo-ai-discovery-strategist";
+const slug = "SEO_SAMANTHA_BOT";
 
 client.on("ready", () => {
   console.log(`Discord bot logged in for SEO and AI Discovery Strategist as ${client.user.tag}`);

@@ -2,10 +2,11 @@ const { Bot } = require("grammy");
 const { runAgent } = require("./openclaw-runner");
 
 const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
-const slug = "product-manager";
+const slug = "PRODUCT_MANAGER_PETE_BOT";
+const agentId = process.env.OPENCLAW_AGENT_ID || slug;
 
 bot.command("start", (ctx) => {
-  ctx.reply("Product Manager is online. Send a message to start working.");
+  ctx.reply("Product Manager is online. Worker slug: " + slug + ". Agent route: " + agentId + ".");
 });
 
 bot.on("message:text", async (ctx) => {

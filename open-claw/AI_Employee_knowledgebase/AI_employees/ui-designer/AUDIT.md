@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `PERSONAL_CRM`
 - Assigned Telegram username: `PERSONAL_PAMELA_BOT`
-- Reuses the existing bot token currently labeled as `personal-crm`.
+- Current Bitwarden secret name: `PERSONAL_PAMELA_BOT`.
 - Preferred Telegram first name for this curated role: `UI Designer`
-- Startup resolution status: direct Bitwarden secret id wired from `personal-crm`.
+- Startup resolution status: direct Bitwarden secret id wired from `PERSONAL_PAMELA_BOT`.
 
 ## What This Employee Can Do Now
 - Create reusable component specs and token-driven styling guidance.

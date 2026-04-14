@@ -1,10 +1,10 @@
 # Agent Handoff — Open Claw
 
-**Date**: 2026-03-30
-**Status**: Current handoff (Phase 1F — 13 curated Telegram assignments mapped, but live startup still blocked by unresolved token wiring and 2 new bots)
-**Primary source of truth**: `docs/ai/STATE.md` (mirrors governance state)
+**Date**: 2026-04-13
+**Status**: Curated runtime status unchanged; AI-PM recovery bundle is now materialized and should be used as the first filesystem recovery surface before broader repo reads.
+**Crash-recovery path**: OpenMemory + `D:/github/AI-Project-Manager/docs/ai/recovery/*` first, then `docs/ai/STATE.md` if needed
 
-Previous handoff snapshot remains at `docs/ai/archive/handoff-2026-03-08.md`.
+Previous handoff snapshot archived at `docs/ai/archive/handoff-2026-03-08.md`.
 
 ---
 
@@ -22,12 +22,12 @@ Previous handoff snapshot remains at `docs/ai/archive/handoff-2026-03-08.md`.
 
 ---
 
-## 2. Current Runtime Truth (2026-03-30)
+## 2. Current Runtime Truth (2026-03-29; last verified)
 
 - OpenClaw runtime: **v2026.3.13** via `~/openclaw-build` (CLI `pnpm openclaw` + systemd `dist/index.js`)
 - Gateway: healthy on `0.0.0.0:18789` (bind=lan), API health on `127.0.0.1:18792`
 - Channels:
-  - **Telegram**: healthy, running, `@Sparky4bot`, polling mode
+- **Telegram**: healthy, running, `@SECRETARY_STACY_BOT`, polling mode (renamed from `@Sparky4bot`)
   - **WhatsApp**: linked/stopped — **401 Unauthorized** — needs QR re-scan (`pnpm openclaw channels login --channel whatsapp`)
 - Windows node: **Windows Desktop — connected** (verified 2026-03-29 preflight)
 - Execution mode: direct host path active (sandbox mode off by design)
@@ -36,7 +36,7 @@ Previous handoff snapshot remains at `docs/ai/archive/handoff-2026-03-08.md`.
 
 ### Legacy CrewClaw Workers
 
-10 legacy purchased workers are still running in Docker:
+10 legacy purchased workers still in Docker (unchanged):
 
 - `api-integration-specialist`
 - `code-reviewer`
@@ -51,36 +51,47 @@ Previous handoff snapshot remains at `docs/ai/archive/handoff-2026-03-08.md`.
 
 ### Curated Generated Runtime
 
-The curated 15-employee squad now has a generated runtime at `open-claw/employees/deployed-curated/`.
+The curated 15-employee squad has a generated runtime at `open-claw/employees/deployed-curated/`.
 
 - 15 employee packets are runtime-synced under `open-claw/AI_Employee_knowledgebase/AI_employees/`
-- each packet now includes required docs, required runtime files, and copied assigned skills
-- generated runtime passes:
-  - `docker compose config`
-  - `node --check` on generated bot files
-  - PowerShell parse on `start-employees.ps1`
-- current live-start blocker:
-  - Telegram bot assignments are now defined for **13** curated workers
-  - direct Bitwarden secret IDs are wired for **10** curated workers
-  - the remaining already-assigned workers still need explicit `*_TOKEN` env vars or recorded Bitwarden secret IDs: `delivery-director`, `product-manager`, `sparky-chief-product-quality-officer`
-  - two curated workers still need brand-new Telegram bots: `accessibility-auditor`, `backend-architect`
-- first live start will still require gateway pairing approval:
-  - `openclaw devices list`
-  - `openclaw devices approve <id>`
+- each packet includes required docs, required runtime files, and copied assigned skills
+- generated runtime passes: `docker compose config`, `node --check`, PowerShell parse on `start-employees.ps1`
+- `start-employees.ps1 -CheckOnly` now proves which curated workers are immediately startable without launching containers
+- Sparky now carries an expanded super-coder skill bundle spanning product, engineering, QA, communication, and phone/voice integration
+- Bitwarden now has direct secret IDs wired for all 15 curated workers and the generated docs record all Telegram usernames
+- `sparky-chief-product-quality-officer` is the sole `host_native_primary` runtime; the other 14 curated workers remain in the Docker worker pool
+- `start-employees.ps1 -CheckOnly -CeoOnly` now audits the CEO host-native path and `start-employees.ps1 -CeoOnly` now injects `SPARKY_CEO_BOT` into `TELEGRAM_BOT_TOKEN` before launching the CEO packet
+- The host-native Sparky launcher now creates a packet-local OpenClaw config/workspace under `.openclaw-runtime/`, so live replies read Sparky's own packet docs instead of the generic Windows `~/.openclaw/workspace`
+- The live Sparky packet now includes a continuity layer adapted from `temp/Sparky`: `ONBOARDING.md`, `DECISION_LOG.md`, `live/SESSION-STATE.md`, and `live/working-buffer.md`
+- **Current live-start status**:
+- The CEO host-native startup path is now implemented, but live Telegram responsiveness for `SPARKY_CEO_BOT` is still pending a smoke test
+- The 14-worker Docker pool remains structurally ready, but it is still not fully live-proven against the real gateway/tokens
+- First live start will require gateway pairing approval: `openclaw devices list` → `openclaw devices approve <id>`
+- Phone/voice support now has a standalone incubation stack at `open-claw/services/voice-front-desk-agent/` with Twilio Voice webhook handling, websocket intake, and ElevenLabs configuration surface; it is not live until public HTTPS/WSS plus credentials are wired
+- Nerve is installed in isolation at `temp/openclaw-nerve` and serves locally on `127.0.0.1:3080`; it sits in front of the existing gateway and does not replace the gateway runtime
 
 ---
 
 ## 3. Phase Status
 
-- Phase 0 — Project Kickoff: COMPLETE
-- Phase 1 — Gateway Boot + Integration Scaffold: COMPLETE (2026-03-08)
-- Phase 2 — First Live Integration: COMPLETE (2026-03-14)
-- Phase 1A — CrewClaw Worker Stabilization: COMPLETE enough for legacy runtime truth capture
-- Phase 1C — Curated runtime sync and workflow validation: COMPLETE
-- Phase 1D — Docs cross-reference alignment: COMPLETE
-- Phase 1E — FINAL_OUTPUT_PRODUCT single-source-of-truth charter: COMPLETE
-- **Phase 1F — Curated Telegram bot assignment mapping**: COMPLETE
-- Phase 1B — Memory Bridge (OpenClaw ↔ OpenMemory): NOT STARTED (deferred)
+| Phase | Status |
+|---|---|
+| Phase 0 — Project Kickoff | COMPLETE |
+| Phase 1 — Gateway Boot + Integration Scaffold | COMPLETE (2026-03-08) |
+| Phase 2 — First Live Integration | COMPLETE (2026-03-14) |
+| Phase 1A — CrewClaw Worker Stabilization | COMPLETE |
+| Phase 1C — Curated runtime sync and workflow validation | COMPLETE |
+| Phase 1D — Docs cross-reference alignment | COMPLETE |
+| Phase 1E — FINAL_OUTPUT_PRODUCT single-source-of-truth charter | COMPLETE |
+| Phase 1F — Curated Telegram bot assignment mapping | COMPLETE |
+| Phase 1G — Employee status board | COMPLETE |
+| Autonomy model rewrite | COMPLETE (2026-03-31) |
+| Sparky enforcement gate + delegation chain | COMPLETE (2026-03-31) |
+| Charter enforcement kernel install | COMPLETE (2026-03-31) |
+| Governance normalization (Prompt 7) | COMPLETE (2026-03-31) |
+| Non-routable quarantine system (Prompt 8) | COMPLETE (2026-04-01) |
+| **STATE.md archive/compaction pass** | **COMPLETE (2026-04-01)** |
+| Phase 1B — Memory Bridge (OpenClaw ↔ OpenMemory) | NOT STARTED (deferred) |
 
 ---
 
@@ -89,22 +100,55 @@ The curated 15-employee squad now has a generated runtime at `open-claw/employee
 | Blocker | Action Required |
 |---|---|
 | WhatsApp 401 — session expired | User runs `pnpm openclaw channels login --channel whatsapp` and scans QR |
-| 3 assigned curated worker token mappings still unresolved | Provide explicit `*_TOKEN` env vars or add direct Bitwarden secret IDs for `delivery-director`, `product-manager`, and `sparky-chief-product-quality-officer` |
-| 2 new curated Telegram bots still need to be created | Create and wire bots for `accessibility-auditor` and `backend-architect` |
-| Curated runtime not yet live-proven | Run `open-claw/employees/deployed-curated/start-employees.ps1`, then approve device pairings and perform smoke tests |
-| Memory bridge not built | Phase 1B design (deferred) |
+| `SPARKY_CEO_BOT` upgraded persona/memory still needs user-visible smoke confirmation | Send a fresh normal message to `SPARKY_CEO_BOT` after the latest restart and confirm the reply uses Sparky's product/quality identity instead of a generic assistant voice |
+| Curated Docker worker pool not yet live-proven | Run `open-claw/employees/deployed-curated/start-employees.ps1` or `-RequireCeo`, then approve device pairings and perform smoke tests |
+| Phone/voice worker not yet live-proven | Add Twilio Voice credentials, ElevenLabs credentials, and a public HTTPS/WSS host for `open-claw/services/voice-front-desk-agent/`, then run a smoke call |
+| Nerve is installed but not yet documented as a standard operator surface | Keep it local on `127.0.0.1:3080`, then decide whether it should stay optional or become part of the normal OpenClaw operator workflow |
+| Memory bridge not fully operationalized | Phase 1B design exists, but curated worker flows still need a real memory-promotion path through the repaired OpenMemory stack |
+| Live gateway pairing / command authority still needs smoke evidence | After `SPARKY_CEO_BOT` launches, verify `/start`, a normal message, and an elevated command path |
+| Recovery bundle refresh path is not yet proven beyond initial AI-PM materialization | Use `D:/github/AI-Project-Manager/docs/ai/recovery/*` for crash recovery, but keep validating that later workflow changes continue to refresh it correctly |
 
 ---
 
-## 5. Read Order For Sessions
+## 5. Quarantine System (installed 2026-04-01)
+
+The non-routable quarantine system is now active across all three repos at 5 enforcement layers:
+
+1. **File banners**: `<!-- NON-ROUTABLE — OUT OF SCOPE -->` on all 2,608 `candidate_employees/**` files; `# NON-ROUTABLE — OUT OF SCOPE` on 3 droidrun iOS Python files
+2. **Enforcement rules**: `02-non-routable-exclusions.md` in all three repos (alwaysApply: true)
+3. **Memory exclusions**: `openmemory.mdc` updated in AI-Project-Manager and droidrun
+4. **Bootstrap prompt blocks**: PLAN and AGENT tabs in open--claw and droidrun updated
+5. **Canonical registry**: `open-claw/AI_Employee_knowledgebase/NON_ROUTABLE_QUARANTINE.md` with promotion gate and audit trail
+
+To promote a quarantined file to active use, follow the promotion gate in `NON_ROUTABLE_QUARANTINE.md`.
+
+---
+
+## 6. Read Order For Sessions
 
 1. `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — supreme product charter (read this first, always)
 2. `AGENTS.md`
-3. `docs/ai/STATE.md` — operational evidence
-4. `open-claw/AI_Employee_knowledgebase/OPENCLAW_WORKFLOW_CHECKLIST.md`
-5. `open-claw/AI_Employee_knowledgebase/RUNTIME_VALIDATION_SUMMARY.md`
-6. `open-claw/AI_Employee_knowledgebase/EMPLOYEE_READINESS_AUDIT.md`
-7. `open-claw/AI_Employee_knowledgebase/SKILLS_AUDIT.md`
-8. `open-claw/docs/SETUP_NOTES.md`
+3. `.cursor/rules/05-global-mcp-usage.md`
+4. `.cursor/rules/10-project-workflow.md`
+5. `docs/ai/memory/MEMORY_CONTRACT.md`
+6. Targeted OpenMemory search
+7. Recovery bundle if present/current
+8. `docs/ai/STATE.md` summary/current state section
+9. Exactly one of `docs/ai/memory/DECISIONS.md`, `docs/ai/memory/PATTERNS.md`, or `docs/ai/HANDOFF.md`
+10. `open-claw/AI_Employee_knowledgebase/TEAM_OPERATING_SYSTEM.md`
 
-Use archive docs and `docs/ai/HANDOFF.md` as historical/operational evidence only, not product law.
+Use archive docs and this file as historical/operational evidence only, not product law.
+
+### Serena local scope
+
+Use Serena for runtime code only through `D:/github/open--claw/open-claw`. Do not assume the repo-root dashboard entry represents the correct OpenClaw code project. For repo-root governance/docs work, use targeted read/search fallback unless a dedicated Serena project is explicitly activated.
+
+### Team operating model
+
+Run the curated squad as a managed org, not a loose packet library:
+
+- Sparky is the only final accept/reject gate
+- delivery-director sequences all work packets
+- work flows through brief -> architecture -> implementation -> review -> evidence -> Sparky gate -> release
+- readiness is tracked separately as `packet_ready`, `runtime_ready`, `smoke_ready`, and `live_ready`
+- use `open-claw/AI_Employee_knowledgebase/TEAM_OPERATING_SYSTEM.md` as the operating reference

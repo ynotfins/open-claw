@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `SCRIPT_BUILDER`
 - Assigned Telegram username: `SCRIPT_SARAH_BOT`
-- Reuses the existing bot token currently labeled as `script-builder`.
+- Current Bitwarden secret name: `SCRIPT_SARAH_BOT`.
 - Preferred Telegram first name for this curated role: `DevOps Automator`
-- Startup resolution status: direct Bitwarden secret id wired from `script-builder`.
+- Startup resolution status: direct Bitwarden secret id wired from `SCRIPT_SARAH_BOT`.
 
 ## What This Employee Can Do Now
 - Design CI/CD paths with security, tests, and rollback capability.

@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Email Intelligence Engineer Checklist
 
 ## Grade Target

@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Filament Optimization Specialist Checklist
 
 ## Grade Target

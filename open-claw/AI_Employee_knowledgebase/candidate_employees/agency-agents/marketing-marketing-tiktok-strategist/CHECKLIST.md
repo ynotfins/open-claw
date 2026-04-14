@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # TikTok Strategist Checklist
 
 ## Grade Target

@@ -4,7 +4,7 @@ const { runAgent } = require("./openclaw-runner");
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
 });
-const slug = "accessibility-auditor";
+const slug = "ACCESS_AUDITOR_ALLISON_BOT";
 
 client.on("ready", () => {
   console.log(`Discord bot logged in for Accessibility Auditor as ${client.user.tag}`);

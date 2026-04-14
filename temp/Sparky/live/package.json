@@ -1,0 +1,36 @@
+{
+  "name": "@formula-one/sparky",
+  "version": "3.1.0",
+  "description": "Sparky — Chief Governing Overseer. Runtime package for the Formula One AI Factory governing employee.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/ --ext .ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/",
+    "SESSION-STATE.md",
+    "working-buffer.md"
+  ],
+  "keywords": [
+    "sparky",
+    "formula-one",
+    "ai-employee",
+    "governance",
+    "ai-factory"
+  ]
+}

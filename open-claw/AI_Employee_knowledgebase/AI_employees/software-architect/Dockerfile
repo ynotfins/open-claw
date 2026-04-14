@@ -2,7 +2,7 @@ FROM node:22-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates     && rm -rf /var/lib/apt/lists/*     && git config --global url.'https://github.com/'.insteadOf 'ssh://git@github.com/'     && npm install -g openclaw@2026.3.13 --ignore-scripts
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates     ffmpeg mediainfo     && rm -rf /var/lib/apt/lists/*     && git config --global url.'https://github.com/'.insteadOf 'ssh://git@github.com/'     && npm install -g openclaw@2026.3.13 --ignore-scripts
 
 RUN mkdir -p /root/.openclaw/workspace /root/.openclaw/workspace/skills
 COPY README.md /root/.openclaw/workspace/README.md

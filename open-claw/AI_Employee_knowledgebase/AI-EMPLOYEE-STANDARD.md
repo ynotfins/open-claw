@@ -1,5 +1,8 @@
 # AI Employee Standard
 
+## Read first (supreme charter)
+Before using this file or any packet, read `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md`. It governs the finished product, autonomy bar, and non‑negotiables. `AUTHORITATIVE_STANDARD.md` and `TEAM_ROSTER.md` interpret the charter and org structure; they must not override it. This document defines packet shape and quality gates; it is subordinate to the charter.
+
 ## Decision
 No single imported source contains the perfect AI employee folder. The house standard is a hybrid:
 - **Official workspace file map:** OpenClaw docs
@@ -86,6 +89,14 @@ If an employee is intended to run live, it also needs a valid runtime shell:
 | `bot-whatsapp.js` | WhatsApp worker entrypoint |
 | `heartbeat.sh` | Monitoring/heartbeat loop when applicable |
 
+## Shared Runtime Baseline
+Curated live packets under `AI_Employee_knowledgebase/AI_employees` must share one runtime baseline so Docker/package drift does not spread role by role.
+
+- Canonical baseline file: `AI_Employee_knowledgebase/runtime/employee-runtime-baseline.json`
+- Drift check: `node AI_Employee_knowledgebase/runtime/check-runtime-drift.mjs`
+- Shared values that must stay aligned there: Docker base image, OpenClaw runtime version, and the common channel dependency versions
+- If one packet needs a deliberate exception, document it in that packet's `AUDIT.md` before changing the shared baseline
+
 ## Token And Context Discipline
 Because OpenClaw injects workspace files into prompt context, file quality is also a context-budget problem.
 
@@ -105,11 +116,12 @@ An employee is not accepted until it passes all of these:
 5. **Evidence-first behavior:** the role requires proof before claiming completion.
 6. **Modularity discipline:** the role pushes work toward `ui`, `domain`, `data`, and `utils` boundaries when building software.
 7. **Runtime integrity:** deploy shell files are internally consistent and reference files that actually exist.
-8. **No secrets in repo:** no credentials, tokens, or secret material inside the packet.
-9. **Auditability:** `PROVENANCE.md` and `AUDIT.md` exist and are current.
-10. **Context efficiency:** the packet avoids duplication and bloat that would waste OpenClaw context.
-11. **Checklist completeness:** `CHECKLIST.md` exists and clearly marks required docs, runtime files, skills, and current completion status.
-12. **Explicit grade:** `AUDIT.md` includes a grade and the reasoning behind it.
+8. **Runtime baseline alignment:** curated live packets match `runtime/employee-runtime-baseline.json` or carry an explicit documented exception.
+9. **No secrets in repo:** no credentials, tokens, or secret material inside the packet.
+10. **Auditability:** `PROVENANCE.md` and `AUDIT.md` exist and are current.
+11. **Context efficiency:** the packet avoids duplication and bloat that would waste OpenClaw context.
+12. **Checklist completeness:** `CHECKLIST.md` exists and clearly marks required docs, runtime files, skills, and current completion status.
+13. **Explicit grade:** `AUDIT.md` includes a grade and the reasoning behind it.
 
 ## Anti-Patterns To Reject
 Reject imported employees that have any of these unless they are being mined only for partial salvage:
@@ -135,12 +147,14 @@ When importing an employee from any outside source:
 
 ## Source Hierarchy
 When building or upgrading employees, prefer sources in this order:
-1. `AI-EMPLOYEE-STANDARD.md`
-2. Curated house packets under `AI_Employee_knowledgebase/AI_employees`
-3. `agency-agents` for role depth
-4. `awesome-openclaw-agents` for OpenClaw-facing packaging ideas
-5. proactive-agent templates for operating discipline
-6. purchased CrewClaw packets only for small salvageable pieces
+1. `FINAL_OUTPUT_PRODUCT.md` (charter; supreme)
+2. `AUTHORITATIVE_STANDARD.md` and `TEAM_ROSTER.md` (interpreters; subordinate to the charter)
+3. `AI-EMPLOYEE-STANDARD.md` (this file)
+4. Curated house packets under `AI_Employee_knowledgebase/AI_employees`
+5. `agency-agents` for role depth
+6. `awesome-openclaw-agents` for OpenClaw-facing packaging ideas
+7. proactive-agent templates for operating discipline
+8. purchased CrewClaw packets only for small salvageable pieces
 
 ## Current Verdict
 The project does **not** currently have one fully complete imported employee folder that can be trusted unchanged.
@@ -152,4 +166,4 @@ The closest usable references are:
 - `ocaudit` for file-boundary and token-budget discipline
 - `software-engineer.zip` for the strongest purchased CrewClaw role subset
 
-The standard above is therefore the required model for every future employee packet.
+The standard above is therefore the required model for every future employee packet, always subordinate to `FINAL_OUTPUT_PRODUCT.md`.

@@ -4,7 +4,7 @@ const { runAgent } = require("./openclaw-runner");
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
 });
-const slug = "ui-designer";
+const slug = "PERSONAL_PAMELA_BOT";
 
 client.on("ready", () => {
   console.log(`Discord bot logged in for UI Designer as ${client.user.tag}`);

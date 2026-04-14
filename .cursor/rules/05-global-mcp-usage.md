@@ -35,6 +35,7 @@ AGENT must use the best available tool for the job. Manual approaches are fallba
 
 Use `thinking-patterns` for:
 
+- non-trivial PLAN work before finalizing the AGENT prompt: `sequential_thinking` by default unless another reasoning pattern is a better fit
 - bug investigation, build failures, test failures, unexpected behavior: `debugging_approach`
 - starting a new project, major feature, or large architecture change: `mental_model`
 - cross-repo changes or changes affecting 3+ modules: `problem_decomposition`, `domain_modeling`, or `sequential_thinking`
@@ -125,6 +126,17 @@ Use only `firecrawl_scrape`, `firecrawl_map`, and `firecrawl_search`.
 - before planning: retrieve prior decisions and patterns related to the task
 - after completing a phase: store new stable decisions or patterns
 
+**Live Cursor reality:**
+
+- The current tool surface is flat and thin:
+  - `search-memories(query)`
+  - `list-memories()`
+  - `add-memory(content)`
+- Do not claim `project_id`, `namespace`, or `memory_types` filters unless a proven wrapper exists in the active runtime.
+- Use compact self-identifying memory text instead, for example:
+  - `[repo=openclaw][kind=decision][stability=durable][source=docs/ai/memory/DECISIONS.md] ...`
+  - `[repo=openclaw][kind=pattern][scope=worker-memory][source=MEMORY_PROMOTION_TEMPLATE.md] ...`
+
 ### droidrun — REQUIRED when:
 
 - interacting with the user's phone
@@ -135,29 +147,27 @@ Use `phone_ping` before `phone_do` or `phone_apps`.
 
 ### obsidian-vault — CONDITIONAL
 
-Use `obsidian-vault` only for targeted fast-access note memory and durable operator knowledge when the task explicitly needs it.
+Use `obsidian-vault` only when the task explicitly needs operator notes or personal research already known to live in Obsidian.
 
-**Preferred use:**
-- Targeted note reads and searches (not broad vault dumps)
-- Daily-note updates for operator workflows
-- Cross-project operator knowledge and personal research findings
-- Quick-reference lookups when the information is known to exist in Obsidian
+**Role:**
+- Fast-access scoped note-memory sidecar
+- Prefer targeted note reads/searches over broad vault dumps
+- Useful for operator notes, personal research, and quick-reference lookups already known to exist there
 
-**Relationship to OpenMemory:**
-- OpenMemory is the **primary durable structured memory backbone** for agent decisions, patterns, and project state
-- Obsidian is a **fast-access scoped note memory sidecar** for operator-facing knowledge and personal context
-- Do NOT treat Obsidian as repo truth over project docs, code, or OpenMemory
-- Do NOT use Obsidian to replace OpenMemory for agent operational state
-
-**When NOT to use:**
-- As a replacement for OpenMemory durable memory
-- As a replacement for repo-tracked docs (STATE.md, DECISIONS.md, PATTERNS.md)
-- As default bootstrap context (OpenMemory-first retrieval is preferred)
-- For storing agent operational decisions (use OpenMemory instead)
+**Never treat it as canonical project state:**
+- Not repo truth
+- Not a replacement for OpenMemory
+- Not default bootstrap context
+- Not for agent operational state
+- Not a replacement for `STATE.md`, `DECISIONS.md`, `PATTERNS.md`, or `HANDOFF.md`
 
 ### filesystem — CONDITIONAL
 
-Use `filesystem` only when local machine files outside the active repo are explicitly required and no repo-native source exists.
+Use `filesystem` when machine-local files outside the active repo are explicitly required, especially the non-canonical recovery bundle.
+
+### Artiforge — CONDITIONAL
+
+Use `Artiforge` only after the charter and repo authority docs are read, and only for synthesis or scaffold help. Its output is never authoritative.
 
 ## Tool management protocol
 
@@ -177,15 +187,17 @@ Tool tiers:
 - UI/testing: `playwright`, `Magic MCP`
 - Device/knowledge: `droidrun`, `obsidian-vault`, `filesystem`
 
-## Unavailable-tool policy
+## Required-tool failure policy
 
 If a high-value tool is required for the current task and it is disabled, unavailable, or failing:
 
-1. Stop immediately.
-2. Name the exact tool.
-3. State exactly why it is required for this task.
-4. Ask the user to enable or restore it in Cursor if it is a toggle/config issue.
-5. Record the blocker in `docs/ai/STATE.md`.
+1. Announce the failure immediately.
+2. Name the exact tool and the exact failed step.
+3. State why it is required for this task.
+4. State whether a safe degraded-mode fallback exists.
+5. If safe fallback exists, use it explicitly and record the evidence gap or memory reseed debt.
+6. If safe fallback does not exist, stop and ask for restoration.
+7. Record the incident in `docs/ai/STATE.md`.
 
 Do not silently continue without a required high-value tool.
 Do not pretend a disabled tool is active.

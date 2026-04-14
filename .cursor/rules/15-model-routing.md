@@ -1,3 +1,9 @@
+---
+description: "Model routing policy for Open Claw: labels, thinking vs non-thinking, escalation"
+globs: ["**/*"]
+alwaysApply: true
+---
+
 # 15 — Model Routing (Open Claw)
 
 > Extends: `10-project-workflow.md`

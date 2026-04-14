@@ -7,7 +7,7 @@ const app = new App({
   socketMode: true,
   appToken: process.env.SLACK_APP_TOKEN,
 });
-const slug = "code-reviewer";
+const slug = "CODE_CARL_BOT";
 
 app.event("app_mention", async ({ event, say }) => {
   const text = event.text.replace(/<@[^>]+>/g, "").trim();

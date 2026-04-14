@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # SRE (Site Reliability Engineer) Audit
 
 ## Grade

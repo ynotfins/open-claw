@@ -3,7 +3,7 @@ const qrcode = require("qrcode-terminal");
 const { runAgent } = require("./openclaw-runner");
 
 const client = new Client({ authStrategy: new LocalAuth() });
-const slug = "software-architect";
+const slug = "ENGINEER_ENRIQUE_BOT";
 
 client.on("qr", (qr) => {
   qrcode.generate(qr, { small: true });

@@ -1,5 +1,5 @@
 {
-  "name": "delivery-director-openclaw-worker",
+  "name": "DELIVERY_DIRECTOR_DAN_BOT-openclaw-worker",
   "version": "1.0.0",
   "private": true,
   "dependencies": {

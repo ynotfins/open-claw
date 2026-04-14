@@ -16,6 +16,7 @@
 - Imported **163** specialist role packets into `candidate_employees/agency-agents/`
 - Preserved every imported upstream role as `UPSTREAM_ROLE.md`
 - Wrapped every imported role in the house packet format with `CHECKLIST.md` and `AUDIT.md`
+- **QUARANTINED as of 2026-04-01**: All 2,608 files in `candidate_employees/agency-agents/` carry the `<!-- NON-ROUTABLE — OUT OF SCOPE -->` banner. Do not read, search, route through, or recall from memory. See `NON_ROUTABLE_QUARANTINE.md` for promotion gate.
 
 ### OpenClaw official docs
 - Used as the authority for required workspace files and file boundaries
@@ -43,6 +44,12 @@
 
 ## How To Use This Catalog
 - Pull active development workers from `AI_employees/`
-- Pull broader specialist ideas from `candidate_employees/agency-agents/`
+- **Do not access `candidate_employees/agency-agents/`** — it is quarantined. All 2,608 files are NON-ROUTABLE. See `NON_ROUTABLE_QUARANTINE.md`.
 - Pull reusable patterns from `reference_assets/`
 - Do not promote imported or purchased packets into live runtime use without updating `CHECKLIST.md` and `AUDIT.md`
+
+## Quarantine Status
+
+| Path | Status | Action Required |
+|------|--------|-----------------|
+| `candidate_employees/**` | QUARANTINED — NON-ROUTABLE | Tony must approve promotion via `NON_ROUTABLE_QUARANTINE.md` gate |

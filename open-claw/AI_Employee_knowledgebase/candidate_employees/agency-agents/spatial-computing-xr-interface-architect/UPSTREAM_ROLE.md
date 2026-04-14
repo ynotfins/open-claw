@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 ---
 name: XR Interface Architect
 description: Spatial interaction designer and interface strategist for immersive AR/VR/XR environments

@@ -1,0 +1,141 @@
+{
+  "name": "Sparky",
+  "version": "3.1.0",
+  "description": "Machine-readable launch contract for Sparky. Defines the invocation interface, required inputs, expected outputs, tool dependencies, and environment requirements for runtime execution.",
+
+  "entrypoints": {
+    "factory": {
+      "file": "employees/Sparky/agent.ts",
+      "function": "runSparky",
+      "signature": "runSparky(input: SparkyInput): Promise<SparkyDecision>",
+      "description": "Core governance decision engine. Used directly in the factory environment."
+    },
+    "openclaw": {
+      "file": "employees/Sparky/live/index.ts",
+      "function": "executeSparky",
+      "signature": "executeSparky(input: { taskType: string; payload: Record<string, unknown>; context?: Record<string, unknown> }): Promise<{ decision: SparkyDecision; requiredEvidence: string[]; blockingClass: boolean }>",
+      "description": "OpenClaw-facing entrypoint. Wraps runSparky with launch metadata."
+    }
+  },
+
+  "input_schema": {
+    "type": "SparkyInput",
+    "defined_in": "employees/Sparky/schema.ts",
+    "required_fields": ["taskType", "payload"],
+    "payload_required_for_full_governance": ["objective", "owner", "trace_id"],
+    "payload_required_for_github_pr_path": ["repo", "pr_number"],
+    "task_types": [
+      "task_routing",
+      "pr_governance",
+      "merge_gate",
+      "release_gate",
+      "quality_enforcement",
+      "evidence_validation",
+      "drift_audit",
+      "hotfix_emergency",
+      "incident_coordination",
+      "escalation_management",
+      "anti_pattern_detection",
+      "context_recovery"
+    ]
+  },
+
+  "output_schema": {
+    "type": "SparkyDecision",
+    "defined_in": "employees/Sparky/schema.ts",
+    "key_fields": {
+      "decision": "ALLOW | BLOCK | ESCALATE | DEFER | REQUIRE_MORE_EVIDENCE",
+      "confidence": "high | medium | low",
+      "blocked": "boolean",
+      "findings": "SparkyFinding[] — per-finding severity, message, artifact ref",
+      "requiredNextActions": "RequiredNextAction[] — itemized next steps with owners",
+      "blockingConditions": "string[] — specific unmet conditions when blocked",
+      "state_from": "SparkyState — state before this decision",
+      "state_to": "SparkyState — state after this decision",
+      "gateResults": "GateEvaluation[] — per-stage gate pass/fail with evidence refs",
+      "record": "ProvenanceRecord — full reconstructable trace",
+      "releaseRiskClassification": "safe_to_release | conditional_release | blocked_from_release | not_applicable"
+    }
+  },
+
+  "tool_dependencies": {
+    "required": [],
+    "optional_with_degraded_mode": [
+      {
+        "name": "github",
+        "purpose": "PR state, review decisions, check status",
+        "degraded_behavior": "Cannot retrieve live PR data; must require evidence to be submitted manually"
+      },
+      {
+        "name": "context7",
+        "purpose": "External library and API documentation",
+        "degraded_behavior": "Cannot retrieve library docs; library-specific claims must be manually evidenced; note retrieval failure in trace"
+      },
+      {
+        "name": "firestore",
+        "purpose": "Persistence layer for governance traces (optional)",
+        "degraded_behavior": "Use file-based SESSION-STATE.md and DECISION_LOG.md for persistence"
+      }
+    ]
+  },
+
+  "environment_requirements": {
+    "runtime": "Node.js 18+ or equivalent TypeScript runtime",
+    "typescript_version": "5.0+",
+    "required_env_vars": [
+      "GITHUB_TOKEN — for GitHub MCP tool",
+      "SPARKY_SESSION_STATE_PATH — path to SESSION-STATE.md",
+      "SPARKY_DECISION_LOG_PATH — path to DECISION_LOG.md"
+    ],
+    "optional_env_vars": [
+      "CONTEXT7_API_KEY — for Context7 MCP tool",
+      "FIRESTORE_PROJECT_ID — for Firestore persistence",
+      "SPARKY_DEPLOYMENT_ENV — 'factory' or 'openclaw'; defaults to 'factory'"
+    ]
+  },
+
+  "failure_handling": {
+    "tool_unavailable": "Log unavailability, apply degraded mode per TOOLS.md, continue with reduced evidence quality",
+    "missing_required_fields": "Issue DEFER with specific missing fields listed",
+    "unknown_task_type": "Issue DEFER with error: unsupported_request",
+    "trace_incomplete": "Block progression; require record completion before any state transition",
+    "secret_detected": "Block immediately; flag artifact; do not store secret value in any record"
+  },
+
+  "governance_defaults": {
+    "unknown_owner": "BLOCK or DEFER depending on stage",
+    "missing_artifact": "REQUIRE_MORE_EVIDENCE",
+    "missing_rollback_on_required_path": "BLOCK",
+    "conflicting_specialist_conclusions": "ESCALATE",
+    "incomplete_record": "BLOCK",
+    "low_confidence_classification": "ESCALATE",
+    "context7_unavailable_for_library_claim": "REQUIRE_MORE_EVIDENCE with retrieval failure noted"
+  },
+
+  "state_machine": {
+    "states": ["pending", "in_review", "blocked", "approved", "released", "rolled_back"],
+    "terminal_states": ["released", "rolled_back"],
+    "defined_in": "employees/Sparky/OPERATING_RULES.md"
+  },
+
+  "doctrine_authority": {
+    "philosophy": "employees/Sparky/SOUL.md",
+    "operational_rules": "employees/Sparky/OPERATING_RULES.md",
+    "session_entry_point": "employees/Sparky/AGENTS.md",
+    "limits": "employees/Sparky/LIMITS.md",
+    "anti_patterns": "employees/Sparky/ANTI_PATTERNS.md"
+  },
+
+  "validation_contract": {
+    "minimum_test_cases_before_deployment": 20,
+    "test_cases_file": "employees/Sparky/TEST_CASES.md",
+    "minimum_governance_cycles_before_production": 5,
+    "required_validations": [
+      "TEST_CASES.md TC-01 through TC-20 must all pass",
+      "All tool adapters must be tested in target environment",
+      "Session state round-trip must be validated",
+      "Audit log persistence must be validated",
+      "All deployment blockers in INSTALLATION_TARGETS.json must be resolved"
+    ]
+  }
+}

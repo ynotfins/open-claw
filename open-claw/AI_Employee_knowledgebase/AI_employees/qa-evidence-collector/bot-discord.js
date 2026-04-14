@@ -4,7 +4,7 @@ const { runAgent } = require("./openclaw-runner");
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
 });
-const slug = "qa-evidence-collector";
+const slug = "OVERNIGHT_OLIVER_BOT";
 
 client.on("ready", () => {
   console.log(`Discord bot logged in for QA Evidence Collector as ${client.user.tag}`);

@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Government Digital Presales Consultant Checklist
 
 ## Grade Target

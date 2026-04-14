@@ -4,7 +4,7 @@ const { runAgent } = require("./openclaw-runner");
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
 });
-const slug = "mcp-integration-engineer";
+const slug = "API_ANDY_BOT";
 
 client.on("ready", () => {
   console.log(`Discord bot logged in for MCP Integration Engineer as ${client.user.tag}`);

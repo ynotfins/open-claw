@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Feishu Integration Developer Checklist
 
 ## Grade Target

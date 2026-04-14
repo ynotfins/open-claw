@@ -25,7 +25,9 @@ project_name: "open--claw"
 # When using multiple languages, the first language server that supports a given file will be used for that file.
 # The first language is the default language and the respective language server will be used as a fallback.
 # Note that when using the JetBrains backend, language servers are not used and this list is correspondingly ignored.
-languages: []
+languages:
+- markdown
+- powershell
 
 # the encoding used by text files in the project
 # For a list of possible encodings, see https://docs.python.org/3.11/library/codecs.html#standard-encodings
@@ -34,7 +36,7 @@ encoding: "utf-8"
 # line ending convention to use when writing source files.
 # Possible values: unset (use global setting), "lf", "crlf", or "native" (platform default)
 # This does not affect Serena's own files (e.g. memories and configuration files), which always use native line endings.
-line_ending:
+line_ending: "native"
 
 # The language backend to use for this project.
 # If not set, the global setting from serena_config.yml is used.
@@ -55,7 +57,11 @@ ls_specific_settings: {}
 # list of additional paths to ignore in this project.
 # Same syntax as gitignore, so you can use * and **.
 # Note: global ignored_paths from serena_config.yml are also applied additively.
-ignored_paths: []
+ignored_paths:
+- "open-claw/**"
+- "docs/ai/archive/**"
+- "docs/ai/context/archive/**"
+- "docs/ai/protected/**"
 
 # whether the project is in read-only mode
 # If set to true, all editing tools will be disabled and attempts to use them will result in an error
@@ -130,7 +136,12 @@ default_modes:
 
 # initial prompt for the project. It will always be given to the LLM upon activating the project
 # (contrary to the memories, which are loaded on demand).
-initial_prompt: ""
+initial_prompt: |
+  This Serena project is for the open--claw repo root governance/docs layer only.
+  Use it for root files such as AGENTS.md, .cursor/rules, docs/ai, README.md, and repo-level operations docs.
+  Do not use this project for OpenClaw runtime code under D:/github/open--claw/open-claw.
+  For runtime code, activate D:/github/open--claw/open-claw instead.
+  For AI-Project-Manager or DroidRun work, activate those exact paths first.
 
 # time budget (seconds) per tool call for the retrieval of additional symbol information
 # such as docstrings or parameter information.

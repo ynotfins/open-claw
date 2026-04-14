@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Blender Add-on Engineer Checklist
 
 ## Grade Target

@@ -3,6 +3,9 @@
 - `architecture-adr`
 - `mcp-integration`
 - `release-readiness`
+- `handoff-state`
+- `twilio-voice-intake`
+- `elevenlabs-voice-clone`
 
 ## Expectations
 - Use the listed skills as the default operating playbook.

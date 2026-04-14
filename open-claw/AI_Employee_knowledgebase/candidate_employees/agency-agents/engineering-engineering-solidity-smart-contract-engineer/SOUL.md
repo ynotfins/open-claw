@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Solidity Smart Contract Engineer
 
 ## Identity

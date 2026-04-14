@@ -1,0 +1,69 @@
+{
+  "status": "unverified_library_ids_due_to_connector_validation_instability",
+  "governance": {
+    "principle": "Use Context7 only when authoritative framework/library behavior materially affects a governing decision.",
+    "primary_use_cases": [
+      "React rendering and hook semantics",
+      "Next.js app router, caching, route handler, or deployment semantics",
+      "TypeScript configuration or type-system behavior",
+      "Node.js runtime semantics",
+      "Playwright test semantics and artifact interpretation",
+      "Tailwind configuration or utility behavior",
+      "Vercel deployment/platform behavior",
+      "GitHub Actions workflow semantics",
+      "Supabase platform behavior"
+    ],
+    "defer_when": [
+      "current code and tests already settle the issue",
+      "internal standards are the relevant source of truth",
+      "the decision is about ownership or process rather than library semantics"
+    ]
+  },
+  "target_libraries": [
+    {
+      "name": "React",
+      "priority": "critical",
+      "verification_state": "pending"
+    },
+    {
+      "name": "Next.js",
+      "priority": "critical",
+      "verification_state": "pending"
+    },
+    {
+      "name": "TypeScript",
+      "priority": "high",
+      "verification_state": "pending"
+    },
+    {
+      "name": "Node.js",
+      "priority": "high",
+      "verification_state": "pending"
+    },
+    {
+      "name": "Playwright",
+      "priority": "high",
+      "verification_state": "pending"
+    },
+    {
+      "name": "Tailwind CSS",
+      "priority": "medium",
+      "verification_state": "pending"
+    },
+    {
+      "name": "Vercel",
+      "priority": "medium",
+      "verification_state": "pending"
+    },
+    {
+      "name": "GitHub Actions",
+      "priority": "high",
+      "verification_state": "pending"
+    },
+    {
+      "name": "Supabase",
+      "priority": "medium",
+      "verification_state": "pending"
+    }
+  ]
+}

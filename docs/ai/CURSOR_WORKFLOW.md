@@ -50,9 +50,13 @@ Authoritative (repo-tracked):
 
 - `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — **supreme product charter**
 - `.cursor/rules/00-global-core.md` — non-negotiable behaviors
+- `.cursor/rules/01-charter-enforcement.md` — charter enforcement kernel
+- `.cursor/rules/02-non-routable-exclusions.md` — quarantine and out-of-scope exclusions
 - `.cursor/rules/05-global-mcp-usage.md` — MCP tool usage policy
 - `.cursor/rules/10-project-workflow.md` — tab contracts (Open Claw specific)
+- `.cursor/rules/15-model-routing.md` — model selection and escalation policy
 - `.cursor/rules/20-project-quality.md` — engineering standards (Open Claw specific)
+- `.cursor/rules/25-ai-employee-standard.mdc` — curated employee packet standard
 - `AGENTS.md` — agent operating contract (repo root)
 
 Developer-local (optional):
@@ -73,7 +77,9 @@ Developer-local (optional):
 ## Excluded directories
 
 - `docs/ai/context/` — non-canonical artifact storage: transcript-derived files, bulk session dumps, ephemeral context. Informative only; never authoritative.
+- `docs/ai/context/AGENT_EXECUTION_LEDGER.md` — **non-canonical** verbatim execution record: exact prompt + exact AGENT response + files changed + verdict, per completed prompt block. AGENT must append after every block. PLAN/DEBUG must NOT load by default — consult only when canonical sources are insufficient, and only the specific needed block(s) **one block at a time**. Archive to `docs/ai/context/archive/` when active ledger exceeds 5 entries or ~300 lines.
 - `docs/ai/archive/` — superseded docs. **Never consulted** by PLAN. Historical reference only.
+- `open-claw/AI_Employee_knowledgebase/AI_employees/_zips/` — portable packaging artifacts only. Do not use zip bundles as current operational truth when folder-based packets or repo docs exist.
 
 ## Context source priority
 

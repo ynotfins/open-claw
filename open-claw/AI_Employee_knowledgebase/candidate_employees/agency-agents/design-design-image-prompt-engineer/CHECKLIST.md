@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Image Prompt Engineer Checklist
 
 ## Grade Target

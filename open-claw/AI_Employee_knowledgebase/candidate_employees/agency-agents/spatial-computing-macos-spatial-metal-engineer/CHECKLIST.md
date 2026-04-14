@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # macOS Spatial/Metal Engineer Checklist
 
 ## Grade Target

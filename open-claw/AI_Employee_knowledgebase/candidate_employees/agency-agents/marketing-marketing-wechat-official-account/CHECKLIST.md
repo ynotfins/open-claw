@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # WeChat Official Account Manager Checklist
 
 ## Grade Target

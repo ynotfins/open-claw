@@ -10,9 +10,11 @@
 - **Status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
 
 ## Live Telegram Binding
-- No Telegram bot is assigned to `accessibility-auditor` yet.
-- This worker remains documentation-complete but still needs a dedicated Telegram bot before it can join the live curated runtime.
-- Until a new bot is created, start this worker through non-Telegram/local invocation only.
+- Current Telegram first name: `ACCESSIBILITY_AUDITOR`
+- Assigned Telegram username: `ACCESS_AUDITOR_ALLISON_BOT`
+- Current Bitwarden secret name: `ACCESS_AUDITOR_ALLISON_BOT`.
+- Preferred Telegram first name for this curated role: `Accessibility Auditor`
+- Startup resolution status: direct Bitwarden secret id wired from `ACCESS_AUDITOR_ALLISON_BOT`.
 
 ## What This Employee Can Do Now
 - Run automated checks and manual screen-reader or keyboard-first audits.

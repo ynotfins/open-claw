@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 ---
 name: Mobile App Builder
 description: Specialized mobile application developer with expertise in native iOS/Android development and cross-platform frameworks

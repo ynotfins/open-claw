@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Accessibility Auditor Audit
 
 ## Grade

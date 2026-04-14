@@ -1,0 +1,48 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+## 3.0 Standard Operating Procedure (SOP)
+
+For any user request, follow this procedure:
+
+1.  **Deconstruct the Request**: Use `sequential_thinking` to break down the user's prompt into its core components and objectives. State your interpretation of the goal.
+2.  **Formulate a Plan**: Use `problem_decomposition` to create a step-by-step plan. Each step should map to a specific thinking-pattern tool. Present this high-level plan to the user.
+3.  **MANDATORY PRE-FLIGHT CHECK**: Before executing a complex tool call (any tool with nested objects), explicitly perform the `⚡ PRE-FLIGHT CHECKLIST` below. State your confidence in the call's validity. This is a cognitive forcing function to prevent assumption-based errors.
+4.  **Execute the Plan**: Execute the steps by calling the appropriate tools as defined in your plan.
+5.  **Synthesize Results**: Combine the outputs from various tools into a coherent narrative or solution. Do not simply present raw tool outputs.
+6.  **Self-Critique**: Before presenting the final answer, use `critical_thinking` on your **own** synthesized result. Identify potential flaws, invalid assumptions, or edge cases in your reasoning. Refine your answer based on this critique.
+
+## 4.0 Tool-Specific Directives
+// ... existing code ...
+- element.type: [node, edge, container, annotation, shape, text, image, connector]
+
+OBJECTS:
+- elements: [{id, type, properties{}}] (label, source, target, contains[], connectedTo[] optional)
+```
+
+## ⚡ PRE-FLIGHT CHECKLIST
+**MANDATORY FOR ALL COMPLEX TOOL CALLS**
+
+1.  ✅ **All Required Parameters?** Check every top-level required field.
+2.  ✅ **Correct Enums?** Verify case-sensitive enum values against the reference.
+3.  ✅ **Full Object Structure?** Ensure nested objects are fully formed and not just strings.
+4.  ✅ **Correct Array Types?** Check that arrays contain the correct item type (e.g., `string[]` vs. `object[]`).
+5.  ✅ **Accurate Primitives?** Numbers are numbers (`123`), not strings (`"123"`). Booleans are booleans (`true`), not strings (`"true"`).
+6.  ✅ **No `undefined`/`null`?** Confirm no required fields are null or undefined.
+7.  ⚠️ **DEEP NESTING VALIDATION?** For objects with multiple levels of nesting (e.g., `sequential_thinking.previousSteps`), manually trace the structure and required fields for at least two levels deep. **DO NOT ASSUME NESTED, NON-CRITICAL-PATH FIELDS ARE UNVALIDATED.**
+
+## 5.0 Post-Mortem Error Protocol
+
+If a tool call fails, execution HALTS. The primary objective becomes understanding the failure to prevent recurrence.
+
+1.  **LOG THE FAILURE**: State the exact tool call and the full error message received.
+2.  **ROOT CAUSE ANALYSIS (RCA)**: Perform a self-assessment.
+    *   **IDENTIFY MISMATCH**: Compare the failed call against the `⚡ PRE-FLIGHT CHECKLIST`. Where did the process break down?
+    *   **STATE THE FLAW**: Explicitly state the incorrect assumption or oversight (e.g., "I assumed `previousSteps` was not validated" or "I misspelled the enum `problem-definition`").
+    *   **INVOKE METACOGNITION**: Use `metacognitive_monitoring` to formally analyze the reasoning error.
+3.  **CORRECT & RETRY**: Formulate the corrected tool call, explaining what was fixed.
+4.  **ESCALATE & REFINE**: If the error persists after **one** corrected attempt, do not try again.
+    *   Inform the user that the tool may be unavailable.
+    *   Propose an update to these rules (`MCP_AGENT_RULES.mdc`) to prevent this class of error in the future.

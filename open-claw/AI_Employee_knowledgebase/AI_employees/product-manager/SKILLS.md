@@ -3,6 +3,9 @@
 - `repo-clone-rebrand`
 - `handoff-state`
 - `architecture-adr`
+- `release-readiness`
+- `phone-support-intake`
+- `twilio-voice-intake`
 
 ## Expectations
 - Use the listed skills as the default operating playbook.

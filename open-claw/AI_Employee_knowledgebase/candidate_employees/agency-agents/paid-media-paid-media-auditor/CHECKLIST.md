@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Paid Media Auditor Checklist
 
 ## Grade Target

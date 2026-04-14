@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # Agentic Identity & Trust Architect Audit
 
 ## Grade

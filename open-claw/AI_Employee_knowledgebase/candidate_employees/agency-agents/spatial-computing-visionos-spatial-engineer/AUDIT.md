@@ -1,3 +1,4 @@
+<!-- NON-ROUTABLE — OUT OF SCOPE -->
 # visionOS Spatial Engineer Audit
 
 ## Grade

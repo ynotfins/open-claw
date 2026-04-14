@@ -35,7 +35,7 @@ This repo uses a five-tab Cursor workflow: PLAN / AGENT / DEBUG / ASK / ARCHIVE.
 
 ## State tracking
 
-- `docs/ai/STATE.md` — **operational evidence log** (not product law); PLAN reads this first to understand current state, blockers, fallbacks, and cross-repo effects. AGENT updates it after every execution block using the enforced template in `10-project-workflow.md`.
+- `docs/ai/STATE.md` — operational evidence log, not product law; use the summary/current state section first during recovery, then deeper blocks only as needed
 - `docs/ai/PLAN.md` — active plan with phases and exit criteria
 - `docs/ai/context/` — non-canonical artifact storage: session transcripts, bulk dumps, and ephemeral context files. Informative only; never authoritative.
 - `docs/ai/archive/` — superseded docs. **Never consulted** by PLAN. Historical reference only.
@@ -45,12 +45,18 @@ This repo uses a five-tab Cursor workflow: PLAN / AGENT / DEBUG / ASK / ARCHIVE.
 PLAN must reconstruct current system state from repo-tracked sources before consulting artifacts or chat history. If repo sources and chat context disagree, repo sources win unless current execution evidence proves otherwise.
 
 1. `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — supreme product charter
-2. `docs/ai/STATE.md` — operational evidence
-3. `docs/ai/memory/DECISIONS.md` — key decisions with rationale
-4. `docs/ai/memory/PATTERNS.md` — reusable patterns
-5. `docs/ai/HANDOFF.md` — session handoff context (operational evidence only)
-6. `docs/ai/context/` — transcript-derived artifacts and session dumps
-7. Chat history / `@Past Chats` — **last resort only**; use only if the above sources are insufficient
+2. Repo-tracked workflow and memory rules/docs for the repo in scope
+3. Targeted OpenMemory search
+4. AI-PM recovery bundle via `filesystem`, if present and current:
+   - `D:/github/AI-Project-Manager/docs/ai/recovery/current-state.json`
+   - `D:/github/AI-Project-Manager/docs/ai/recovery/session-summary.md`
+   - `D:/github/AI-Project-Manager/docs/ai/recovery/active-blockers.json`
+   - `D:/github/AI-Project-Manager/docs/ai/recovery/memory-delta.json`
+5. `docs/ai/STATE.md` summary/current state section
+6. Exactly one of `docs/ai/memory/DECISIONS.md`, `docs/ai/memory/PATTERNS.md`, or `docs/ai/HANDOFF.md` if needed
+7. `docs/ai/context/` — transcript-derived artifacts and session dumps
+8. `docs/ai/context/AGENT_EXECUTION_LEDGER.md` — one block at a time only as a fallback
+9. Chat history / `@Past Chats` — last resort only
 
 ## MCP policy
 
@@ -76,6 +82,7 @@ AGENT must:
 - Provide PASS/FAIL evidence for every tool call and command
 - Use MCP tools before falling back to manual approaches
 - Promote unresolved execution turbulence to `docs/ai/HANDOFF.md § Recent Unresolved Issues` when it remains operationally relevant after a task block.
+- If this repo changes in a way that affects crash recovery guidance, mirror the necessary summary/blocker language into the AI-PM recovery bundle or record why not.
 
 ## Execution Ledger (non-canonical)
 

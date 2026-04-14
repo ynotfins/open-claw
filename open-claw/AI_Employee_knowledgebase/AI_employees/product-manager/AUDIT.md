@@ -12,9 +12,9 @@
 ## Live Telegram Binding
 - Current Telegram first name: `PRODUCT_MANAGER`
 - Assigned Telegram username: `PRODUCT_MANAGER_PETE_BOT`
-- Reuses the existing bot token currently labeled as `product-manager`.
+- Current Bitwarden secret name: `PRODUCT_MANAGER_PETE_BOT`.
 - Preferred Telegram first name for this curated role: `Product Manager`
-- Startup resolution status: env-first only for now; Bitwarden secret id still needs to be recorded.
+- Startup resolution status: direct Bitwarden secret id wired from `PRODUCT_MANAGER_PETE_BOT`.
 
 ## What This Employee Can Do Now
 - Write the press release before the PRD and lead with the problem.
