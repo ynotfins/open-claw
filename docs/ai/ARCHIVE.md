@@ -1,21 +1,17 @@
 # Archive — Open Claw
 
-This document captures compressed decisions, discoveries, and handoff notes from completed sessions.
+This document is retired from the active governance and recovery surface.
 
-## Purpose
+## Status
 
-- Summarize long threads into durable knowledge
-- Extract decisions, constraints, conventions, and rationale
-- Keep the project resumable for any contributor
+Use these active destinations instead:
 
-## Entries
+- `docs/ai/memory/DECISIONS.md` for durable why
+- `docs/ai/memory/PATTERNS.md` for durable how
+- `docs/ai/STATE.md` for current operational evidence
+- `docs/ai/archive/README.md` plus files in `docs/ai/archive/` for historical archives
+- `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md` for the single authoritative numbered no-loss recovery order
 
-<!-- Each entry follows this structure:
+## Retention reason
 
-## <Date> — <Topic>
-
-**Context:** Why this came up
-**Decision:** What was decided
-**Rationale:** Why
-**References:** Links to code, docs, or prior archive entries
--->
+This stub remains only so stale references fail closed into a redirect instead of implying that `ARCHIVE.md` is still an active bootstrap source.

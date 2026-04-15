@@ -10,7 +10,7 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 
 ## Current State Summary
 
-> Last updated: 2026-04-09
+> Last updated: 2026-04-14
 > Archive pass: 2026-04-01 — 1,170 → 175 lines (archive/compaction pass, this session)
 > Previous archive: `docs/ai/archive/state-log-full-history-2026-02-18-to-2026-03-21.md`
 
@@ -65,8 +65,7 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 | Blocker | Severity | Status |
 |---|---|---|
 | WhatsApp 401 — session expired | MEDIUM | PENDING USER ACTION: `pnpm openclaw channels login --channel whatsapp` + QR scan |
-| 3 curated worker Bitwarden UUIDs unresolved | MEDIUM | `delivery-director`, `product-manager`, `sparky-chief-product-quality-officer` — need explicit `*_TOKEN` env vars or new Bitwarden secret IDs |
-| 2 curated worker Telegram usernames still unrecorded | LOW | `accessibility-auditor`, `backend-architect` — tokens exist; final usernames still need to be recorded cleanly in docs |
+| Active-bot alias normalization (non-Sparky) not yet packet-aligned | LOW | Canonical active-bot map is generated (see `open-claw/AI_Employee_knowledgebase/current_employees.md`); packet-level identifiers may still contain legacy alias wording |
 | Curated runtime not live-proven | HIGH | Run `open-claw/employees/deployed-curated/start-employees.ps1`, approve device pairings, run smoke tests |
 | Memory bridge not built | HIGH | Phase 1B design (deferred) — OpenClaw ↔ OpenMemory bridge not yet built |
 | `docs/ai/context/AGENT_EXECUTION_LEDGER.md` does not exist | LOW | Create when first open--claw AGENT block appends a ledger entry |
@@ -98,6 +97,74 @@ Phase 1A through Governance Normalization (2026-03-21 through 2026-03-31):
 ## State Log
 
 <!-- AGENT appends entries below this line after each execution block. -->
+
+---
+
+## 2026-04-14 — Phase 1: Sparky-first canonicalization + active-bot mapping baseline
+
+### Goal
+
+Harden Sparky’s canonical identifiers and make the active-bot alias model explicit in the generator truth, without broad packet cleanup, runtime changes, or zip regeneration.
+
+### Scope (Phase 1 only)
+
+- **Sparky packet contract**:
+  - `open-claw/AI_Employee_knowledgebase/AI_employees/sparky-chief-product-quality-officer/AGENTS.md`
+  - `open-claw/AI_Employee_knowledgebase/AI_employees/sparky-chief-product-quality-officer/AUDIT.md`
+- **Active-bot mapping source + authoritative surfaces**:
+  - `open-claw/scripts/sync_curated_employee_runtime.py` (single source for active-bot mapping logic)
+  - `open-claw/AI_Employee_knowledgebase/current_employees.md` (generated)
+  - `open-claw/AI_Employee_knowledgebase/CURATED_TEAM_STATUS.json` (generated)
+- **Operational evidence**:
+  - `docs/ai/STATE.md` (this file)
+
+Out of scope: runtime feature work, Twilio/voice, broad packet rewrites, broad zip regeneration, mass renames.
+
+### Commands / Tool Calls (evidence)
+
+- `thinking-patterns`: modeled the curated mapping domain — PASS
+- `serena`: activated `D:/github/open--claw` and `D:/github/open--claw/open-claw` projects — PASS
+- Python: `python open-claw/scripts/sync_curated_employee_runtime.py --mapping-only` — PASS (regenerated only mapping outputs)
+- Read: Sparky packet docs + generator script + canonical outputs — PASS
+
+### Changes
+
+- **Sparky canonical identifiers**: added one explicit canonical-identifier block (packet dir, curated title, runtime slug, Telegram name/username, Bitwarden secret name, deployment mode) to `AGENTS.md` and `AUDIT.md`.
+- **Sparky audit truth fix**: removed stale readiness language that contradicted the direct-UUID wiring reality.
+- **Generator alias model made explicit**: clarified terminology (packet directory vs runtime slug vs secret name) and tightened output labels in `sync_curated_employee_runtime.py`.
+- **Safe regeneration path**: added `--mapping-only` mode to regenerate `current_employees.md` and `CURATED_TEAM_STATUS.json` without touching runtime shells or zips.
+- **Authoritative surfaces refreshed**: regenerated `current_employees.md` and `CURATED_TEAM_STATUS.json` (generated_on now `2026-04-14`; assignment header now explicitly says “Runtime slug (OpenClaw agent id / Telegram username)”).
+
+### Evidence / Verification
+
+- PASS: Sparky identifiers now match generator truth (`HOST_NATIVE_PRIMARY_PACKET_DIR=sparky-chief-product-quality-officer`, `HOST_NATIVE_PRIMARY_SLUG=SPARKY_CEO_BOT`).
+- PASS: `open-claw/AI_Employee_knowledgebase/current_employees.md` and `CURATED_TEAM_STATUS.json` regenerated via `--mapping-only` (no broad packet runtime sync, no zip rewrite).
+- PASS: Mapping surfaces still clearly declare they are generated from `open-claw/scripts/sync_curated_employee_runtime.py`.
+- PASS: No new packet duplicates created; no mass renames performed.
+
+### Minimum alignment set for later phases (active non-Sparky bots)
+
+This is the **minimum** packet-alignment gate to apply later (do not expand scope in Phase 1):
+
+- **Packet identity and operation**: `IDENTITY.md`, `AGENTS.md`, `TOOLS.md`, `SKILLS.md`, `WORKFLOWS.md`, `MEMORY.md`, `BOOTSTRAP.md`
+- **Acceptance and truth surfaces**: `CHECKLIST.md`, `AUDIT.md`
+- **Runtime identity/wiring**: `.env.example`, `package.json`, `bot-telegram.js`, `Dockerfile`, `docker-compose.yml`, `entrypoint.sh`, `setup.sh`
+- **Canonical generated roster surfaces**: `current_employees.md`, `CURATED_TEAM_STATUS.json`
+
+### Deferred (explicit)
+
+- Active non-Sparky alias normalization across packets (Phase 2).
+- Memory bridge build (OpenClaw ↔ OpenMemory).
+- `destiny_stripper_bot` decision (create/retire/rename).
+- Any runtime/live smoke work and channel credential validation.
+
+### Blockers
+
+None introduced by Phase 1.
+
+### Fallbacks Used
+
+None.
 
 ---
 
@@ -2519,3 +2586,86 @@ Use OpenMemory plus the AI-PM recovery bundle first on the next `open--claw` rec
 
 - If desired later, perform a full filesystem-level directory rename away from legacy packet directory names. This is not required for the live runtime to work and was intentionally deferred for safety.
 - WhatsApp remains out of scope for this pass.
+
+## 2026-04-14 22:53 - Docs hardening pass: open--claw governance pointers
+
+### Goal
+
+Remove recovery-order drift from the active `open--claw` governance docs so they point to the single canonical AI-PM no-loss order, make `HANDOFF.md` explicitly optional, and retire stale active-surface docs without touching runtime behavior.
+
+### Scope
+
+Touched: `docs/ai/memory/MEMORY_CONTRACT.md`, `AGENTS.md`, `docs/ai/HANDOFF.md`, `docs/ai/CURSOR_WORKFLOW.md`, `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md`, `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md`, `docs/ai/ARCHIVE.md`, and this file.
+
+Inspected without change: `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md`, `.cursor/rules/01-charter-enforcement.md`, `.cursor/rules/05-global-mcp-usage.md`, `.cursor/rules/10-project-workflow.md`.
+
+Protected Phase 1 Sparky/mapping surfaces were intentionally left untouched.
+
+### Commands / Tool Calls
+
+- `Shell`: `git -C "D:/github/open--claw" status --short`
+- `Shell`: `git -C "D:/github/AI-Project-Manager" status --short`
+- `Shell`: `Get-Date -Format "yyyy-MM-dd HH:mm"`
+- `Glob`
+- `ReadFile`
+- `ApplyPatch`
+- `ReadLints`
+- `CallMcpTool`: `user-openmemory.search-memories`
+- `CallMcpTool`: `user-thinking-patterns.sequential_thinking`
+- `CallMcpTool`: `user-openmemory.add-memory`
+
+### Changes
+
+Checklist:
+- [x] Replaced duplicated numbered recovery-order guidance with pointers back to `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md`
+- [x] Made `docs/ai/HANDOFF.md` explicitly optional and never required for recovery
+- [x] Kept Obsidian sidecar-only/non-blocking by leaving only canonical-order pointers in active docs
+- [x] Preserved the five-tab workflow while turning `docs/ai/tabs/TAB_BOOTSTRAP_PROMPTS.md` into a derived prompt sheet
+- [x] Retired `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` and `docs/ai/ARCHIVE.md` from the active governance/recovery surface by converting them into redirect stubs
+- [x] Left protected Phase 1 Sparky/mapping files unchanged
+
+### Evidence
+
+- PASS — `user-openmemory.search-memories` returned matching active governance memories for the target no-loss order and sidecar policy.
+- PASS — `user-thinking-patterns.sequential_thinking` completed successfully before edits and supported the minimal pointer-based rewrite plan.
+- PASS — `ApplyPatch` updated only the scoped governance docs listed above; no runtime/product files were touched.
+- PASS — `ReadLints` reported no diagnostics on the touched docs.
+- PASS — `user-openmemory.add-memory` stored the durable policy summary successfully (`id=18`).
+- PASS — `Get-Date -Format "yyyy-MM-dd HH:mm"` returned `2026-04-14 22:53`.
+
+### Verdict
+
+READY — the active `open--claw` governance docs now defer to the single AI-PM canonical no-loss order and no longer imply that `HANDOFF.md` is required.
+
+### Blockers
+
+None in scope.
+
+### Fallbacks Used
+
+None.
+
+### Cross-Repo Impact
+
+These edits intentionally defer numbered recovery-order ownership to `AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md`.
+
+### Decisions Captured
+
+- `open--claw` active governance docs should point to the AI-PM canonical no-loss order instead of duplicating it.
+- `docs/ai/HANDOFF.md` is an optional operator snapshot only.
+- `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` and `docs/ai/ARCHIVE.md` are retired from the active governance/recovery surface.
+
+### Pending Actions
+
+- Final git status/diff reporting for this docs-only pass.
+- Any broader stale-doc sweep outside this scoped file list remains for a later phase.
+
+### What Remains Unverified
+
+- No runtime or product behavior was re-tested in this docs-only pass.
+- Untouched older docs, historical logs, and archive files may still contain older wording by design.
+- The non-canonical AI-PM recovery bundle was not refreshed in this scoped pass.
+
+### What's Next
+
+Use the AI-PM canonical no-loss order for future `open--claw` recovery/bootstrap guidance and keep further cleanup limited to explicitly scoped docs.

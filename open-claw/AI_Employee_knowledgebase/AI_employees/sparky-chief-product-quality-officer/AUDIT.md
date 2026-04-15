@@ -3,8 +3,19 @@
 ## Grade
 - **Current grade:** A
 
+## Canonical identifiers (Sparky)
+
+- **Packet directory**: `sparky-chief-product-quality-officer`
+- **Curated role title**: `Chief Product and Quality Officer`
+- **Runtime / agent slug**: `SPARKY_CEO_BOT` (used as `OPENCLAW_AGENT_ID`)
+- **Telegram first name**: `SPARKY_CEO_BOT`
+- **Telegram username**: `SPARKY_CEO_BOT`
+- **Bitwarden secret name**: `SPARKY_CEO_BOT`
+- **Deployment mode**: `host_native_primary` (host-native primary executive runtime; excluded from Docker worker pool)
+
 ## Role Snapshot
-- **Slug:** `sparky-chief-product-quality-officer`
+- **Packet directory (curated id):** `sparky-chief-product-quality-officer`
+- **Runtime slug (OpenClaw agent id / Telegram username):** `SPARKY_CEO_BOT`
 - **Title:** Chief Product and Quality Officer
 - **Manager:** `Founder`
 - **Status:** Runtime-synced packet with generated shell; structurally validated, but not yet live-started against real channel credentials
@@ -74,7 +85,7 @@
 - No full clone-and-rebrand rehearsal has been executed yet with this packet as the primary operator.
 - Needs a recurring audit cadence wired into the live workflow so simplicity and quality checks happen automatically.
 - Needs a standard scorecard template for approving or rejecting website-clone deliveries.
-- Still needs either direct Bitwarden UUID mapping or stable env-backed token injection to become `runtime_ready` in the generated curated start flow.
+- Direct Bitwarden UUID wiring is already present; remaining readiness is live startup evidence, entitlement proof, and recorded smoke tests.
 - Voice stack is now architected but not yet live because Twilio/ElevenLabs production credentials and public webhook endpoints are not configured.
 - Damaged-video repair workflow is documented, but real recovery proof against the current AxCrypt-damaged files is still pending.
 

@@ -67,10 +67,10 @@ Developer-local (optional):
 ## State and Planning
 
 - `docs/ai/STATE.md` — **operational evidence log**; PLAN reads this to understand current state, blockers, and cross-repo effects. **This is evidence, not product law.**
-- `docs/ai/HANDOFF.md` — concise operator snapshot; AGENT keeps this accurate after meaningful state changes. **Operational evidence only.**
+- `docs/ai/HANDOFF.md` — optional operator snapshot; use only when unresolved runtime/operator context still matters after the canonical recovery path. **Operational evidence only.**
 - `docs/ai/PLAN.md` — active plan with phases and exit criteria
-- `docs/ai/ARCHIVE.md` — compressed decisions and knowledge from past sessions
-- `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` — runtime mission, priorities, and anti-drift constraints
+- `docs/ai/ARCHIVE.md` — retired active-surface doc; historical pointer only
+- `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` — retired active-surface doc; current runtime truth lives in `docs/ai/STATE.md` and `docs/ai/HANDOFF.md`
 - `docs/ai/operations/CONTEXT_WINDOW_MONITORING.md` — context budget and file-size guardrails
 - `AI-Project-Manager/docs/ai/operations/POLICY_DRIFT_CHECKER.md` — canonical parity checker for mirrored rules
 
@@ -81,18 +81,13 @@ Developer-local (optional):
 - `docs/ai/archive/` — superseded docs. **Never consulted** by PLAN. Historical reference only.
 - `open-claw/AI_Employee_knowledgebase/AI_employees/_zips/` — portable packaging artifacts only. Do not use zip bundles as current operational truth when folder-based packets or repo docs exist.
 
-## Context source priority
+## Recovery guidance
 
-When PLAN or DEBUG needs to understand current state, consult sources in this order:
+This file is a human overview only. For binding recovery order and source priority:
 
-1. `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — supreme product charter
-2. `docs/ai/STATE.md` — operational evidence
-3. `docs/ai/memory/DECISIONS.md` — key decisions
-4. `docs/ai/memory/PATTERNS.md` — reusable patterns
-5. `docs/ai/operations/PROJECT_LONGTERM_AWARENESS.md` — long-term goals and constraints
-6. `docs/ai/operations/CONTEXT_WINDOW_MONITORING.md` — context budget guardrails
-7. `docs/ai/context/` — session artifacts and dumps
-8. `@Past Chats` — **last resort only**; use only if all above sources are insufficient
+- Use `AGENTS.md` for the repo contract and responsibilities.
+- Use `.cursor/rules/10-project-workflow.md` for execution discipline and `STATE.md` requirements.
+- Use `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md` for the single authoritative numbered no-loss recovery order.
 
 ## Memory
 

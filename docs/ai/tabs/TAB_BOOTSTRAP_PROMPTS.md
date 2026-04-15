@@ -8,7 +8,7 @@ All `.cursor/rules/` files with `alwaysApply: true` are automatically loaded:
 `00-global-core`, `01-charter-enforcement`, `02-non-routable-exclusions`,
 `05-global-mcp-usage`, `10-project-workflow`, `20-project-quality`, `25-ai-employee-standard`.
 
-Bootstrap prompts only need to specify the role, task-specific reads, and the No-Loss retrieval protocol.
+Bootstrap prompts are derived convenience text only. The single authoritative numbered no-loss recovery order lives in `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md`.
 
 ---
 
@@ -30,28 +30,10 @@ Lightweight auto-load note:
 - For non-trivial work, use `thinking-patterns` before finalizing the AGENT prompt.
 
 No-Loss session start:
-1. Read @open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md
-2. Read the repo authority contract only:
-   - @AGENTS.md
-   - @.cursor/rules/01-charter-enforcement.md
-   - @.cursor/rules/05-global-mcp-usage.md
-   - @.cursor/rules/10-project-workflow.md
-   - @docs/ai/memory/MEMORY_CONTRACT.md
-3. Search OpenMemory with a targeted task query
-4. Search governance/containment memory only if cross-repo, routing, or policy concerns are in scope
-5. Read the AI-PM recovery bundle via `filesystem` only after steps 1-4:
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/current-state.json`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/session-summary.md`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/active-blockers.json`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/memory-delta.json`
-6. Read the summary/current state portion of @docs/ai/STATE.md
-7. Read exactly one of these only if needed:
-   - @docs/ai/memory/DECISIONS.md — durable why
-   - @docs/ai/memory/PATTERNS.md — durable how
-   - @docs/ai/HANDOFF.md — concise unresolved operator snapshot
-8. Use `obsidian-vault` only if the task explicitly needs operator notes or personal research already known to live there
-9. Read @docs/ai/context/AGENT_EXECUTION_LEDGER.md only as a last resort, one block at a time
-10. Read other repo files only if the above are insufficient
+- Follow `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md` exactly instead of restating a custom bootstrap chain.
+- `HANDOFF.md` is optional and never required for recovery.
+- Use `obsidian-vault` only when the task explicitly needs known operator notes or personal research.
+- Read other repo files only if the canonical order is still insufficient.
 
 Additional on-demand reads:
 - @open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md — supreme charter
@@ -81,15 +63,8 @@ You are AGENT (Executioner)
 Model: Sonnet 4.6 — non-thinking
 
 No-Loss session start:
-1. Respect @open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md
-2. Read the repo authority contract for the repo in scope
-3. Search OpenMemory with a targeted task query
-4. Read the AI-PM recovery bundle via `filesystem` before broad repo reads:
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/current-state.json`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/session-summary.md`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/active-blockers.json`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/memory-delta.json`
-5. Read the summary/current state portion of @docs/ai/STATE.md
+- Follow `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md` exactly.
+- `HANDOFF.md` is optional and never required for recovery.
 
 Rules (from auto-applied .cursor/rules/):
 - Execute PLAN prompt exactly.
@@ -117,16 +92,8 @@ MODEL: GPT-5.4 high thinking
 You are DEBUG for Open Claw.
 
 No-Loss session start:
-1. Respect @open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md
-2. Read the repo authority contract for the repo in scope
-3. Search OpenMemory for targeted debug findings
-4. Read the AI-PM recovery bundle if present/current:
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/current-state.json`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/session-summary.md`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/active-blockers.json`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/memory-delta.json`
-5. Read @docs/ai/STATE.md for recent execution evidence
-6. Read @docs/ai/HANDOFF.md for current operational state
+- Follow `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md` exactly.
+- Use `HANDOFF.md` only if the canonical order still leaves unresolved operator/runtime state.
 
 Rules:
 - No code edits.
@@ -146,9 +113,8 @@ MODEL: Sonnet 4.6 non-thinking / Composer2 for long simple scans
 You are ASK for Open Claw.
 
 No-Loss session start:
-1. Respect the charter and repo authority contract if the question depends on policy or workflow
-2. Search OpenMemory for relevant openclaw context
-3. Only read files if OpenMemory results are insufficient
+- Respect the charter and repo authority contract if the question depends on policy or workflow.
+- Use targeted OpenMemory first, then follow the canonical no-loss order only as far as the question actually needs.
 
 Rules:
 - Explore options and trade-offs.
@@ -168,12 +134,8 @@ MODEL: Composer1 or Sonnet 4 non-thinking (Agent mode)
 You are ARCHIVE for Open Claw.
 
 Read in this order:
-1. @open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md
-2. The repo authority contract for the repo in scope
-3. @docs/ai/STATE.md
-4. @docs/ai/memory/DECISIONS.md
-5. @docs/ai/memory/PATTERNS.md
-6. @docs/ai/HANDOFF.md
+- Follow `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md` exactly.
+- `HANDOFF.md` is optional and never required for recovery.
 
 Job:
 - Archive completed STATE.md entries to docs/ai/archive/

@@ -1,5 +1,15 @@
 # Operating Rules
 
+## Canonical identifiers (Sparky)
+
+- **Packet directory**: `sparky-chief-product-quality-officer`
+- **Curated role title**: `Chief Product and Quality Officer`
+- **Runtime / agent slug**: `SPARKY_CEO_BOT` (used as `OPENCLAW_AGENT_ID`)
+- **Telegram first name**: `SPARKY_CEO_BOT`
+- **Telegram username**: `SPARKY_CEO_BOT`
+- **Bitwarden secret name**: `SPARKY_CEO_BOT`
+- **Deployment mode**: `host_native_primary` (host-native primary executive runtime; excluded from Docker worker pool)
+
 ## Charter (read first, every session)
 1. Read `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` before other house standards. It is the product charter; nothing overrides it.
 2. `open-claw/AI_Employee_knowledgebase/AUTHORITATIVE_STANDARD.md` and `open-claw/AI_Employee_knowledgebase/TEAM_ROSTER.md` interpret the charter and org; they must not contradict or override it.

@@ -1,8 +1,8 @@
 # Agent Handoff — Open Claw
 
 **Date**: 2026-04-13
-**Status**: Curated runtime status unchanged; AI-PM recovery bundle is now materialized and should be used as the first filesystem recovery surface before broader repo reads.
-**Crash-recovery path**: OpenMemory + `D:/github/AI-Project-Manager/docs/ai/recovery/*` first, then `docs/ai/STATE.md` if needed
+**Status**: Curated runtime status unchanged; this file remains an optional operator snapshot only.
+**Recovery note**: Follow `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md` for the canonical no-loss order. `HANDOFF.md` is optional and never required for recovery.
 
 Previous handoff snapshot archived at `docs/ai/archive/handoff-2026-03-08.md`.
 
@@ -124,20 +124,13 @@ To promote a quarantined file to active use, follow the promotion gate in `NON_R
 
 ---
 
-## 6. Read Order For Sessions
+## 6. How To Use This File
 
-1. `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — supreme product charter (read this first, always)
-2. `AGENTS.md`
-3. `.cursor/rules/05-global-mcp-usage.md`
-4. `.cursor/rules/10-project-workflow.md`
-5. `docs/ai/memory/MEMORY_CONTRACT.md`
-6. Targeted OpenMemory search
-7. Recovery bundle if present/current
-8. `docs/ai/STATE.md` summary/current state section
-9. Exactly one of `docs/ai/memory/DECISIONS.md`, `docs/ai/memory/PATTERNS.md`, or `docs/ai/HANDOFF.md`
-10. `open-claw/AI_Employee_knowledgebase/TEAM_OPERATING_SYSTEM.md`
+Use this file only when the canonical no-loss order still leaves unresolved operator/runtime questions after the recovery bundle and `docs/ai/STATE.md` summary/current state section.
 
-Use archive docs and this file as historical/operational evidence only, not product law.
+- `HANDOFF.md` is optional and never required for recovery.
+- Prefer `docs/ai/memory/DECISIONS.md` for durable why and `docs/ai/memory/PATTERNS.md` for durable how before consulting this file.
+- Use archive docs and this file as historical/operational evidence only, not product law.
 
 ### Serena local scope
 

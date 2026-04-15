@@ -10,15 +10,17 @@ Repo docs win. Always.
 - Memory MCP tools provide **recall support only** — they do not override repo docs.
 - If memory conflicts with repo docs, **repo docs win**. Update or discard the conflicting memory entry.
 
-## Recovery order
+## Recovery order pointer
 
-1. `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md`
-2. The repo authority contract for the repo in scope
-3. Targeted OpenMemory retrieval
-4. Machine-local recovery bundle via `filesystem`, if present and current
-5. `docs/ai/STATE.md` summary/current state section
-6. Exactly one of `docs/ai/memory/DECISIONS.md`, `docs/ai/memory/PATTERNS.md`, or `docs/ai/HANDOFF.md` if needed
-7. The execution ledger one block at a time only as a fallback
+The only authoritative numbered no-loss recovery order lives in `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md`.
+
+For memory-specific recovery behavior:
+
+- Use targeted OpenMemory retrieval only after the charter and repo authority contract are satisfied.
+- Treat the AI-PM recovery bundle as a generated non-canonical speed layer.
+- After `docs/ai/STATE.md` summary/current state, read exactly one of `docs/ai/memory/DECISIONS.md`, `docs/ai/memory/PATTERNS.md`, or `docs/ai/HANDOFF.md` only if needed.
+- `docs/ai/HANDOFF.md` is optional and never required for recovery.
+- Use the execution ledger one block at a time only as a fallback.
 
 ## Live OpenMemory reality
 
@@ -50,8 +52,8 @@ Do not assume direct `project_id`, `namespace`, or `memory_types` filters unless
 
 ### Before planning (REQUIRED)
 - [ ] Search memory for prior decisions related to the current task
-- [ ] Check `docs/ai/memory/DECISIONS.md` for relevant precedents
-- [ ] Check `docs/ai/memory/PATTERNS.md` for applicable patterns
+- [ ] Follow `NO_LOSS_RECOVERY_LOOP.md` instead of reconstructing a custom bootstrap order
+- [ ] Check `docs/ai/memory/DECISIONS.md` or `docs/ai/memory/PATTERNS.md` only if the no-loss order reaches a selective deep read
 - [ ] If memory conflicts with repo docs, discard the memory entry
 
 ### After completing a phase (REQUIRED)

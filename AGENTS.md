@@ -36,27 +36,21 @@ This repo uses a five-tab Cursor workflow: PLAN / AGENT / DEBUG / ASK / ARCHIVE.
 ## State tracking
 
 - `docs/ai/STATE.md` — operational evidence log, not product law; use the summary/current state section first during recovery, then deeper blocks only as needed
+- `docs/ai/HANDOFF.md` — optional operator snapshot for unresolved runtime state; never required for recovery
 - `docs/ai/PLAN.md` — active plan with phases and exit criteria
 - `docs/ai/context/` — non-canonical artifact storage: session transcripts, bulk dumps, and ephemeral context files. Informative only; never authoritative.
 - `docs/ai/archive/` — superseded docs. **Never consulted** by PLAN. Historical reference only.
 
-## Context source priority (read in this order)
+## Recovery pointer
 
-PLAN must reconstruct current system state from repo-tracked sources before consulting artifacts or chat history. If repo sources and chat context disagree, repo sources win unless current execution evidence proves otherwise.
+Use `D:/github/AI-Project-Manager/docs/ai/operations/NO_LOSS_RECOVERY_LOOP.md` as the single authoritative numbered no-loss recovery order.
 
-1. `open-claw/AI_Employee_knowledgebase/FINAL_OUTPUT_PRODUCT.md` — supreme product charter
-2. Repo-tracked workflow and memory rules/docs for the repo in scope
-3. Targeted OpenMemory search
-4. AI-PM recovery bundle via `filesystem`, if present and current:
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/current-state.json`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/session-summary.md`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/active-blockers.json`
-   - `D:/github/AI-Project-Manager/docs/ai/recovery/memory-delta.json`
-5. `docs/ai/STATE.md` summary/current state section
-6. Exactly one of `docs/ai/memory/DECISIONS.md`, `docs/ai/memory/PATTERNS.md`, or `docs/ai/HANDOFF.md` if needed
-7. `docs/ai/context/` — transcript-derived artifacts and session dumps
-8. `docs/ai/context/AGENT_EXECUTION_LEDGER.md` — one block at a time only as a fallback
-9. Chat history / `@Past Chats` — last resort only
+For `open--claw`, this repo contributes the charter, repo authority docs, `docs/ai/STATE.md`, and the selective deep-read surfaces.
+
+- `docs/ai/HANDOFF.md` is optional and never required for recovery.
+- The AI-PM recovery bundle is generated and non-canonical.
+- `docs/ai/context/AGENT_EXECUTION_LEDGER.md` stays one-block fallback only.
+- If repo sources and chat context disagree, repo sources win unless current execution evidence proves otherwise.
 
 ## MCP policy
 
