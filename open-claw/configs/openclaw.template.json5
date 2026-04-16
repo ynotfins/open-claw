@@ -116,7 +116,9 @@
       "whatsapp-official": { enabled: false },
       "google-calendar": { enabled: false },
       "google-contacts": { enabled: false },
-      "mem0-bridge": { enabled: false },
+      // Compatibility-named OpenMemory seam: retrieve before plan, then
+      // store only validated compact summaries and verify retrieval.
+      "mem0-bridge": { enabled: true },
     },
   },
 

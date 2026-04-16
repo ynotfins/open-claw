@@ -1,41 +1,69 @@
 ---
 name: mem0-bridge
-description: Bridges the mem0 MCP server to OpenClaw's memory system, implementing retrieve-before-plan and store-after-phase patterns for persistent cross-session knowledge.
+description: Compatibility-named bridge that maps OpenClaw packet promotion to Cursor OpenMemory using retrieve-before-plan and store-after-gate routines.
 ---
 
 # mem0 Bridge Skill
 
-## Status: READY (requires mem0 MCP server running)
+## Status: READY (requires Cursor `openmemory` MCP)
 
-## Architecture
-This skill bridges the mem0 MCP memory server (used by Cursor IDE) with OpenClaw's
-built-in memory system. It implements the memory contract from
-`docs/ai/memory/MEMORY_CONTRACT.md`:
+## Compatibility Note
+The skill name stays `mem0-bridge` for continuity, but the live seam targets the
+flat Cursor `openmemory` surface:
 
-- **Retrieve before plan**: at session start, query mem0 for relevant project/user context
-- **Store after phase**: after each completed phase, persist key decisions and facts
-- **Conflict resolution**: repo docs (`docs/ai/`) always win over stored memories
+- `search-memories(query)`
+- `add-memory(content)`
+- `list-memories()`
 
-## mem0 Integration Pattern
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│  OpenClaw    │────▶│  mem0 Bridge │────▶│  mem0 MCP    │
-│  Agent       │◀────│  Skill       │◀────│  Server      │
-└──────────────┘     └──────────────┘     └──────────────┘
-```
+Do not assume a mem0 HTTP API, hidden metadata fields, `project_id`,
+`namespace`, or filter support.
 
-## Capabilities
-- Search memories by semantic query
-- Store new observations (atomic facts, ≤120 chars, present tense)
-- Deduplicate before storing (search first, write only missing)
-- List entities and their observations
-- Bridge OpenClaw session context to mem0 graph
+## Purpose
+Use this skill when an OpenClaw worker or Sparky needs durable cross-session recall
+without treating memory as canonical. Repo docs and validated packets remain the
+source of truth.
 
-## Memory Rules (from MEMORY_CONTRACT.md)
-- One observation per fact, ≤120 chars, present tense
-- Never persist: secrets, tokens, API keys, credentials, personal data
-- Persist: stacks, frameworks, naming conventions, key decisions
-- Repo docs win over stored memories in conflicts
+## Retrieve-Before-Plan
+1. Read the charter and repo authority docs first.
+2. Run `openmemory.search-memories` with a targeted query that includes repo,
+   role, and task.
+3. Treat returned memories as recall support only.
+4. Discard any result that conflicts with repo docs or surfaces quarantined
+   content/path terms.
+
+Suggested query shapes:
+- `openclaw sparky <task> decision pattern proof`
+- `openclaw <worker> <feature> bridge recovery`
+
+## Store-After-Gate
+1. Validate the result through Sparky or the responsible gate role.
+2. Fill `open-claw/AI_Employee_knowledgebase/MEMORY_PROMOTION_TEMPLATE.md`.
+3. Reduce the packet to one compact self-identifying paragraph.
+4. Run `openmemory.add-memory`.
+5. Immediately run `openmemory.search-memories` with a targeted verification
+   query.
+6. If retrieval fails, record the gap in repo docs/recovery state and do not
+   claim durable promotion is proven.
+
+## Promotion Rules
+- Promote only validated stable summaries, not raw transcripts or logs.
+- Keep the memory compact and self-identifying.
+- Include the canonical source doc path in the final text.
+- Never store secrets, credentials, personal data, or quarantined content.
+- Repo docs win over stored memories in conflicts.
+- Do not rely on unsupported filters or hidden namespaces.
+
+Recommended final text prefixes:
+- `[repo=openclaw][kind=decision][source=<canonical doc>] ...`
+- `[repo=openclaw][kind=pattern][source=<canonical doc>] ...`
+- `[repo=openclaw][kind=evidence][source=<canonical doc>] ...`
+
+## Minimal Proof Loop
+1. `openmemory.search-memories` before planning or execution.
+2. Validate the packet in repo docs.
+3. `openmemory.add-memory` with the compact final text.
+4. `openmemory.search-memories` again to prove discoverability.
+5. Refresh recovery/state evidence in the paired repos.
 
 ## Configuration
 ```json5
@@ -44,16 +72,13 @@ built-in memory system. It implements the memory contract from
     entries: {
       "mem0-bridge": {
         enabled: true,
-        env: {
-          MEM0_API_URL: "http://localhost:8080",
-        },
       },
     },
   },
 }
 ```
 
-## Unblock Steps
-1. Ensure mem0 MCP server is running (check Cursor MCP settings)
-2. Configure mem0 API endpoint in skill config
-3. Run `openclaw config set skills.entries.mem0-bridge.enabled true`
+## Stop Conditions
+1. Stop if `openmemory` is unavailable and the task requires durable promotion.
+2. Stop if the result depends on quarantined content.
+3. Stop if the bridge would require files outside the allowed change set.

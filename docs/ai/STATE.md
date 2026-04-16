@@ -10,7 +10,7 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 
 ## Current State Summary
 
-> Last updated: 2026-04-14
+> Last updated: 2026-04-15
 > Archive pass: 2026-04-01 — 1,170 → 175 lines (archive/compaction pass, this session)
 > Previous archive: `docs/ai/archive/state-log-full-history-2026-02-18-to-2026-03-21.md`
 
@@ -49,7 +49,7 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 | Charter Enforcement Kernel Install | COMPLETE | 2026-03-31 |
 | Governance Normalization (Prompt 7) | COMPLETE | 2026-03-31 |
 | Non-Routable Quarantine (Prompt 8) | COMPLETE | 2026-04-01 |
-| **Memory Bridge (OpenClaw ↔ OpenMemory)** | **NOT STARTED** | — |
+| **Memory Bridge (OpenClaw ↔ OpenMemory)** | **PARTIAL** | 2026-04-15 (bridge seam live; AI-PM ledger-hook proof still open) |
 
 ### Runtime Snapshot (as of 2026-03-29; last verified)
 
@@ -67,7 +67,7 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 | WhatsApp 401 — session expired | MEDIUM | PENDING USER ACTION: `pnpm openclaw channels login --channel whatsapp` + QR scan |
 | Active-bot alias normalization (non-Sparky) not yet packet-aligned | LOW | Canonical active-bot map is generated (see `open-claw/AI_Employee_knowledgebase/current_employees.md`); packet-level identifiers may still contain legacy alias wording |
 | Curated runtime not live-proven | HIGH | Run `open-claw/employees/deployed-curated/start-employees.ps1`, approve device pairings, run smoke tests |
-| Memory bridge not built | HIGH | Phase 1B design (deferred) — OpenClaw ↔ OpenMemory bridge not yet built |
+| Bridge proof still partial because AI-PM ledger-hook evidence failed | HIGH | OpenClaw bridge seam, durable memory retrieval, quarantine checks, and clean-room recovery passed; AI-PM hook proof did not |
 | `docs/ai/context/AGENT_EXECUTION_LEDGER.md` does not exist | LOW | Create when first open--claw AGENT block appends a ledger entry |
 
 ### Cross-Repo Dependencies Still Active
@@ -79,7 +79,7 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 ### What Remains Unverified
 
 - PowerShell bulk banner count (2,608) not independently spot-checked post-run
-- `openmemory.mdc` exclusions require a live memory search test to confirm `candidate_employees/**` paths are excluded
+- Why the AI-PM `afterFileEdit` ledger hook did not rotate/archive after the normal ledger append
 - TAB_BOOTSTRAP_PROMPTS.md quarantine blocks not tested in a live Cursor session
 - Sparky routing plumbing requires live multi-agent session validation
 - Governance overlay (Phase 6B) still blocked on ANTHROPIC_API_KEY
@@ -2669,3 +2669,82 @@ These edits intentionally defer numbered recovery-order ownership to `AI-Project
 ### What's Next
 
 Use the AI-PM canonical no-loss order for future `open--claw` recovery/bootstrap guidance and keep further cleanup limited to explicitly scoped docs.
+
+---
+
+## 2026-04-15 17:21 - Lossless bridge proof mirror
+
+### Goal
+
+Mirror the live OpenClaw-to-OpenMemory bridge proof into `open--claw` operational evidence after wiring the smallest allowed bridge seam and validating durable retrieval plus clean-room recovery.
+
+### Scope
+
+Touched: `open-claw/skills/mem0-bridge/SKILL.md`, `open-claw/configs/openclaw.template.json5`, `open-claw/AI_Employee_knowledgebase/MEMORY_PROMOTION_TEMPLATE.md`, `open-claw/AI_Employee_knowledgebase/AI_employees/sparky-chief-product-quality-officer/skills/mem0-bridge/SKILL.md`, `open-claw/AI_Employee_knowledgebase/AI_employees/sparky-chief-product-quality-officer/.openclaw-runtime/workspace/skills/mem0-bridge/SKILL.md`, and this file.
+
+Inspected without change: `open-claw/AI_Employee_knowledgebase/TEAM_OPERATING_SYSTEM.md`, `AGENTS.md`, `.cursor/rules/02-non-routable-exclusions.md`, `docs/ai/HANDOFF.md`.
+
+### Commands / Tool Calls
+
+- `git -C "D:/github/open--claw" status --short`
+- `git -C "D:/github/AI-Project-Manager" status --short`
+- `git -C "D:/github/droidrun" status --short`
+- `Get-Date -Format "yyyy-MM-dd HH:mm"`
+- `user-thinking-patterns.sequential_thinking`
+- `user-openmemory.search-memories`
+- `user-openmemory.add-memory`
+- `user-filesystem.read_multiple_files`
+- `user-filesystem.write_file`
+- `ReadFile`
+- `ApplyPatch`
+- `Subagent`
+
+### Changes
+
+Checklist:
+- [x] Reframed `mem0-bridge` as a compatibility-named OpenMemory routine instead of a mem0-server/API description.
+- [x] Enabled the bridge seam in `openclaw.template.json5`.
+- [x] Updated the canonical promotion template so final memory text carries the source doc path and does not rely on unsupported filters.
+- [x] Promoted one real bridge memory and confirmed retrieval.
+- [x] Mirrored the bridge proof into repo state.
+- [ ] Closed the AI-PM ledger-hook proof gate.
+
+### Evidence
+
+- PASS — `user-openmemory.add-memory` stored the bridge memory as id `21`.
+- PASS — follow-up `user-openmemory.search-memories` returned id `21` as the top bridge hit, proving the promoted memory is discoverable.
+- PASS — quarantine queries for `candidate_employees`, `ios_provider.py`, and `droidrun/tools/ios` did not recall quarantined file content.
+- PASS — a fresh context-isolated verifier recovered the current objective, last action, blockers, and bridge status from persisted sources without `HANDOFF.md` or the ledger by default.
+- FAIL — AI-PM ledger-hook proof remains open because the normal AI-PM ledger append did not rotate/archive the active ledger.
+
+### Verdict
+
+PARTIAL - the OpenClaw bridge seam itself is live and proven through durable memory retrieval, but the overall lossless proof remains open until the AI-PM ledger hook fires as expected.
+
+### Blockers
+
+- AI-PM `afterFileEdit` ledger-hook behavior is not yet proven live.
+
+### Fallbacks Used
+
+- A fresh context-isolated verifier replaced the stricter readonly verifier path after the readonly verifier could not execute the required live OpenMemory search.
+
+### Cross-Repo Impact
+
+- `AI-Project-Manager` carries the recovery-bundle truth and the open hook blocker for this phase.
+
+### Decisions Captured
+
+- `mem0-bridge` remains the compatibility name even though the live seam is the flat OpenMemory runtime.
+
+### Pending Actions
+
+- Diagnose and re-prove the AI-PM ledger-hook path.
+
+### What Remains Unverified
+
+- Why the AI-PM hook did not rotate/archive on the normal ledger append.
+
+### What's Next
+
+Keep the next pass focused on the AI-PM ledger-hook path, not on reopening the OpenClaw bridge files.
