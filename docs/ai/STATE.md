@@ -16,8 +16,8 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 
 ### Foundation Checkpoint
 
-- **Checkpoint identity**: `foundation-lossless-ready-2026-04-15`
-- **Backup refs**: tag `foundation-lossless-ready-2026-04-15`; branch `backup/foundation-lossless-ready-2026-04-15`
+- **Checkpoint identity**: `foundation-lossless-ready-lock-2026-04-15`
+- **Backup refs**: tag `foundation-lossless-ready-lock-2026-04-15`; branch `backup/foundation-lossless-ready-lock-2026-04-15`
 - **OpenClaw status at this checkpoint**: the OpenClaw -> OpenMemory bridge seam is live, durable retrieval passed, new-chat recovery passed, power-loss-safe recovery passed, and quarantine-safe retrieval passed.
 - **Overall system status**: operationally ready / lossless-ready, but not fully auto-lossless-proven because live AI-PM Cursor `afterFileEdit` hook delivery remains unproven.
 - **Canonical ledger fallback**: when AI-PM ledger compaction is needed after an append, run `python .cursor/hooks/rotate_ledger.py --force`.
