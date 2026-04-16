@@ -10,9 +10,17 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 
 ## Current State Summary
 
-> Last updated: 2026-04-15
+> Last updated: 2026-04-15 (foundation checkpoint lock mirror)
 > Archive pass: 2026-04-01 — 1,170 → 175 lines (archive/compaction pass, this session)
 > Previous archive: `docs/ai/archive/state-log-full-history-2026-02-18-to-2026-03-21.md`
+
+### Foundation Checkpoint
+
+- **Checkpoint identity**: `foundation-lossless-ready-2026-04-15`
+- **Backup refs**: tag `foundation-lossless-ready-2026-04-15`; branch `backup/foundation-lossless-ready-2026-04-15`
+- **OpenClaw status at this checkpoint**: the OpenClaw -> OpenMemory bridge seam is live, durable retrieval passed, new-chat recovery passed, power-loss-safe recovery passed, and quarantine-safe retrieval passed.
+- **Overall system status**: operationally ready / lossless-ready, but not fully auto-lossless-proven because live AI-PM Cursor `afterFileEdit` hook delivery remains unproven.
+- **Canonical ledger fallback**: when AI-PM ledger compaction is needed after an append, run `python .cursor/hooks/rotate_ledger.py --force`.
 
 ### Authority Reality
 
@@ -67,7 +75,7 @@ PLAN reads this before reasoning about blockers, fallbacks, next actions, and cr
 | WhatsApp 401 — session expired | MEDIUM | PENDING USER ACTION: `pnpm openclaw channels login --channel whatsapp` + QR scan |
 | Active-bot alias normalization (non-Sparky) not yet packet-aligned | LOW | Canonical active-bot map is generated (see `open-claw/AI_Employee_knowledgebase/current_employees.md`); packet-level identifiers may still contain legacy alias wording |
 | Curated runtime not live-proven | HIGH | Run `open-claw/employees/deployed-curated/start-employees.ps1`, approve device pairings, run smoke tests |
-| Bridge proof still partial because AI-PM ledger-hook evidence failed | HIGH | OpenClaw bridge seam, durable memory retrieval, quarantine checks, and clean-room recovery passed; AI-PM hook proof did not |
+| Foundation checkpoint is not yet fully auto-lossless-proven | HIGH | OpenClaw bridge seam, durable memory retrieval, quarantine checks, new-chat recovery, and power-loss-safe recovery passed; live AI-PM `afterFileEdit` hook delivery remains unproven, so use `python .cursor/hooks/rotate_ledger.py --force` for ledger compaction when needed |
 | `docs/ai/context/AGENT_EXECUTION_LEDGER.md` does not exist | LOW | Create when first open--claw AGENT block appends a ledger entry |
 
 ### Cross-Repo Dependencies Still Active
